@@ -1,10 +1,5 @@
-﻿using Infrastructure.DbContexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Models;
+﻿using Domain.Models;
+using Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository.AuthorRepository
@@ -20,7 +15,5 @@ namespace Infrastructure.Repository.AuthorRepository
         {
             return await _harrypotterContext.Authors.ToListAsync();
         }
-
     }
-    
 }
