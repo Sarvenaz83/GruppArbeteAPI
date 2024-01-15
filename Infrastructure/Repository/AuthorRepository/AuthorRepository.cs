@@ -11,7 +11,7 @@ namespace Infrastructure.Repository.AuthorRepository
         {
             _harrypotterContext = context;
         }
-        public async Task<List<Author>> GetAllAuthorsAsync()
+        public async Task<List<AuthorModel>> GetAllAuthorsAsync()
         {
             return await _harrypotterContext.Authors.ToListAsync();
         }

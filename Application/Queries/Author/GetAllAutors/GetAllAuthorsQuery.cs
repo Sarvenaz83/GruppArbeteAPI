@@ -1,9 +1,9 @@
-﻿using Application.Dtos;
-using MediatR;
+﻿using MediatR;
+using Domain.Models;
 
 namespace Application.Queries.Author.GetAllAutors
 {
-    public class GetAllAuthorsQuery : IRequest<List<AuthorDto>>
+    public class GetAllAuthorsQuery : IRequest<List<AuthorModel>>
     {
     }
 }

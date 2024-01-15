@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models;
 
-public partial class Author
+public partial class AuthorModel
 {
     public Guid AuthorId { get; set; }
 
@@ -8,4 +8,3 @@ public partial class Author
 
     public virtual ICollection<Book> Books { get; set; } = new List<Book>();
 }
-//Ska vi jobba med en AuthorController?

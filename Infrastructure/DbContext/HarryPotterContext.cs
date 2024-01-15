@@ -15,7 +15,7 @@ namespace Infrastructure.DbContexts
         {
         }
 
-        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<AuthorModel> Authors { get; set; }
 
         public virtual DbSet<Book> Books { get; set; }
 
@@ -41,7 +41,7 @@ namespace Infrastructure.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Author>(entity =>
+            modelBuilder.Entity<AuthorModel>(entity =>
             {
                 entity.HasKey(e => e.AuthorId).HasName("PK__author__8E2731B93441940C");
 

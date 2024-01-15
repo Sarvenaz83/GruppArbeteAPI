@@ -20,7 +20,7 @@ public partial class Book
 
     public string? Summary { get; set; }
 
-    public virtual Author? Author { get; set; }
+    public virtual AuthorModel? Author { get; set; }
 
     public virtual ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new List<PurchaseDetail>();
 }
