@@ -28,7 +28,10 @@ namespace Infrastructure.DatabaseContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Server=MINAZ\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
+            //string connectionString = "Server=MINAZ\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
+
+            // Markus connection string
+            string connectionString = "Server=(local)\\sqlexpress;Database=HarryPotter;Trusted_Connection=true;TrustServerCertificate = true;";
             optionsBuilder.UseSqlServer(connectionString);
         }
 
