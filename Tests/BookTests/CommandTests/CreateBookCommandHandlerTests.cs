@@ -1,9 +1,5 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Commands.BookCommands.CreateBook;
+﻿using Application.Commands.BookCommands.CreateBook;
 using Application.Dtos;
-using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Moq;
 using NUnit.Framework;
@@ -29,14 +25,14 @@ namespace Tests.Commands.BookCommands
             // Arrange
             var createBookCommand = new CreateBookCommand(new BookDto
             {
-                 Title = "Harry Potter",
-                 Genre = "Fantasy",
-                 AuthorId = Guid.NewGuid(),
-                 PubYear = DateTime.Now,
-                 Pages = 200,
-                 StockBalance = 10,
-                 Rating = 4.5m,
-                 Summary = "Very good book"
+                Title = "Harry Potter",
+                Genre = "Fantasy",
+                AuthorId = Guid.NewGuid(),
+                PubYear = DateTime.Now,
+                Pages = 200,
+                StockBalance = 10,
+                Rating = 4.5m,
+                Summary = "Very good book"
             });
 
             // Act

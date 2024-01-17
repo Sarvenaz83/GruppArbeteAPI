@@ -1,5 +1,4 @@
-﻿using Application.Commands.AuthorCommands.CreateAuthor;
-using Application.Commands.BookCommands.CreateBook;
+﻿using Application.Commands.BookCommands.CreateBook;
 using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Application.Validators;
@@ -32,7 +31,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [HttpPost]
         [Route("CreateNewBook")]
         public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook)
