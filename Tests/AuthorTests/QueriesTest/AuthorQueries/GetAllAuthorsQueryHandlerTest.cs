@@ -4,7 +4,7 @@ using Infrastructure.Repository.AuthorRepository;
 using Moq;
 using NUnit.Framework;
 
-namespace Tests.AuthorTests.QueriesTest
+namespace Tests.AuthorTests.QueriesTest.AuthorQueries
 {
     [TestFixture]
     public class GetAllAuthorsQueryHandlerTest

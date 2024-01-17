@@ -1,6 +1,9 @@
-﻿using Application.Queries.AuthorQueries.GetAllAuthor;
+﻿using Application.Commands.AuthorCommands.CreateAuthor;
+using Application.Dtos;
+using Application.Queries.AuthorQueries.GetAllAuthor;
 using Application.Validators;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 
@@ -26,6 +29,22 @@ namespace API.Controllers
             try
             {
                 return Ok(await _mediator.Send(new GetAllAuthorsQuery()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("CreateAuthor")]
+        //[Authorize(policy: "Admin")]
+        public async Task<IActionResult> CreateAuthor([FromBody] AuthorDto newAuthor)
+        {
+            
+            try
+            {
+                return Ok(await _mediator.Send(new CreateAuthorCommand(newAuthor)));
             }
             catch (Exception ex)
             {
