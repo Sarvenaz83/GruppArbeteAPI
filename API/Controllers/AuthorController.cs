@@ -36,12 +36,14 @@ namespace API.Controllers
             }
         }
 
+
+        //Create a new Author
         [HttpPost]
         [Route("CreateAuthor")]
         //[Authorize(policy: "Admin")]
         public async Task<IActionResult> CreateAuthor([FromBody] AuthorDto newAuthor)
         {
-            
+
             try
             {
                 return Ok(await _mediator.Send(new CreateAuthorCommand(newAuthor)));
