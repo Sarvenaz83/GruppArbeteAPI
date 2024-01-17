@@ -41,18 +41,18 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("caa43f6b-2c2a-47a0-91e5-a6dcaf220114"),
-                            AuthorName = "J.K Rowling"
+                            AuthorId = new Guid("85de684d-a94c-419f-be59-9345249ca5a8"),
+                            AuthorName = "Author 1"
                         },
                         new
                         {
-                            AuthorId = new Guid("8b59c137-3321-4c1c-bbcd-e8f3e27580c2"),
-                            AuthorName = "Stephen King"
+                            AuthorId = new Guid("3303aa6d-b11a-4093-bbb4-0764f2801705"),
+                            AuthorName = "Author 2"
                         },
                         new
                         {
-                            AuthorId = new Guid("0d33df61-3dde-4cfd-8eed-b85eac5c75ca"),
-                            AuthorName = "James Patterson"
+                            AuthorId = new Guid("da13da6e-e7b1-4ee4-b54b-0058cca1c05b"),
+                            AuthorName = "Author 3"
                         });
                 });
 
@@ -103,6 +103,44 @@ namespace Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("book", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            BookId = new Guid("9c441e12-7f93-4215-a82c-672748a2a5d5"),
+                            AuthorId = new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"),
+                            Genre = "Action",
+                            Pages = 250,
+                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3914),
+                            Rating = 4.5m,
+                            StockBalance = 10,
+                            Summary = "Action packed book",
+                            Title = "Book 1"
+                        },
+                        new
+                        {
+                            BookId = new Guid("0912daee-dbd6-4da3-a5c8-f5f40c83ac22"),
+                            AuthorId = new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"),
+                            Genre = "Comedy",
+                            Pages = 300,
+                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3923),
+                            Rating = 3.7m,
+                            StockBalance = 20,
+                            Summary = "Very funny book",
+                            Title = "Book 2"
+                        },
+                        new
+                        {
+                            BookId = new Guid("4941d293-6e62-4800-834b-c2982019888a"),
+                            AuthorId = new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"),
+                            Genre = "Drama",
+                            Pages = 180,
+                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3926),
+                            Rating = 4.8m,
+                            StockBalance = 10,
+                            Summary = "So much drama",
+                            Title = "Book 3"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.PurchaseDetail", b =>
