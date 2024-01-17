@@ -14,7 +14,7 @@ namespace API.Controllers
         private readonly IUserRepository _userRepository;
         private readonly PasswordValidator _passwordValidator;
         private readonly UsernameValidator _usernameValidator;
-       
+
 
         public UserController(IMediator mediator, IUserRepository userRepository, PasswordValidator passwordValidator, UsernameValidator usernameValidator)
         {
