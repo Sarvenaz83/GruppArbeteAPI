@@ -41,17 +41,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("85de684d-a94c-419f-be59-9345249ca5a8"),
+                            AuthorId = new Guid("69921ded-e18a-40df-971f-51ee6bb987c1"),
                             AuthorName = "Author 1"
                         },
                         new
                         {
-                            AuthorId = new Guid("3303aa6d-b11a-4093-bbb4-0764f2801705"),
+                            AuthorId = new Guid("34214eb7-4e9c-4a73-aa25-90665c4d092b"),
                             AuthorName = "Author 2"
                         },
                         new
                         {
-                            AuthorId = new Guid("da13da6e-e7b1-4ee4-b54b-0058cca1c05b"),
+                            AuthorId = new Guid("34e70b41-8d8d-4a3a-a48e-3d2820339d50"),
                             AuthorName = "Author 3"
                         });
                 });
@@ -107,11 +107,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            BookId = new Guid("9c441e12-7f93-4215-a82c-672748a2a5d5"),
-                            AuthorId = new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"),
+                            BookId = new Guid("3e6a1f9b-93a5-4c2f-9549-366689271caa"),
+                            AuthorId = new Guid("69921ded-e18a-40df-971f-51ee6bb987c1"),
                             Genre = "Action",
                             Pages = 250,
-                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3914),
+                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7894),
                             Rating = 4.5m,
                             StockBalance = 10,
                             Summary = "Action packed book",
@@ -119,11 +119,11 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("0912daee-dbd6-4da3-a5c8-f5f40c83ac22"),
-                            AuthorId = new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"),
+                            BookId = new Guid("5be91552-3e41-4345-a89f-72e41537fb14"),
+                            AuthorId = new Guid("34214eb7-4e9c-4a73-aa25-90665c4d092b"),
                             Genre = "Comedy",
                             Pages = 300,
-                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3923),
+                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7914),
                             Rating = 3.7m,
                             StockBalance = 20,
                             Summary = "Very funny book",
@@ -131,11 +131,11 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("4941d293-6e62-4800-834b-c2982019888a"),
-                            AuthorId = new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"),
+                            BookId = new Guid("1fc0dbbc-3d38-4080-a6c3-7bbeac33c9f7"),
+                            AuthorId = new Guid("34e70b41-8d8d-4a3a-a48e-3d2820339d50"),
                             Genre = "Drama",
                             Pages = 180,
-                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3926),
+                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7920),
                             Rating = 4.8m,
                             StockBalance = 10,
                             Summary = "So much drama",
@@ -247,8 +247,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("userName");
 
+                    b.Property<Guid>("WalletId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("UserId")
                         .HasName("PK__user__CB9A1CFF7FE751DC");
+
+                    b.HasIndex("WalletId");
 
                     b.ToTable("user", (string)null);
                 });
@@ -304,6 +309,17 @@ namespace Infrastructure.Migrations
                         .HasConstraintName("FK__purchaseH__userI__412EB0B6");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
+                {
+                    b.HasOne("Domain.Models.Wallet", "Wallet")
+                        .WithMany()
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("Domain.Models.Author", b =>
