@@ -41,18 +41,18 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("caa43f6b-2c2a-47a0-91e5-a6dcaf220114"),
-                            AuthorName = "J.K Rowling"
+                            AuthorId = new Guid("85de684d-a94c-419f-be59-9345249ca5a8"),
+                            AuthorName = "Author 1"
                         },
                         new
                         {
-                            AuthorId = new Guid("8b59c137-3321-4c1c-bbcd-e8f3e27580c2"),
-                            AuthorName = "Stephen King"
+                            AuthorId = new Guid("3303aa6d-b11a-4093-bbb4-0764f2801705"),
+                            AuthorName = "Author 2"
                         },
                         new
                         {
-                            AuthorId = new Guid("0d33df61-3dde-4cfd-8eed-b85eac5c75ca"),
-                            AuthorName = "James Patterson"
+                            AuthorId = new Guid("da13da6e-e7b1-4ee4-b54b-0058cca1c05b"),
+                            AuthorName = "Author 3"
                         });
                 });
 
