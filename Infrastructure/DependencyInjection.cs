@@ -1,5 +1,6 @@
 ﻿using Infrastructure.DatabaseContext;
 using Infrastructure.Repository.AuthorRepository;
+using Infrastructure.Repository.BookRepository;
 using Infrastructure.Repository.UserRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ namespace Infrastructure
                 options.UseSqlServer(connectionString);
             });
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
 

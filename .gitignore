@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Infrastructure/Migrations/20240116223821_NewNameForAuthors0.Designer.cs
+/Infrastructure/Migrations/20240116223821_NewNameForAuthors0.cs
