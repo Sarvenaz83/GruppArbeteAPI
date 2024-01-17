@@ -41,17 +41,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"),
+                            AuthorId = new Guid("85de684d-a94c-419f-be59-9345249ca5a8"),
                             AuthorName = "Author 1"
                         },
                         new
                         {
-                            AuthorId = new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"),
+                            AuthorId = new Guid("3303aa6d-b11a-4093-bbb4-0764f2801705"),
                             AuthorName = "Author 2"
                         },
                         new
                         {
-                            AuthorId = new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"),
+                            AuthorId = new Guid("da13da6e-e7b1-4ee4-b54b-0058cca1c05b"),
                             AuthorName = "Author 3"
                         });
                 });
