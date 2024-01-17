@@ -4,6 +4,7 @@ using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HarryPotterContext))]
-    partial class HarryPotterContextModelSnapshot : ModelSnapshot
+    [Migration("20240116132209_newSeedData")]
+    partial class newSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,17 +44,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("85de684d-a94c-419f-be59-9345249ca5a8"),
+                            AuthorId = new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"),
                             AuthorName = "Author 1"
                         },
                         new
                         {
-                            AuthorId = new Guid("3303aa6d-b11a-4093-bbb4-0764f2801705"),
+                            AuthorId = new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"),
                             AuthorName = "Author 2"
                         },
                         new
                         {
-                            AuthorId = new Guid("da13da6e-e7b1-4ee4-b54b-0058cca1c05b"),
+                            AuthorId = new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"),
                             AuthorName = "Author 3"
                         });
                 });
