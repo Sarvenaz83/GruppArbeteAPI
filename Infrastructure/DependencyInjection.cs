@@ -12,10 +12,7 @@ namespace Infrastructure
         {
             services.AddDbContext<HarryPotterContext>(options =>
             {
-                //var connectionString = "Server=MINAZ\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
-
-                //Markus connectionstring
-                var connectionString = "Server=(local)\\sqlexpress;Database=HarryPotter;Trusted_Connection=true;TrustServerCertificate=true;";
+                var connectionString = "Server=MINAZ\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
 
                 options.UseSqlServer(connectionString);
             });
