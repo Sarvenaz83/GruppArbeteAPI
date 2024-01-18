@@ -1,5 +1,6 @@
 ﻿using Application.Commands.UserCommands.RegisterUser;
 using Application.Dtos;
+using Application.Queries.UserQueries.GetAllUsers;
 using Application.Queries.UserQueries;
 using Application.Validators;
 using Domain.Models;
@@ -79,6 +80,44 @@ namespace API.Controllers
             // Return some kind of success response, without JWT for now
             // You might want to return a user object or a simple success 
             return Ok(new { Message = "Login successful", user.UserId, user.UserName });
+        }
+
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new GetAllUsersQuery()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("delete/{userId:guid}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            try
+            { //validator??
+                var deletedUser = await _userRepository.DeleteUser(userId);
+
+                if (deletedUser != null)
+                {
+
+                    return Ok(new { Message = "User deleted successfully", deletedUser.UserId, deletedUser.UserName });
+                }
+                else
+                {
+                    return NotFound("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
