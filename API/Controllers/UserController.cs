@@ -43,7 +43,14 @@ namespace API.Controllers
             }
 
             var user = await _mediator.Send(new RegisterUserCommand { Username = username, Password = password });
-            return Ok(new { user.UserId, user.UserName }); ;
+
+            //if (user == null)
+            //{
+            //    // Användarnamnet är redan upptaget
+            //    return BadRequest(new { Message = "Username is already taken." });
+            //}
+
+            return Ok(new { Message = "Register successful", user.UserId, user.UserName });
         }
         [AllowAnonymous]
         [HttpPost("login")]
