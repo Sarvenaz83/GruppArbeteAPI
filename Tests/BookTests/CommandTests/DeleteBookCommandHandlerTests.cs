@@ -3,6 +3,9 @@ using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Moq;
 using NUnit.Framework;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Tests.Commands.BookCommands
 {
@@ -37,8 +40,8 @@ namespace Tests.Commands.BookCommands
             var deletedBook = await _handler.Handle(deleteBookCommand, CancellationToken.None);
 
             // Assert
-            Assert.NotNull(deletedBook);
-            Assert.AreEqual(bookIdToDelete, deletedBook.BookId);
+            Assert.That(deletedBook, Is.Not.Null);
+            Assert.That(deletedBook.BookId, Is.EqualTo(bookIdToDelete));
         }
 
         [Test]
@@ -55,7 +58,7 @@ namespace Tests.Commands.BookCommands
             var deletedBook = await _handler.Handle(deleteBookCommand, CancellationToken.None);
 
             // Assert
-            Assert.Null(deletedBook);
+            Assert.That(deletedBook, Is.Null);
         }
     }
 }
