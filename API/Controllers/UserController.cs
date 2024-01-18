@@ -1,4 +1,6 @@
-﻿using Application.Dtos;
+﻿using Application.Commands.UserCommands.RegisterUser;
+using Application.Dtos;
+using Application.Queries.UserQueries;
 using Application.Validators;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
@@ -26,7 +28,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public ActionResult<User> Register(string username, string password)
+        public async Task<ActionResult> Register(string username, string password)
         {
             var validationResult = _usernameValidator.Validate(username);
             if (!validationResult.IsValid)
@@ -40,12 +42,8 @@ namespace API.Controllers
                 return BadRequest(passwordResult.Errors);
             }
 
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-            var user = new User { UserName = username, Password = passwordHash };
-
-            _userRepository.AddAsync(user);
-            // Return the user without sensitive data
-            return Ok(new { user.UserId, user.UserName });
+            var user = await _mediator.Send(new RegisterUserCommand { Username = username, Password = password });
+            return Ok(new { user.UserId, user.UserName }); ;
         }
         [AllowAnonymous]
         [HttpPost("login")]
@@ -63,14 +61,16 @@ namespace API.Controllers
                 return BadRequest(passwordResult.Errors);
             }
 
-            var user = await _userRepository.FindByUsernameAsync(username);
+
+            var user = await _mediator.Send(new LoginUserQuery { Username = username, Password = password });
+
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 return Unauthorized("Invalid username or password.");
             }
 
             // Return some kind of success response, without JWT for now
-            // You might want to return a user object or a simple success message
+            // You might want to return a user object or a simple success 
             return Ok(new { Message = "Login successful", user.UserId, user.UserName });
         }
 
