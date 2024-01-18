@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
 using MediatR;
-using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
 {

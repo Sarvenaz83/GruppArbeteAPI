@@ -1,5 +1,4 @@
-﻿using Application.Dtos;
-using Application.Validators;
+﻿using Application.Validators;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;

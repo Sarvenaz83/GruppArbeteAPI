@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Domain.Models;
+﻿using Domain.Models;
+using MediatR;
 
 namespace Application.Queries.AuthorQueries.GetAllAuthor
 {
