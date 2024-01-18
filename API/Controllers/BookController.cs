@@ -1,4 +1,5 @@
 ﻿using Application.Commands.BookCommands.CreateBook;
+using Application.Commands.BookCommands.DeleteBook;
 using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Application.Validators;
@@ -39,6 +40,20 @@ namespace API.Controllers
             try
             {
                 return Ok(await _mediator.Send(new CreateBookCommand(newBook)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("DeleteBook/{bookId}")]
+        public async Task<IActionResult> DeleteBook(Guid bookId)
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new DeleteBookCommand(bookId)));
             }
             catch (Exception ex)
             {
