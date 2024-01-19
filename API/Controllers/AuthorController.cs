@@ -3,9 +3,7 @@ using Application.Dtos;
 using Application.Queries.AuthorQueries.GetAllAuthor;
 using Application.Validators;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace API.Controllers
 {

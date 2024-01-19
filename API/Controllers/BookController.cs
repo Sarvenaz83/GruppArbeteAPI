@@ -1,4 +1,6 @@
-﻿using Application.Queries.BookQueries.GetAllBooks;
+﻿using Application.Commands.BookCommands.CreateBook;
+using Application.Dtos;
+using Application.Queries.BookQueries.GetAllBooks;
 using Application.Validators;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,20 @@ namespace API.Controllers
             try
             {
                 return Ok(await _mediator.Send(new GetAllBooksQuery()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("CreateNewBook")]
+        public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook)
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new CreateBookCommand(newBook)));
             }
             catch (Exception ex)
             {
