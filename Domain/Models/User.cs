@@ -3,6 +3,8 @@
 public partial class User
 {
     public Guid UserId { get; set; }
+    public Guid WalletId { get; set; }
+    public virtual Wallet Wallet { get; set; }
 
     public string? UserName { get; set; }
 

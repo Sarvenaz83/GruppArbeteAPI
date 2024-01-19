@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HarryPotterContext))]
+<<<<<<<< HEAD:Infrastructure/Migrations/20240118232430_NewDataForAuthorAndBooks1.Designer.cs
     [Migration("20240118232430_NewDataForAuthorAndBooks1")]
     partial class NewDataForAuthorAndBooks1
+========
+    [Migration("20240117123513_AddWalletIdToUser")]
+    partial class AddWalletIdToUser
+>>>>>>>> feature/skapa-users:Infrastructure/Migrations/20240117123513_AddWalletIdToUser.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +49,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
+<<<<<<<< HEAD:Infrastructure/Migrations/20240118232430_NewDataForAuthorAndBooks1.Designer.cs
                             AuthorId = new Guid("c034d429-4334-45fc-82f2-084033a89a39"),
                             AuthorName = "J.K Rowling"
                         },
@@ -56,6 +62,20 @@ namespace Infrastructure.Migrations
                         {
                             AuthorId = new Guid("9c672a17-e142-47a5-ae8c-87f8d00eab14"),
                             AuthorName = "Stephen King"
+========
+                            AuthorId = new Guid("69921ded-e18a-40df-971f-51ee6bb987c1"),
+                            AuthorName = "Author 1"
+                        },
+                        new
+                        {
+                            AuthorId = new Guid("34214eb7-4e9c-4a73-aa25-90665c4d092b"),
+                            AuthorName = "Author 2"
+                        },
+                        new
+                        {
+                            AuthorId = new Guid("34e70b41-8d8d-4a3a-a48e-3d2820339d50"),
+                            AuthorName = "Author 3"
+>>>>>>>> feature/skapa-users:Infrastructure/Migrations/20240117123513_AddWalletIdToUser.Designer.cs
                         });
                 });
 
@@ -110,11 +130,19 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
+<<<<<<<< HEAD:Infrastructure/Migrations/20240118232430_NewDataForAuthorAndBooks1.Designer.cs
                             BookId = new Guid("c78a1102-37e3-43f4-b0ed-572121807cd9"),
                             AuthorId = new Guid("c034d429-4334-45fc-82f2-084033a89a39"),
                             Genre = "Action",
                             Pages = 250,
                             PubYear = new DateTime(2024, 1, 18, 23, 24, 30, 362, DateTimeKind.Utc).AddTicks(8511),
+========
+                            BookId = new Guid("3e6a1f9b-93a5-4c2f-9549-366689271caa"),
+                            AuthorId = new Guid("69921ded-e18a-40df-971f-51ee6bb987c1"),
+                            Genre = "Action",
+                            Pages = 250,
+                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7894),
+>>>>>>>> feature/skapa-users:Infrastructure/Migrations/20240117123513_AddWalletIdToUser.Designer.cs
                             Rating = 4.5m,
                             StockBalance = 10,
                             Summary = "Action packed book",
@@ -122,11 +150,19 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
+<<<<<<<< HEAD:Infrastructure/Migrations/20240118232430_NewDataForAuthorAndBooks1.Designer.cs
                             BookId = new Guid("28b605c5-d993-4dd1-b2dd-8b0aa855fe59"),
                             AuthorId = new Guid("a71ab6b4-2160-4636-bafc-46c52bbffc7a"),
                             Genre = "Comedy",
                             Pages = 300,
                             PubYear = new DateTime(2024, 1, 18, 23, 24, 30, 362, DateTimeKind.Utc).AddTicks(8524),
+========
+                            BookId = new Guid("5be91552-3e41-4345-a89f-72e41537fb14"),
+                            AuthorId = new Guid("34214eb7-4e9c-4a73-aa25-90665c4d092b"),
+                            Genre = "Comedy",
+                            Pages = 300,
+                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7914),
+>>>>>>>> feature/skapa-users:Infrastructure/Migrations/20240117123513_AddWalletIdToUser.Designer.cs
                             Rating = 3.7m,
                             StockBalance = 20,
                             Summary = "Very funny book",
@@ -134,11 +170,19 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
+<<<<<<<< HEAD:Infrastructure/Migrations/20240118232430_NewDataForAuthorAndBooks1.Designer.cs
                             BookId = new Guid("ca441b71-c04c-4e01-b344-62077099b959"),
                             AuthorId = new Guid("9c672a17-e142-47a5-ae8c-87f8d00eab14"),
                             Genre = "Drama",
                             Pages = 180,
                             PubYear = new DateTime(2024, 1, 18, 23, 24, 30, 362, DateTimeKind.Utc).AddTicks(8543),
+========
+                            BookId = new Guid("1fc0dbbc-3d38-4080-a6c3-7bbeac33c9f7"),
+                            AuthorId = new Guid("34e70b41-8d8d-4a3a-a48e-3d2820339d50"),
+                            Genre = "Drama",
+                            Pages = 180,
+                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7920),
+>>>>>>>> feature/skapa-users:Infrastructure/Migrations/20240117123513_AddWalletIdToUser.Designer.cs
                             Rating = 4.8m,
                             StockBalance = 10,
                             Summary = "So much drama",
@@ -250,8 +294,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("userName");
 
+                    b.Property<Guid>("WalletId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("UserId")
                         .HasName("PK__user__CB9A1CFF7FE751DC");
+
+                    b.HasIndex("WalletId");
 
                     b.ToTable("user", (string)null);
                 });
@@ -307,6 +356,17 @@ namespace Infrastructure.Migrations
                         .HasConstraintName("FK__purchaseH__userI__412EB0B6");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
+                {
+                    b.HasOne("Domain.Models.Wallet", "Wallet")
+                        .WithMany()
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("Domain.Models.Author", b =>
