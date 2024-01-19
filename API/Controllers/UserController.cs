@@ -4,9 +4,6 @@ using Application.Dtos;
 using Application.Queries.UserQueries.GetAllUsers;
 using Application.Queries.UserQueries;
 using Application.Validators;
-=======
-﻿using Application.Validators;
->>>>>>> development
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
