@@ -15,9 +15,9 @@ namespace Infrastructure.Repository.UserRepository
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-                return await _context.Users
-                         .Include(u => u.Wallet)
-                         .ToListAsync();
+            return await _context.Users
+                     .Include(u => u.Wallet)
+                     .ToListAsync();
         }
 
         public async Task<User> AddAsync(User userToCreate)
