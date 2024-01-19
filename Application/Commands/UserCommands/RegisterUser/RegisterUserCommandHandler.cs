@@ -27,7 +27,7 @@ namespace Application.Commands.UserCommands.RegisterUser
 
         public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            try
+           // try
             {
                 var existingUser = await _userRepository.FindByUsernameAsync(request.Username);
                 if (existingUser != null)
@@ -55,11 +55,11 @@ namespace Application.Commands.UserCommands.RegisterUser
                 await _userRepository.AddAsync(user);
                 return user;
             }
-            catch (Exception ex)
-            {
-                // Hantera fallet där användarnamnet redan finns
-                throw new Exception("User creation failed.", ex);
-            }
+            //catch (Exception ex)
+            //{
+            //    // Hantera fallet där användarnamnet redan finns
+            //    throw new Exception("User creation failed.", ex);
+            //}
         }
     }
 }
