@@ -26,9 +26,7 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="UserTests\UserQueries\" />
-  </ItemGroup>
+
   <ItemGroup>
     <Folder Include="UserTests\UserQueries\" />
   </ItemGroup>
