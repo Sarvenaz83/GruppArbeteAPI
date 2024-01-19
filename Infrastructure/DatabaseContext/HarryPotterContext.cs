@@ -28,7 +28,7 @@ namespace Infrastructure.DatabaseContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Server=KEVINS-MAIN-DES\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
+            string connectionString = "Server=MINAZ\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
             optionsBuilder.UseSqlServer(connectionString);
         }
 

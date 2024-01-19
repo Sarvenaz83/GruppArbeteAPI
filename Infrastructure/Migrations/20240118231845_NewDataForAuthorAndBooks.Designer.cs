@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HarryPotterContext))]
-    [Migration("20240116132209_newSeedData")]
-    partial class newSeedData
+    [Migration("20240118231845_NewDataForAuthorAndBooks")]
+    partial class NewDataForAuthorAndBooks
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,18 +44,18 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"),
-                            AuthorName = "Author 1"
+                            AuthorId = new Guid("5d7f532e-c2e6-4940-b785-4d63e652fffb"),
+                            AuthorName = "J.K Rowling"
                         },
                         new
                         {
-                            AuthorId = new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"),
-                            AuthorName = "Author 2"
+                            AuthorId = new Guid("2554a123-bccc-47b2-99e9-8f9b9cddac19"),
+                            AuthorName = "Alan Rickman"
                         },
                         new
                         {
-                            AuthorId = new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"),
-                            AuthorName = "Author 3"
+                            AuthorId = new Guid("edb42178-5bd8-405d-8e23-9a2c0c204064"),
+                            AuthorName = "Stephen King"
                         });
                 });
 
@@ -106,44 +106,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("book", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = new Guid("9c441e12-7f93-4215-a82c-672748a2a5d5"),
-                            AuthorId = new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"),
-                            Genre = "Action",
-                            Pages = 250,
-                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3914),
-                            Rating = 4.5m,
-                            StockBalance = 10,
-                            Summary = "Action packed book",
-                            Title = "Book 1"
-                        },
-                        new
-                        {
-                            BookId = new Guid("0912daee-dbd6-4da3-a5c8-f5f40c83ac22"),
-                            AuthorId = new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"),
-                            Genre = "Comedy",
-                            Pages = 300,
-                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3923),
-                            Rating = 3.7m,
-                            StockBalance = 20,
-                            Summary = "Very funny book",
-                            Title = "Book 2"
-                        },
-                        new
-                        {
-                            BookId = new Guid("4941d293-6e62-4800-834b-c2982019888a"),
-                            AuthorId = new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"),
-                            Genre = "Drama",
-                            Pages = 180,
-                            PubYear = new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3926),
-                            Rating = 4.8m,
-                            StockBalance = 10,
-                            Summary = "So much drama",
-                            Title = "Book 3"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.PurchaseDetail", b =>

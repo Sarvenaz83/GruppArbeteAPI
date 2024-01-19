@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,7 +8,7 @@
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class newSeedData : Migration
+    public partial class NewDataForAuthorAndBooks1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,26 +16,26 @@ namespace Infrastructure.Migrations
             migrationBuilder.DeleteData(
                 table: "author",
                 keyColumn: "authorId",
-                keyValue: new Guid("0d33df61-3dde-4cfd-8eed-b85eac5c75ca"));
+                keyValue: new Guid("2554a123-bccc-47b2-99e9-8f9b9cddac19"));
 
             migrationBuilder.DeleteData(
                 table: "author",
                 keyColumn: "authorId",
-                keyValue: new Guid("8b59c137-3321-4c1c-bbcd-e8f3e27580c2"));
+                keyValue: new Guid("5d7f532e-c2e6-4940-b785-4d63e652fffb"));
 
             migrationBuilder.DeleteData(
                 table: "author",
                 keyColumn: "authorId",
-                keyValue: new Guid("caa43f6b-2c2a-47a0-91e5-a6dcaf220114"));
+                keyValue: new Guid("edb42178-5bd8-405d-8e23-9a2c0c204064"));
 
             migrationBuilder.InsertData(
                 table: "author",
                 columns: new[] { "authorId", "authorName" },
                 values: new object[,]
                 {
-                    { new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"), "Author 3" },
-                    { new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"), "Author 2" },
-                    { new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"), "Author 1" }
+                    { new Guid("9c672a17-e142-47a5-ae8c-87f8d00eab14"), "Stephen King" },
+                    { new Guid("a71ab6b4-2160-4636-bafc-46c52bbffc7a"), "Alan Rickman" },
+                    { new Guid("c034d429-4334-45fc-82f2-084033a89a39"), "J.K Rowling" }
                 });
 
             migrationBuilder.InsertData(
@@ -42,9 +43,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "bookId", "authorId", "genre", "pages", "pubYear", "rating", "stockBalance", "summary", "title" },
                 values: new object[,]
                 {
-                    { new Guid("0912daee-dbd6-4da3-a5c8-f5f40c83ac22"), new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"), "Comedy", 300, new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3923), 3.7m, 20, "Very funny book", "Book 2" },
-                    { new Guid("4941d293-6e62-4800-834b-c2982019888a"), new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"), "Drama", 180, new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3926), 4.8m, 10, "So much drama", "Book 3" },
-                    { new Guid("9c441e12-7f93-4215-a82c-672748a2a5d5"), new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"), "Action", 250, new DateTime(2024, 1, 16, 13, 22, 9, 86, DateTimeKind.Utc).AddTicks(3914), 4.5m, 10, "Action packed book", "Book 1" }
+                    { new Guid("28b605c5-d993-4dd1-b2dd-8b0aa855fe59"), new Guid("a71ab6b4-2160-4636-bafc-46c52bbffc7a"), "Comedy", 300, new DateTime(2024, 1, 18, 23, 24, 30, 362, DateTimeKind.Utc).AddTicks(8524), 3.7m, 20, "Very funny book", "Book 2" },
+                    { new Guid("c78a1102-37e3-43f4-b0ed-572121807cd9"), new Guid("c034d429-4334-45fc-82f2-084033a89a39"), "Action", 250, new DateTime(2024, 1, 18, 23, 24, 30, 362, DateTimeKind.Utc).AddTicks(8511), 4.5m, 10, "Action packed book", "Book 1" },
+                    { new Guid("ca441b71-c04c-4e01-b344-62077099b959"), new Guid("9c672a17-e142-47a5-ae8c-87f8d00eab14"), "Drama", 180, new DateTime(2024, 1, 18, 23, 24, 30, 362, DateTimeKind.Utc).AddTicks(8543), 4.8m, 10, "So much drama", "Book 3" }
                 });
         }
 
@@ -54,41 +55,41 @@ namespace Infrastructure.Migrations
             migrationBuilder.DeleteData(
                 table: "book",
                 keyColumn: "bookId",
-                keyValue: new Guid("0912daee-dbd6-4da3-a5c8-f5f40c83ac22"));
+                keyValue: new Guid("28b605c5-d993-4dd1-b2dd-8b0aa855fe59"));
 
             migrationBuilder.DeleteData(
                 table: "book",
                 keyColumn: "bookId",
-                keyValue: new Guid("4941d293-6e62-4800-834b-c2982019888a"));
+                keyValue: new Guid("c78a1102-37e3-43f4-b0ed-572121807cd9"));
 
             migrationBuilder.DeleteData(
                 table: "book",
                 keyColumn: "bookId",
-                keyValue: new Guid("9c441e12-7f93-4215-a82c-672748a2a5d5"));
+                keyValue: new Guid("ca441b71-c04c-4e01-b344-62077099b959"));
 
             migrationBuilder.DeleteData(
                 table: "author",
                 keyColumn: "authorId",
-                keyValue: new Guid("44999686-6d05-4c11-8fd5-66782c06cc94"));
+                keyValue: new Guid("9c672a17-e142-47a5-ae8c-87f8d00eab14"));
 
             migrationBuilder.DeleteData(
                 table: "author",
                 keyColumn: "authorId",
-                keyValue: new Guid("4f993560-e778-40c3-866e-26f6cbd90cba"));
+                keyValue: new Guid("a71ab6b4-2160-4636-bafc-46c52bbffc7a"));
 
             migrationBuilder.DeleteData(
                 table: "author",
                 keyColumn: "authorId",
-                keyValue: new Guid("61396f5c-08ad-46b1-83d1-7650af4b6014"));
+                keyValue: new Guid("c034d429-4334-45fc-82f2-084033a89a39"));
 
             migrationBuilder.InsertData(
                 table: "author",
                 columns: new[] { "authorId", "authorName" },
                 values: new object[,]
                 {
-                    { new Guid("0d33df61-3dde-4cfd-8eed-b85eac5c75ca"), "James Patterson" },
-                    { new Guid("8b59c137-3321-4c1c-bbcd-e8f3e27580c2"), "Stephen King" },
-                    { new Guid("caa43f6b-2c2a-47a0-91e5-a6dcaf220114"), "J.K Rowling" }
+                    { new Guid("2554a123-bccc-47b2-99e9-8f9b9cddac19"), "Alan Rickman" },
+                    { new Guid("5d7f532e-c2e6-4940-b785-4d63e652fffb"), "J.K Rowling" },
+                    { new Guid("edb42178-5bd8-405d-8e23-9a2c0c204064"), "Stephen King" }
                 });
         }
     }

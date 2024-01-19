@@ -5,18 +5,16 @@ namespace Infrastructure
 {
     public class DataSeeder
     {
+        //Bug: SeedData is not being called
         public static void SeedData(ModelBuilder modelBuilder)
         {
-            var author1 = new Author { AuthorId = Guid.NewGuid(), AuthorName = "Author 1" };
-            var author2 = new Author { AuthorId = Guid.NewGuid(), AuthorName = "Author 2" };
-            var author3 = new Author { AuthorId = Guid.NewGuid(), AuthorName = "Author 3" };
+            var author1 = new Author { AuthorId = Guid.NewGuid(), AuthorName = "J.K Rowling" };
+            var author2 = new Author { AuthorId = Guid.NewGuid(), AuthorName = "Alan Rickman" };
+            var author3 = new Author { AuthorId = Guid.NewGuid(), AuthorName = "Stephen King" };
             modelBuilder.Entity<Author>().HasData(
                 author1,
                 author2,
                 author3
-                //new Author { AuthorId = Guid.NewGuid(), AuthorName = "Author 1" },
-                //new Author { AuthorId = Guid.NewGuid(), AuthorName = "Author 2" },
-                //new Author { AuthorId = Guid.NewGuid(), AuthorName = "Author 3" }
                 );
 
             modelBuilder.Entity<Book>().HasData(

@@ -1,4 +1,6 @@
-﻿namespace Application.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Application.Dtos
 {
     public class AuthorDto
     {
