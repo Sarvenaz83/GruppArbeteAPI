@@ -4,7 +4,7 @@ using Infrastructure.Repository.BookRepository;
 using Moq;
 using NUnit.Framework;
 
-namespace Tests.BookTests
+namespace Tests.BookTests.QueryTests
 {
     [TestFixture]
     public class GetAllBooksQueryHandlerTest

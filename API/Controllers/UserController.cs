@@ -1,4 +1,8 @@
-﻿using Application.Validators;
+﻿using Application.Commands.UserCommands.RegisterUser;
+using Application.Dtos;
+using Application.Queries.UserQueries.GetAllUsers;
+using Application.Queries.UserQueries;
+using Application.Validators;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
@@ -25,7 +29,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public ActionResult<User> Register(string username, string password)
+        public async Task<ActionResult> Register(string username, string password)
         {
             var validationResult = _usernameValidator.Validate(username);
             if (!validationResult.IsValid)
@@ -39,12 +43,15 @@ namespace API.Controllers
                 return BadRequest(passwordResult.Errors);
             }
 
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-            var user = new User { UserName = username, Password = passwordHash };
+            var user = await _mediator.Send(new RegisterUserCommand { Username = username, Password = password });
 
-            _userRepository.AddAsync(user);
-            // Return the user without sensitive data
-            return Ok(new { user.UserId, user.UserName });
+            //if (user == null)
+            //{
+            //    // Användarnamnet är redan upptaget
+            //    return BadRequest(new { Message = "Username is already taken." });
+            //}
+
+            return Ok(new { Message = "Register successful", user.UserId, user.UserName });
         }
         [AllowAnonymous]
         [HttpPost("login")]
@@ -62,15 +69,55 @@ namespace API.Controllers
                 return BadRequest(passwordResult.Errors);
             }
 
-            var user = await _userRepository.FindByUsernameAsync(username);
+
+            var user = await _mediator.Send(new LoginUserQuery { Username = username, Password = password });
+
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 return Unauthorized("Invalid username or password.");
             }
 
             // Return some kind of success response, without JWT for now
-            // You might want to return a user object or a simple success message
+            // You might want to return a user object or a simple success 
             return Ok(new { Message = "Login successful", user.UserId, user.UserName });
+        }
+
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new GetAllUsersQuery()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("delete/{userId:guid}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            try
+            { //validator??
+                var deletedUser = await _userRepository.DeleteUser(userId);
+
+                if (deletedUser != null)
+                {
+
+                    return Ok(new { Message = "User deleted successfully", deletedUser.UserId, deletedUser.UserName });
+                }
+                else
+                {
+                    return NotFound("User not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
