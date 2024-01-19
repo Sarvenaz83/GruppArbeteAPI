@@ -18,6 +18,11 @@ namespace Infrastructure.Repository.AuthorRepository
             return await _context.Authors.ToListAsync();
         }
 
+        public async Task<Author?> GetAuthorByIdAsync(Guid id)
+        {
+            return await _context.Authors.FindAsync(id);
+        }
+
         public async Task<Author> CreateAuthorAsync(Author author)
         {
             _context.Authors.Add(author);
@@ -25,19 +30,13 @@ namespace Infrastructure.Repository.AuthorRepository
             return author;
         }
 
-        public async Task<Author?> UpdateAuthorAsync(Guid id)
+        public async Task UpdateAuthorByIdAsync(Guid id, Author updatedAuthor)
         {
-            Author? authorToUpdate = await _context.Authors.FirstOrDefaultAsync(author => author.AuthorId == id);
-            if (authorToUpdate != null)
-            {
-                _context.Authors.Update(authorToUpdate);
-                await _context.SaveChangesAsync();
-                return authorToUpdate;
-            }
-            return null;
+            _context.Entry(updatedAuthor).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<Author?> DeleteAuthorAsync(Guid id)
+        public async Task<Author?> DeleteAuthorByIdAsync(Guid id)
         {
             Author? authorToDelete = await _context.Authors.FirstOrDefaultAsync(author => author.AuthorId == id);
             if (authorToDelete != null)
