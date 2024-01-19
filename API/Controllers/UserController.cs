@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿using Application.Commands.UserCommands.RegisterUser;
 using Application.Dtos;
 using Application.Queries.UserQueries.GetAllUsers;

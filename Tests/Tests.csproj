@@ -27,13 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <None Remove="UserTests\UserQueries\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UserTests\UserQueries\" />
   </ItemGroup>
-=======
+  <ItemGroup>
     <Folder Include="BookTests\QueriesTests\" />
   </ItemGroup>
 
