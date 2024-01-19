@@ -49,7 +49,7 @@ namespace Application.Commands.UserCommands.RegisterUser
                     UserId = Guid.NewGuid(),
                     UserName = request.Username,
                     Password = passwordHash,
-                    WalletId = wallet.WalletId
+                    Wallet = wallet,
                 };
 
                 await _userRepository.AddAsync(user);
