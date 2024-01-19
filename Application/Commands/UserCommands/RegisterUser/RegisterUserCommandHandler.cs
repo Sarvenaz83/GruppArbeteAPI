@@ -27,7 +27,7 @@ namespace Application.Commands.UserCommands.RegisterUser
 
         public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-           // try
+            // try
             {
                 var existingUser = await _userRepository.FindByUsernameAsync(request.Username);
                 if (existingUser != null)
