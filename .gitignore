@@ -398,3 +398,13 @@ FodyWeavers.xsd
 *.sln.iml
 /Infrastructure/Migrations/20240116223821_NewNameForAuthors0.Designer.cs
 /Infrastructure/Migrations/20240116223821_NewNameForAuthors0.cs
+/Infrastructure/DatabaseContext/HarryPotterContext.cs
+/Infrastructure/DataSeeder.cs
+/Infrastructure/DataSeeder.cs
+/Infrastructure/DatabaseContext/HarryPotterContext.cs
+/Infrastructure/Migrations/20240118231845_NewDataForAuthorAndBooks.cs
+/Infrastructure/Migrations/20240118231845_NewDataForAuthorAndBooks.Designer.cs
+/Infrastructure/Migrations/20240118232430_NewDataForAuthorAndBooks1.cs
+/Infrastructure/Migrations/20240118232430_NewDataForAuthorAndBooks1.Designer.cs
+/Infrastructure/Migrations/HarryPotterContextModelSnapshot.cs
+/API/appsettings.json
