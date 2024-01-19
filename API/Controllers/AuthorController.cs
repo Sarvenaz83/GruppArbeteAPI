@@ -55,7 +55,7 @@ namespace API.Controllers
 
         //Update an Author
         [HttpPut]
-        [Route("UpdateAuthor/{updatedAuthorId}")]
+        [Route("UpdateAuthor/{AuthorId}")]
         //[Authorize(policy: "Admin")]
         public async Task<IActionResult> UpdateAuthor(Guid authorId, [FromBody] AuthorDto updatedAuthor)
         {
