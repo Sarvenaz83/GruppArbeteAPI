@@ -36,16 +36,14 @@ namespace Infrastructure.Repository.AuthorRepository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Author?> DeleteAuthorByIdAsync(Guid id)
+        public async Task DeleteAuthorByIdAsync(Guid authorId)
         {
-            Author? authorToDelete = await _context.Authors.FirstOrDefaultAsync(author => author.AuthorId == id);
+            var authorToDelete = await _context.Authors.FindAsync(authorId);
             if (authorToDelete != null)
             {
                 _context.Authors.Remove(authorToDelete);
                 await _context.SaveChangesAsync();
-                return authorToDelete;
             }
-            return null;
         }
     }
 }
