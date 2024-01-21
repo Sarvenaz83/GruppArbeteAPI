@@ -4,9 +4,10 @@ namespace Infrastructure.Repository.BookRepository
 {
     public interface IBookRepository
     {
+        Task<Book?> GetBookByIdAsync(Guid id);
         Task<List<Book>> GetAllBooksAsync();
         Task<Book> CreateBookAsync(Book book);
-        Task<Book?> UpdateBookAsync(Guid bookId);
+        Task<Book?> UpdateBookByIdAsync(Book updateBook);
         Task<Book?> DeleteBookAsync(Guid bookId);
     }
 }
