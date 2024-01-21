@@ -23,10 +23,18 @@ namespace Tests.BookTests.CommandTests
         public async Task Handle_WithValidBookId_UpdatesBookAndReturnsUpdatedBook()
         {
             // Arrange
-            var command = new UpdateBookByIdCommand(Guid.NewGuid(), new BookDto {
-            Title = "Test", AuthorId = Guid.NewGuid(), Genre = "Genre", PubYear = DateTime.UtcNow,
-            Pages = 200, StockBalance = 10, Rating = 3.4m, Summary = "Summary"});
-            
+            var command = new UpdateBookByIdCommand(Guid.NewGuid(), new BookDto
+            {
+                Title = "Test",
+                AuthorId = Guid.NewGuid(),
+                Genre = "Genre",
+                PubYear = DateTime.UtcNow,
+                Pages = 200,
+                StockBalance = 10,
+                Rating = 3.4m,
+                Summary = "Summary"
+            });
+
             _bookRepositoryMock.Setup(x => x.GetBookByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new Book
             {
                 BookId = Guid.NewGuid(),
