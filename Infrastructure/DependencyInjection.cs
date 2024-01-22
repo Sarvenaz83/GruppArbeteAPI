@@ -18,7 +18,7 @@ namespace Infrastructure
 
 
 
-                var connectionString = "Server=(local)\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
+                var connectionString = "Server=MINAZ\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
                 options.UseSqlServer(connectionString);
             });
             services.AddScoped<IAuthorRepository, AuthorRepository>();
