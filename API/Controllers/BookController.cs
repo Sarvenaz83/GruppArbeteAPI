@@ -3,6 +3,7 @@ using Application.Commands.BookCommands.DeleteBook;
 using Application.Commands.BookCommands.UpdateBook;
 using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
+using Application.Queries.BookQueries.GetBookByAuthorName;
 using Application.Queries.BookQueries.GetBookById;
 using Application.Validators;
 using MediatR;
@@ -33,6 +34,25 @@ namespace API.Controllers
                     return Ok(result);
                 else
                     return NotFound($"Book with id {bookId} not found.");
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetBookByAuthorName/{authorName}")]
+        public async Task<IActionResult> GetBookByAuthorName(string authorName)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetBookByAuthorNameQuery(authorName));
+
+                if (result != null)
+                    return Ok(result);
+                else
+                    return NotFound($"Found no books {authorName} has written.");
             }
             catch
             {
