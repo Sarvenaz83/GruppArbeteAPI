@@ -1,10 +1,13 @@
 ﻿using Application.Commands.AuthorCommands.CreateAuthor;
+using Application.Commands.AuthorCommands.DeleteAuthor;
 using Application.Commands.AuthorCommands.UpdateAuthor;
 using Application.Dtos;
 using Application.Queries.AuthorQueries.GetAllAuthor;
 using Application.Validators;
+using Infrastructure.Repository.AuthorRepository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
@@ -13,11 +16,13 @@ namespace API.Controllers
     public class AuthorController : Controller
     {
         internal readonly IMediator _mediator;
+        internal readonly IAuthorRepository _authorRepository;
         internal readonly AuthorValidator _authorValidator;
 
-        public AuthorController(IMediator mediator, AuthorValidator authorValidator)
+        public AuthorController(IMediator mediator, IAuthorRepository authorRepository, AuthorValidator authorValidator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _authorRepository = authorRepository ?? throw new ArgumentNullException(nameof(authorRepository));
             _authorValidator = authorValidator ?? throw new ArgumentNullException(nameof(authorValidator));
         }
 
@@ -55,7 +60,7 @@ namespace API.Controllers
 
         //Update an Author
         [HttpPut]
-        [Route("UpdateAuthor/{AuthorId}")]
+        [Route("UpdateAuthor/{authorId}")]
         //[Authorize(policy: "Admin")]
         public async Task<IActionResult> UpdateAuthor(Guid authorId, [FromBody] AuthorDto updatedAuthor)
         {
@@ -79,6 +84,22 @@ namespace API.Controllers
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred processing your request.");
+            }
+        }
+
+        [HttpDelete]
+        [Route("DeleteAuthor/{authorId}")]
+        //[Authorize(policy: "Admin")]
+        public async Task<IActionResult> DeleteAuthor(Guid authorId)
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new DeleteAuthorByIdCommand(authorId)));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
             }
         }
 
