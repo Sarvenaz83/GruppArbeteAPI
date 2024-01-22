@@ -8,6 +8,6 @@ namespace Infrastructure.Repository.AuthorRepository
         Task<Author?> GetAuthorByIdAsync(Guid id);
         Task<Author> CreateAuthorAsync(Author author);
         Task UpdateAuthorByIdAsync(Guid authorId, Author updatedAuthor);
-        Task DeleteAuthorByIdAsync(Guid authorId);
+        Task<Author?> DeleteAuthorByIdAsync(Guid authorId);
     }
 }
