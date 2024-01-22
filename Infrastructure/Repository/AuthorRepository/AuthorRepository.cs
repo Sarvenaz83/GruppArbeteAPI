@@ -46,7 +46,7 @@ namespace Infrastructure.Repository.AuthorRepository
             _context.Authors.Remove(author);
             await _context.SaveChangesAsync();
             return author;
-            
+
         }
     }
 }

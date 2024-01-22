@@ -42,7 +42,7 @@ namespace Tests.AuthorTests.CommandTests.AuthorCommandsTests
         public async Task Handle_ShouldReturnNull_WhenAuthorDoesNotExists()
         {
             //Arrange
-            _mockAothorRepository.Setup(repo => repo.GetAuthorByIdAsync(_nonExistentAuthorId)).ReturnsAsync((Author)null);
+            _mockAothorRepository.Setup(repo => repo.GetAuthorByIdAsync(_nonExistentAuthorId)).ReturnsAsync((Author)null!);
 
             //Act
             var result = await _handler.Handle(new DeleteAuthorByIdCommand(_nonExistentAuthorId), CancellationToken.None);
@@ -52,6 +52,6 @@ namespace Tests.AuthorTests.CommandTests.AuthorCommandsTests
             _mockAothorRepository.Verify(repo => repo.DeleteAuthorByIdAsync(_nonExistentAuthorId), Times.Never);
         }
 
-        
+
     }
 }
