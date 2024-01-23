@@ -3,6 +3,7 @@ using Application.Commands.AuthorCommands.DeleteAuthor;
 using Application.Commands.AuthorCommands.UpdateAuthor;
 using Application.Dtos;
 using Application.Queries.AuthorQueries.GetAllAuthor;
+using Application.Queries.AuthorQueries.GetAuthorByBook;
 using Application.Validators;
 using Infrastructure.Repository.AuthorRepository;
 using MediatR;
@@ -39,7 +40,24 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet]
+        [Route("GetAuthorByBook/{bookTitle}")]
+        public async Task<IActionResult> GetAuthorByBook(string bookTitle)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetAuthorByBookQuery(bookTitle));
 
+                if (result != null)
+                    return Ok(result);
+                else
+                    return NotFound($"Found no author {bookTitle} has written.");
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
+        }
 
         //Create a new Author
         [HttpPost]
@@ -102,6 +120,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
     }
 }

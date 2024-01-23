@@ -48,5 +48,13 @@ namespace Infrastructure.Repository.AuthorRepository
             return author;
 
         }
+        public async Task<Author> GetAuthorByBookAsync(string bookTitle)
+        {
+            var author = await _context.Authors
+                .Include(a => a.Books)
+                .FirstOrDefaultAsync(a => a.Books.Any(b => b.Title == bookTitle));
+
+            return author;
+        }
     }
 }
