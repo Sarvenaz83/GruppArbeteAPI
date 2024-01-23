@@ -5,6 +5,7 @@ using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Application.Queries.BookQueries.GetBookByAuthorName;
 using Application.Queries.BookQueries.GetBookById;
+using Application.Queries.BookQueries.GetBooksByRating;
 using Application.Validators;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace API.Controllers
     {
         internal readonly IMediator _mediator;
         internal readonly BookValidator _bookValidator;
+        internal readonly ILogger<BookController> _logger;
 
-        public BookController(IMediator mediator, BookValidator bookValidator)
+        public BookController(IMediator mediator, BookValidator bookValidator, ILogger<BookController> logger)
         {
             _mediator = mediator;
             _bookValidator = bookValidator;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -71,6 +74,23 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetBooksByRating/{minRating}")]
+        public async Task<IActionResult> GetBooksByRating(decimal minRating)
+        {
+            try
+            {
+                var query = new GetBooksByRatingQuery(minRating);
+                var books = await _mediator.Send(query);
+                return Ok(books);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while getting books by rating.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred processing your request.");
             }
         }
 
