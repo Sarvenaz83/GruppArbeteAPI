@@ -27,39 +27,34 @@ namespace Application.Commands.UserCommands.RegisterUser
 
         public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            // try
+            var existingUser = await _userRepository.FindByUsernameAsync(request.Username);
+            if (existingUser != null)
             {
-                var existingUser = await _userRepository.FindByUsernameAsync(request.Username);
-                if (existingUser != null)
-                {
-                    throw new Exception("Username is already taken.");
-                    //return null;
-                }
-
-                var wallet = new Wallet
-                {
-                    WalletId = Guid.NewGuid()
-                };
-                await _walletRepository.AddAsync(wallet);
-
-                string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-
-                var user = new User
-                {
-                    UserId = Guid.NewGuid(),
-                    UserName = request.Username,
-                    Password = passwordHash,
-                    Wallet = wallet,
-                };
-
-                await _userRepository.AddAsync(user);
-                return user;
+                throw new Exception("Username is already taken.");
+                //return null;
             }
-            //catch (Exception ex)
-            //{
-            //    // Hantera fallet där användarnamnet redan finns
-            //    throw new Exception("User creation failed.", ex);
-            //}
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            var user = new User
+            {
+                UserId = Guid.NewGuid(),
+                UserName = request.Username,
+                Password = passwordHash,
+            };
+
+            var wallet = new Wallet
+            {
+                WalletId = Guid.NewGuid(),
+                UserId = user.UserId
+            };
+
+            await _userRepository.AddAsync(user);
+
+
+            await _walletRepository.AddAsync(wallet);
+
+            return user;
+
+
         }
     }
 }
