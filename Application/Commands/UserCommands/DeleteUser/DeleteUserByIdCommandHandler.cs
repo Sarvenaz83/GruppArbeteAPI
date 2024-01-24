@@ -1,5 +1,4 @@
 ﻿// DeleteUserByIdCommandHandler
-using System;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
