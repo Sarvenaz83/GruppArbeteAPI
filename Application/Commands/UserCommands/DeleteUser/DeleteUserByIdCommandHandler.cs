@@ -17,14 +17,14 @@ namespace Application.Commands.UserCommands.DeleteUser
 
         public async Task<User> Handle(DeleteUserByIdCommand request, CancellationToken cancellationToken)
         {
-            User userToDelete = await _userRepository.GetById(request.Id);
+            User userToDelete = await _userRepository.GetByIdAsync(request.Id);
 
             if (userToDelete == null)
             {
                 return null!;
             }
 
-            await _userRepository.DeleteUser(userToDelete.UserId);
+            await _userRepository.DeleteUserAsync(userToDelete.UserId);
 
             return userToDelete;
         }

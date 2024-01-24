@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Repository.BookRepository
 {
@@ -13,10 +14,30 @@ namespace Infrastructure.Repository.BookRepository
             _context = context;
         }
 
+        public async Task<Book?> GetBookByIdAsync(Guid id)
+        {
+            return await _context.Books.FindAsync(id);
+        }
+
+        public async Task<List<Book>> GetBooksByAuthorName(string authorName)
+        {
+            var bookListByAuthorName = await _context.Books.Where(b => b.Author.AuthorName.Contains(authorName)).ToListAsync();
+            if (!bookListByAuthorName.IsNullOrEmpty())
+                return bookListByAuthorName;
+
+            else
+                return null;
+        }
+
         public async Task<List<Book>> GetAllBooksAsync()
         {
             var bookList = await _context.Books.OrderBy(book => book.Title).ToListAsync();
             return bookList;
+        }
+
+        public async Task<List<Book>> GetBooksByRatingAsync(decimal minRating)
+        {
+            return await _context.Books.Where(book => book.Rating >= minRating).OrderBy(book => book.Rating).ToListAsync();
         }
 
         public async Task<Book> CreateBookAsync(Book book)
@@ -26,16 +47,11 @@ namespace Infrastructure.Repository.BookRepository
             return book;
         }
 
-        public async Task<Book?> UpdateBookAsync(Guid bookId)
+        public async Task<Book?> UpdateBookByIdAsync(Book updateBook)
         {
-            Book? bookToUpdate = await _context.Books.FirstOrDefaultAsync(book => book.BookId == bookId);
-            if (bookToUpdate != null)
-            {
-                _context.Books.Update(bookToUpdate);
-                await _context.SaveChangesAsync();
-                return bookToUpdate;
-            }
-            return null;
+            _context.Books.Update(updateBook);
+            await _context.SaveChangesAsync();
+            return updateBook;
         }
 
         public async Task<Book?> DeleteBookAsync(Guid bookId)
