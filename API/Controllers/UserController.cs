@@ -1,9 +1,7 @@
 ﻿using Application.Commands.UserCommands.RegisterUser;
-using Application.Dtos;
-using Application.Queries.UserQueries.GetAllUsers;
 using Application.Queries.UserQueries;
+using Application.Queries.UserQueries.GetAllUsers;
 using Application.Validators;
-using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
