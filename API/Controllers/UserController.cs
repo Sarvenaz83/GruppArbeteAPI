@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Application.Commands.UserCommands.UpdateUser;
+using Application.Queries.PurchaseHistoriesQueries;
 
 namespace API.Controllers
 {
@@ -95,6 +96,21 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAllPurchaseHistories")]
+        public async Task<IActionResult> GetAllPurchaseHistoriesAsync()
+        {
+            try
+            {
+                var purchaseHistories = await _mediator.Send(new GetAllPurchaseHistoriesQuery());
+                return Ok(purchaseHistories);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete]
         [Route("delete/{userId:guid}")]
         public async Task<IActionResult> DeleteUser(Guid userId)
@@ -135,6 +151,12 @@ namespace API.Controllers
 
             return Ok(result);
         }
+
+
+
+
+
+
 
     }
 }
