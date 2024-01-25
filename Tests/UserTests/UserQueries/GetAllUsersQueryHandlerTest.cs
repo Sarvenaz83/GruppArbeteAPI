@@ -1,5 +1,5 @@
-﻿using Domain.Models;
-using Application.Queries.UserQueries.GetAllUsers;
+﻿using Application.Queries.UserQueries.GetAllUsers;
+using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Moq;
 using NUnit.Framework;

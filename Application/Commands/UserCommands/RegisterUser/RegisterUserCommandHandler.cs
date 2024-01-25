@@ -1,15 +1,7 @@
-﻿using Application.Validators;
-using BCrypt.Net;
-using Domain.Models;
-using FluentValidation;
+﻿using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commands.UserCommands.RegisterUser
 {
