@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Repository.BookRepository
 {
@@ -18,10 +19,25 @@ namespace Infrastructure.Repository.BookRepository
             return await _context.Books.FindAsync(id);
         }
 
+        public async Task<List<Book>> GetBooksByAuthorName(string authorName)
+        {
+            var bookListByAuthorName = await _context.Books.Where(b => b.Author.AuthorName.Contains(authorName)).ToListAsync();
+            if (!bookListByAuthorName.IsNullOrEmpty())
+                return bookListByAuthorName;
+
+            else
+                return null;
+        }
+
         public async Task<List<Book>> GetAllBooksAsync()
         {
             var bookList = await _context.Books.OrderBy(book => book.Title).ToListAsync();
             return bookList;
+        }
+
+        public async Task<List<Book>> GetBooksByRatingAsync(decimal minRating)
+        {
+            return await _context.Books.Where(book => book.Rating >= minRating).OrderBy(book => book.Rating).ToListAsync();
         }
 
         public async Task<Book> CreateBookAsync(Book book)

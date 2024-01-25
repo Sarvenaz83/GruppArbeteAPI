@@ -1,23 +1,40 @@
-﻿using Domain.Models;
+﻿using Application.Dtos;
+using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
 
 namespace Application.Queries.UserQueries.GetAllUsers
 {
-    public class GettAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<User>>
+    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<GetAllUsersDto>>
     {
         private readonly IUserRepository _userRepository;
 
-        public GettAllUsersQueryHandler(IUserRepository userRepository)
+        public GetAllUsersQueryHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetAllUsersDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            List<User> allUsersFromHarryPotterContext = await _userRepository.GetAllUsersAsync();
-            List<User> sortedUsers = allUsersFromHarryPotterContext.OrderBy(user => user.UserName).ToList();
-            return allUsersFromHarryPotterContext;
+            try
+            {
+                var users = await _userRepository.GetAllUsersAsync();
+                var getAllUsersDtos = users.Select(u => new GetAllUsersDto
+                {
+                    UserId = u.UserId,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    TelephoneNumber = u.TelephoneNumber,
+                    FirstName = u.FirstName,
+                    SurName = u.SurName,
+                }).ToList();
+
+                return getAllUsersDtos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ett fel inträffade vid hämtning av användarinformation.");
+            }
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HarryPotterContext))]
-    [Migration("20240118231845_NewDataForAuthorAndBooks")]
-    partial class NewDataForAuthorAndBooks
+    [Migration("20240123182951_MigrationUpdateUser")]
+    partial class MigrationUpdateUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,17 +44,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("5d7f532e-c2e6-4940-b785-4d63e652fffb"),
+                            AuthorId = new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"),
                             AuthorName = "J.K Rowling"
                         },
                         new
                         {
-                            AuthorId = new Guid("2554a123-bccc-47b2-99e9-8f9b9cddac19"),
+                            AuthorId = new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"),
                             AuthorName = "Alan Rickman"
                         },
                         new
                         {
-                            AuthorId = new Guid("edb42178-5bd8-405d-8e23-9a2c0c204064"),
+                            AuthorId = new Guid("57bd1733-05df-46f5-9d3b-49251d868728"),
                             AuthorName = "Stephen King"
                         });
                 });
@@ -106,6 +106,44 @@ namespace Infrastructure.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("book", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            BookId = new Guid("c1c580b5-d6ad-4c0f-90ff-2cc5bafb16bf"),
+                            AuthorId = new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"),
+                            Genre = "Action",
+                            Pages = 250,
+                            PubYear = new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4603),
+                            Rating = 4.5m,
+                            StockBalance = 10,
+                            Summary = "Action packed book",
+                            Title = "Book 1"
+                        },
+                        new
+                        {
+                            BookId = new Guid("6c4eafc4-797c-49cb-a8ba-c3702633b422"),
+                            AuthorId = new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"),
+                            Genre = "Comedy",
+                            Pages = 300,
+                            PubYear = new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4609),
+                            Rating = 3.7m,
+                            StockBalance = 20,
+                            Summary = "Very funny book",
+                            Title = "Book 2"
+                        },
+                        new
+                        {
+                            BookId = new Guid("c0b367a6-6588-4da2-b473-08731d33a0f8"),
+                            AuthorId = new Guid("57bd1733-05df-46f5-9d3b-49251d868728"),
+                            Genre = "Drama",
+                            Pages = 180,
+                            PubYear = new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4612),
+                            Rating = 4.8m,
+                            StockBalance = 10,
+                            Summary = "So much drama",
+                            Title = "Book 3"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.PurchaseDetail", b =>
@@ -228,8 +266,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("balance");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("WalletId")
                         .HasName("PK__wallet__3785C8706E62B1A8");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("wallet", (string)null);
                 });
@@ -271,6 +315,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Models.Wallet", b =>
+                {
+                    b.HasOne("Domain.Models.User", null)
+                        .WithOne("Wallet")
+                        .HasForeignKey("Domain.Models.Wallet", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Models.Author", b =>
                 {
                     b.Navigation("Books");
@@ -289,6 +342,9 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Navigation("PurchaseHistories");
+
+                    b.Navigation("Wallet")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
