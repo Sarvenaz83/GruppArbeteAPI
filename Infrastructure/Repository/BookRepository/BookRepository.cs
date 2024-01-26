@@ -40,6 +40,13 @@ namespace Infrastructure.Repository.BookRepository
             return await _context.Books.Where(book => book.Rating >= minRating).OrderBy(book => book.Rating).ToListAsync();
         }
 
+        public async Task<List<Book>> GetBooksByTitleContainsAsync(string titleSubstring)
+        {
+            return await _context.Books.Where(book => book.Title.Contains(titleSubstring))
+            .OrderByDescending(book => book.Rating)
+            .ToListAsync();
+        }
+
         public async Task<Book> CreateBookAsync(Book book)
         {
             _context.Books.Add(book);

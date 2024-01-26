@@ -5,6 +5,7 @@ using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Application.Queries.BookQueries.GetBookByAuthorName;
 using Application.Queries.BookQueries.GetBookById;
+using Application.Queries.BookQueries.GetBookByTitle;
 using Application.Queries.BookQueries.GetBooksByRating;
 using Application.Validators;
 using MediatR;
@@ -91,6 +92,23 @@ namespace API.Controllers
             {
                 _logger.LogError(ex, "Error occured while getting books by rating.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred processing your request.");
+            }
+        }
+
+        [HttpGet]
+        [Route("GetBookByTitle/{titleSubstring}")]
+        public async Task<IActionResult> GetBookByTitle(string titleSubstring)
+        {
+            try
+            {
+                var query = new GetBookByTitleQuery(titleSubstring);
+                var books = await _mediator.Send(query);
+                return Ok(books);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while getting book by title.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured processing your request.");
             }
         }
 

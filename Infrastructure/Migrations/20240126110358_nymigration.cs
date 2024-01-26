@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -7,7 +8,7 @@
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationUpdateUser : Migration
+    public partial class nymigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -135,19 +136,34 @@ namespace Infrastructure.Migrations
                 columns: new[] { "authorId", "authorName" },
                 values: new object[,]
                 {
-                    { new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"), "Alan Rickman" },
-                    { new Guid("57bd1733-05df-46f5-9d3b-49251d868728"), "Stephen King" },
-                    { new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"), "J.K Rowling" }
+                    { new Guid("1f343d63-5c4e-4511-b508-67d1c6818b51"), "Alan Rickman" },
+                    { new Guid("5d20c294-2030-4d77-9b6f-1221bfd23227"), "J.K Rowling" },
+                    { new Guid("f530419d-0b27-4489-8208-a8be911fc1a1"), "Stephen King" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "user",
+                columns: new[] { "userId", "email", "firstName", "password", "role", "surName", "telephoneNumber", "userName" },
+                values: new object[] { new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae"), null, null, null, null, null, null, "AnvändareTestKöphistorik" });
 
             migrationBuilder.InsertData(
                 table: "book",
                 columns: new[] { "bookId", "authorId", "genre", "pages", "pubYear", "rating", "stockBalance", "summary", "title" },
                 values: new object[,]
                 {
-                    { new Guid("6c4eafc4-797c-49cb-a8ba-c3702633b422"), new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"), "Comedy", 300, new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4609), 3.7m, 20, "Very funny book", "Book 2" },
-                    { new Guid("c0b367a6-6588-4da2-b473-08731d33a0f8"), new Guid("57bd1733-05df-46f5-9d3b-49251d868728"), "Drama", 180, new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4612), 4.8m, 10, "So much drama", "Book 3" },
-                    { new Guid("c1c580b5-d6ad-4c0f-90ff-2cc5bafb16bf"), new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"), "Action", 250, new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4603), 4.5m, 10, "Action packed book", "Book 1" }
+                    { new Guid("ed14e82c-a956-4c10-b216-6781b6355b9b"), new Guid("f530419d-0b27-4489-8208-a8be911fc1a1"), "Drama", 180, new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9500), 4.8m, 10, "So much drama", "Book 3" },
+                    { new Guid("fed16c45-3260-48de-b3ac-84da5273ad1b"), new Guid("1f343d63-5c4e-4511-b508-67d1c6818b51"), "Comedy", 300, new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9500), 3.7m, 20, "Very funny book", "Book 2" },
+                    { new Guid("ff07ea44-75bf-4c0a-8285-d0ee81107810"), new Guid("5d20c294-2030-4d77-9b6f-1221bfd23227"), "Action", 250, new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9480), 4.5m, 10, "Action packed book", "Book 1" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "purchaseHistory",
+                columns: new[] { "purchaseId", "timeOfPurchase", "totalPrice", "userId" },
+                values: new object[,]
+                {
+                    { new Guid("653226f6-841e-4056-b532-dd654bbc9d23"), new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9540), 30, new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae") },
+                    { new Guid("dce57bf2-d244-41ef-88e6-b8bed87657dc"), new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9530), 50, new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae") },
+                    { new Guid("ee820222-04c5-4812-a9cb-67d756fe9832"), new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9540), 25, new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae") }
                 });
 
             migrationBuilder.CreateIndex(

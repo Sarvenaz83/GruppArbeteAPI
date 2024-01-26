@@ -10,6 +10,8 @@ using Application.Commands.WalletCommands;
 using Application.Queries.UserQueries.LoginUser;
 using Application.Commands.UserCommands.UpdateUser;
 using Application.Dtos;
+using Application.Queries.PurchaseHistoriesQueries;
+
 
 namespace API.Controllers
 {
@@ -46,12 +48,6 @@ namespace API.Controllers
             }
 
             var user = await _mediator.Send(new RegisterUserCommand { Username = username, Password = password });
-
-            //if (user == null)
-            //{
-            //    // Användarnamnet är redan upptaget
-            //    return BadRequest(new { Message = "Username is already taken." });
-            //}
 
             return Ok(new { Message = "Register successful", user.UserId, user.UserName });
         }
@@ -98,6 +94,21 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAllPurchaseHistories")]
+        public async Task<IActionResult> GetAllPurchaseHistoriesAsync()
+        {
+            try
+            {
+                var purchaseHistories = await _mediator.Send(new GetAllPurchaseHistoriesQuery());
+                return Ok(purchaseHistories);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete]
         [Route("delete/{userId:guid}")]
         public async Task<IActionResult> DeleteUser(Guid userId)
@@ -122,26 +133,7 @@ namespace API.Controllers
             }
         }
 
-        //[HttpPut("{userId}/wallet")]
-        //public async Task<ActionResult<WalletDto>> UpdateWalletById(Guid userId, WalletDto walletDto)
-        //{
-        //    if (userId != walletDto.UserId)
-        //    {
-        //        return BadRequest("User ID mismatch.");
-        //    }
 
-        //    var walletValidator = new WalletValidator();
-        //    var validationResult = walletValidator.Validate(walletDto);
-
-        //    if (!validationResult.IsValid)
-        //    {
-        //        return BadRequest(validationResult.Errors);
-        //    }
-
-        //    var updatedWallet = await _mediator.Send(new UpdateWalletByIdCommand(walletDto));
-        //    return Ok(updatedWallet);
-        //}
-        // Inuti din UserController
         [HttpPut("{userId}/wallet")]
         public async Task<ActionResult<WalletDto>> UpdateWalletById([FromRoute] Guid userId, [FromBody] WalletDto walletDto)
         {
@@ -176,6 +168,7 @@ namespace API.Controllers
 
             return Ok(result);
         }
+
 
     }
 }
