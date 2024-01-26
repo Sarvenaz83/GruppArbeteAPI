@@ -7,7 +7,8 @@ namespace Infrastructure.Repository.UserRepository
         Task<List<User>> GetAllUsersAsync();
         Task<User> FindByUsernameAsync(string username);
         Task<User> AddAsync(User userToCreate);
-        Task<User> DeleteUser(Guid userId);
-        Task<User> GetById(Guid userId);
+        Task<User> DeleteUserAsync(Guid userId);
+        Task<User> GetByIdAsync(Guid userId);
+        Task UpdateAsync(User user);
     }
 }

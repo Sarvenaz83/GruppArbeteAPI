@@ -41,18 +41,18 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("69921ded-e18a-40df-971f-51ee6bb987c1"),
-                            AuthorName = "Author 1"
+                            AuthorId = new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"),
+                            AuthorName = "J.K Rowling"
                         },
                         new
                         {
-                            AuthorId = new Guid("34214eb7-4e9c-4a73-aa25-90665c4d092b"),
-                            AuthorName = "Author 2"
+                            AuthorId = new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"),
+                            AuthorName = "Alan Rickman"
                         },
                         new
                         {
-                            AuthorId = new Guid("34e70b41-8d8d-4a3a-a48e-3d2820339d50"),
-                            AuthorName = "Author 3"
+                            AuthorId = new Guid("57bd1733-05df-46f5-9d3b-49251d868728"),
+                            AuthorName = "Stephen King"
                         });
                 });
 
@@ -107,11 +107,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            BookId = new Guid("3e6a1f9b-93a5-4c2f-9549-366689271caa"),
-                            AuthorId = new Guid("69921ded-e18a-40df-971f-51ee6bb987c1"),
+                            BookId = new Guid("c1c580b5-d6ad-4c0f-90ff-2cc5bafb16bf"),
+                            AuthorId = new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"),
                             Genre = "Action",
                             Pages = 250,
-                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7894),
+                            PubYear = new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4603),
                             Rating = 4.5m,
                             StockBalance = 10,
                             Summary = "Action packed book",
@@ -119,11 +119,11 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("5be91552-3e41-4345-a89f-72e41537fb14"),
-                            AuthorId = new Guid("34214eb7-4e9c-4a73-aa25-90665c4d092b"),
+                            BookId = new Guid("6c4eafc4-797c-49cb-a8ba-c3702633b422"),
+                            AuthorId = new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"),
                             Genre = "Comedy",
                             Pages = 300,
-                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7914),
+                            PubYear = new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4609),
                             Rating = 3.7m,
                             StockBalance = 20,
                             Summary = "Very funny book",
@@ -131,11 +131,11 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("1fc0dbbc-3d38-4080-a6c3-7bbeac33c9f7"),
-                            AuthorId = new Guid("34e70b41-8d8d-4a3a-a48e-3d2820339d50"),
+                            BookId = new Guid("c0b367a6-6588-4da2-b473-08731d33a0f8"),
+                            AuthorId = new Guid("57bd1733-05df-46f5-9d3b-49251d868728"),
                             Genre = "Drama",
                             Pages = 180,
-                            PubYear = new DateTime(2024, 1, 17, 12, 35, 13, 12, DateTimeKind.Utc).AddTicks(7920),
+                            PubYear = new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4612),
                             Rating = 4.8m,
                             StockBalance = 10,
                             Summary = "So much drama",
@@ -247,13 +247,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("userName");
 
-                    b.Property<Guid>("WalletId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("UserId")
                         .HasName("PK__user__CB9A1CFF7FE751DC");
-
-                    b.HasIndex("WalletId");
 
                     b.ToTable("user", (string)null);
                 });
@@ -268,8 +263,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("balance");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("WalletId")
                         .HasName("PK__wallet__3785C8706E62B1A8");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("wallet", (string)null);
                 });
@@ -311,15 +312,13 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Models.User", b =>
+            modelBuilder.Entity("Domain.Models.Wallet", b =>
                 {
-                    b.HasOne("Domain.Models.Wallet", "Wallet")
-                        .WithMany()
-                        .HasForeignKey("WalletId")
+                    b.HasOne("Domain.Models.User", null)
+                        .WithOne("Wallet")
+                        .HasForeignKey("Domain.Models.Wallet", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("Domain.Models.Author", b =>
@@ -340,6 +339,9 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.User", b =>
                 {
                     b.Navigation("PurchaseHistories");
+
+                    b.Navigation("Wallet")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
