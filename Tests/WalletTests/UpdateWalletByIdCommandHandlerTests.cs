@@ -16,7 +16,7 @@ namespace Tests.WalletTests
     [TestFixture]
     public class UpdateWalletByIdCommandHandlerTests
     {
-        
+
         private Mock<IUserRepository> _mockUserRepository;
         private Mock<IWalletRepository> _mockWalletRepository;
         private UpdateWalletByIdCommandHandler _handler;
