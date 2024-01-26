@@ -4,6 +4,7 @@ using Infrastructure.Repository.BookRepository;
 using Infrastructure.Repository.PurchaseDetailRepository;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
+using Infrastructure.Repository.PurchaseHistoriesRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,11 +16,11 @@ namespace Infrastructure
         {
             services.AddDbContext<HarryPotterContext>(options =>
             {
-                //var connectionString = "Server=localhost,1433;Database=HarryPotter;User Id=sa;Password='Arkemar321@';Encrypt=False;TrustServerCertificate=True;";
+                var connectionString = "Server=localhost,1433;Database=HarryPotter;User Id=sa;Password='Arkemar321@';Encrypt=False;TrustServerCertificate=True;";
 
 
 
-                var connectionString = "Server=(local)\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
+                // var connectionString = "Server=(local)\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
                 options.UseSqlServer(connectionString);
             });
             services.AddScoped<IAuthorRepository, AuthorRepository>();
@@ -27,6 +28,8 @@ namespace Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IPurchaseDetailRepository, PurchaseDetailRepository>();
+            services.AddScoped<IPurchaseHistoriesRepository, PurchaseHistoriesRepository>();
+
 
             return services;
         }

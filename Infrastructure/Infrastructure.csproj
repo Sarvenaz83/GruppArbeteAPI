@@ -22,7 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="Repository\PurchaseHistoriesRepository\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Repository\PurchaseHistoriesRepository\" />
+  </ItemGroup>
 </Project>

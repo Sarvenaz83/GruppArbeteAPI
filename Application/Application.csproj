@@ -21,9 +21,11 @@
   <ItemGroup>
     <None Remove="Queries\UserQueries\GetAllUsers\" />
     <None Remove="Commands\UserCommands\DeleteUser\" />
+    <None Remove="Queries\PurchaseHistoriesQueries\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Queries\UserQueries\GetAllUsers\" />
     <Folder Include="Commands\UserCommands\DeleteUser\" />
+    <Folder Include="Queries\PurchaseHistoriesQueries\" />
   </ItemGroup>
 </Project>
