@@ -8,7 +8,6 @@ namespace Application.Dtos
 {
     public class WalletDto
     {
-        public Guid UserId { get; set; }
         public int Balance { get; set; }
     }
 }

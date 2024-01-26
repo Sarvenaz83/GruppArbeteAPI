@@ -23,22 +23,20 @@ namespace Application.Commands.WalletCommands
 
         public async Task<WalletDto> Handle(UpdateWalletByIdCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetById(request.Wallet.UserId);
+            var user = await _userRepository.GetByIdAsync(request.UserId);
             if (user == null)
             {
                 throw new Exception("User not found.");
             }
 
-            var wallet = await _walletRepository.UpdateBalance(request.Wallet.UserId, request.Wallet.Balance);  // Nu returnerar UpdateBalance ett Wallet objekt
+            var wallet = await _walletRepository.UpdateBalance(request.UserId, request.Wallet.Balance);
 
             // Kontrollera om wallet.Balance är null innan du tilldelar det till WalletDto.Balance
             int balance = wallet.Balance.HasValue ? wallet.Balance.Value : 0;
 
-            // Skapa och returnera en WalletDto från det uppdaterade Wallet-objektet
             return new WalletDto
             {
-                UserId = wallet.UserId,
-                Balance = balance  // Använd den kontrollerade variabeln här
+                Balance = request.Wallet.Balance
             };
         }
     }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Commands.WalletCommands;
 using Application.Queries.UserQueries.LoginUser;
 using Application.Commands.UserCommands.UpdateUser;
+using Application.Dtos;
 
 namespace API.Controllers
 {
@@ -121,25 +122,44 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("{userId}/wallet")]
-        public async Task<ActionResult<WalletDto>> UpdateWalletById(Guid userId, WalletDto walletDto)
-        {
-            if (userId != walletDto.UserId)
-            {
-                return BadRequest("User ID mismatch.");
-            }
+        //[HttpPut("{userId}/wallet")]
+        //public async Task<ActionResult<WalletDto>> UpdateWalletById(Guid userId, WalletDto walletDto)
+        //{
+        //    if (userId != walletDto.UserId)
+        //    {
+        //        return BadRequest("User ID mismatch.");
+        //    }
 
+        //    var walletValidator = new WalletValidator();
+        //    var validationResult = walletValidator.Validate(walletDto);
+
+        //    if (!validationResult.IsValid)
+        //    {
+        //        return BadRequest(validationResult.Errors);
+        //    }
+
+        //    var updatedWallet = await _mediator.Send(new UpdateWalletByIdCommand(walletDto));
+        //    return Ok(updatedWallet);
+        //}
+        // Inuti din UserController
+        [HttpPut("{userId}/wallet")]
+        public async Task<ActionResult<WalletDto>> UpdateWalletById([FromRoute] Guid userId, [FromBody] WalletDto walletDto)
+        {
             var walletValidator = new WalletValidator();
             var validationResult = walletValidator.Validate(walletDto);
-
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.Errors);
             }
 
-            var updatedWallet = await _mediator.Send(new UpdateWalletByIdCommand(walletDto));
+            var command = new UpdateWalletByIdCommand(userId, walletDto);
+            var updatedWallet = await _mediator.Send(command);
             return Ok(updatedWallet);
         }
+
+
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserByIdCommand command)
         {

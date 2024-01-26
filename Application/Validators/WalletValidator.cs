@@ -12,8 +12,9 @@ namespace Application.Validators
     {
         public WalletValidator()
         {
-            RuleFor(wallet => wallet.UserId).NotEmpty().WithMessage("User id is required.");
-            RuleFor(wallet => wallet.Balance).GreaterThanOrEqualTo(0).WithMessage("Balance cannot be negative.");
+            RuleFor(wallet => wallet.Balance)
+                            .GreaterThanOrEqualTo(0).WithMessage("Balance cannot be negative.")
+                            .Must(b => b == (int)b).WithMessage("Balance must be a whole number.");
         }
     }
 }
