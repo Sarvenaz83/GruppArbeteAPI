@@ -1,6 +1,7 @@
 using Infrastructure.DatabaseContext;
 using Infrastructure.Repository.AuthorRepository;
 using Infrastructure.Repository.BookRepository;
+using Infrastructure.Repository.PurchaseDetailRepository;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace Infrastructure
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWalletRepository, WalletRepository>();
+            services.AddScoped<IPurchaseDetailRepository, PurchaseDetailRepository>();
 
             return services;
         }

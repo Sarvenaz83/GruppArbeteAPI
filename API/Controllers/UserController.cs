@@ -1,13 +1,12 @@
 ﻿using Application.Commands.UserCommands.RegisterUser;
-using Application.Dtos;
-using Application.Queries.UserQueries.GetAllUsers;
 using Application.Queries.UserQueries;
+using Application.Queries.UserQueries.GetAllUsers;
 using Application.Validators;
-using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Application.Commands.UserCommands.UpdateUser;
 
 namespace API.Controllers
 {
@@ -102,7 +101,7 @@ namespace API.Controllers
         {
             try
             { //validator??
-                var deletedUser = await _userRepository.DeleteUser(userId);
+                var deletedUser = await _userRepository.DeleteUserAsync(userId);
 
                 if (deletedUser != null)
                 {
@@ -120,6 +119,22 @@ namespace API.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserByIdCommand command)
+        {
+            if (id != command.UserId)
+            {
+                return BadRequest("Mismatched User ID.");
+            }
+
+            var result = await _mediator.Send(command);
+            if (result == null)
+            {
+                return NotFound($"User with ID {id} not found.");
+            }
+
+            return Ok(result);
+        }
 
     }
 }

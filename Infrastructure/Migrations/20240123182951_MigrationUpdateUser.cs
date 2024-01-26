@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class NewDataForAuthorAndBooks : Migration
+    public partial class MigrationUpdateUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,18 +40,6 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK__user__CB9A1CFF7FE751DC", x => x.userId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "wallet",
-                columns: table => new
-                {
-                    walletId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    balance = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__wallet__3785C8706E62B1A8", x => x.walletId);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +86,25 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "wallet",
+                columns: table => new
+                {
+                    walletId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    balance = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__wallet__3785C8706E62B1A8", x => x.walletId);
+                    table.ForeignKey(
+                        name: "FK_wallet_user_UserId",
+                        column: x => x.UserId,
+                        principalTable: "user",
+                        principalColumn: "userId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "purchaseDetail",
                 columns: table => new
                 {
@@ -129,9 +135,19 @@ namespace Infrastructure.Migrations
                 columns: new[] { "authorId", "authorName" },
                 values: new object[,]
                 {
-                    { new Guid("2554a123-bccc-47b2-99e9-8f9b9cddac19"), "Alan Rickman" },
-                    { new Guid("5d7f532e-c2e6-4940-b785-4d63e652fffb"), "J.K Rowling" },
-                    { new Guid("edb42178-5bd8-405d-8e23-9a2c0c204064"), "Stephen King" }
+                    { new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"), "Alan Rickman" },
+                    { new Guid("57bd1733-05df-46f5-9d3b-49251d868728"), "Stephen King" },
+                    { new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"), "J.K Rowling" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "book",
+                columns: new[] { "bookId", "authorId", "genre", "pages", "pubYear", "rating", "stockBalance", "summary", "title" },
+                values: new object[,]
+                {
+                    { new Guid("6c4eafc4-797c-49cb-a8ba-c3702633b422"), new Guid("50909fcf-a4cd-4b73-8602-98aade2664f7"), "Comedy", 300, new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4609), 3.7m, 20, "Very funny book", "Book 2" },
+                    { new Guid("c0b367a6-6588-4da2-b473-08731d33a0f8"), new Guid("57bd1733-05df-46f5-9d3b-49251d868728"), "Drama", 180, new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4612), 4.8m, 10, "So much drama", "Book 3" },
+                    { new Guid("c1c580b5-d6ad-4c0f-90ff-2cc5bafb16bf"), new Guid("9a88c366-d1d5-4337-82e8-b9ec92026488"), "Action", 250, new DateTime(2024, 1, 23, 18, 29, 51, 581, DateTimeKind.Utc).AddTicks(4603), 4.5m, 10, "Action packed book", "Book 1" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -153,6 +169,12 @@ namespace Infrastructure.Migrations
                 name: "IX_purchaseHistory_userId",
                 table: "purchaseHistory",
                 column: "userId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_wallet_UserId",
+                table: "wallet",
+                column: "UserId",
+                unique: true);
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Azure.Core;
+using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ namespace Infrastructure.Repository.UserRepository
         {
             return await _context.Users
                      .Include(u => u.Wallet)
+                     .OrderBy(u => u.UserName)
                      .ToListAsync();
         }
 
@@ -35,15 +37,15 @@ namespace Infrastructure.Repository.UserRepository
             return await _context.Users.FirstOrDefaultAsync(u => u.UserName.ToLower() == username.ToLower());
         }
 
-        public async Task<User> GetById(Guid userId)
+        public async Task<User> GetByIdAsync(Guid userId)
         {
             return await _context.Users.FindAsync(userId);
         }
-        public async Task<User> DeleteUser(Guid userId)
+        public async Task<User> DeleteUserAsync(Guid userId)
         {
             try
             {
-                User userToDelete = await GetById(userId);
+                User userToDelete = await GetByIdAsync(userId);
 
                 _context.Users.Remove(userToDelete);
 
@@ -57,5 +59,26 @@ namespace Infrastructure.Repository.UserRepository
             }
         }
 
+        public async Task UpdateAsync(User user)
+        {
+            var existingUser = await _context.Users.FindAsync(user.UserId);
+            if (existingUser == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
+
+            // Uppdatera egenskaper
+            existingUser.SurName = user.UserName;
+            existingUser.Email = user.Email;
+            existingUser.Password = user.Password;
+            existingUser.TelephoneNumber = user.TelephoneNumber;
+            // ... uppdatera andra egenskaper ...
+
+            // Markera entiteten som ändrad
+            _context.Entry(existingUser).State = EntityState.Modified;
+
+            // Spara ändringarna i databasen
+            await _context.SaveChangesAsync();
+        }
     }
 }

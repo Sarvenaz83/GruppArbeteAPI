@@ -1,9 +1,9 @@
 ﻿using Application.Commands.BookCommands.UpdateBook;
+using Application.Dtos;
 using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Moq;
 using NUnit.Framework;
-using Application.Dtos;
 
 namespace Tests.BookTests.CommandTests
 {

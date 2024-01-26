@@ -3,9 +3,6 @@ using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Tests.Commands.BookCommands
 {
