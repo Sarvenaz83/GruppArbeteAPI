@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Commands.UserCommands.UpdateUser;
 using Application.Queries.PurchaseHistoriesQueries;
 
+
 namespace API.Controllers
 {
     public class UserController : Controller
@@ -151,11 +152,6 @@ namespace API.Controllers
 
             return Ok(result);
         }
-
-
-
-
-
 
 
     }

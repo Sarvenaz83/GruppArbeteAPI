@@ -30,6 +30,7 @@ namespace Infrastructure
             services.AddScoped<IPurchaseDetailRepository, PurchaseDetailRepository>();
             services.AddScoped<IPurchaseHistoriesRepository, PurchaseHistoriesRepository>();
 
+
             return services;
         }
     }
