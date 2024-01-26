@@ -8,6 +8,8 @@ using Infrastructure.Repository.UserRepository;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Application.Commands.WalletCommands;
+using Application.Queries.UserQueries.LoginUser;
 
 namespace API.Controllers
 {
@@ -120,6 +122,25 @@ namespace API.Controllers
             }
         }
 
+        [HttpPut("{userId}/wallet")]
+        public async Task<ActionResult<WalletDto>> UpdateWalletById(Guid userId, WalletDto walletDto)
+        {
+            if (userId != walletDto.UserId)
+            {
+                return BadRequest("User ID mismatch.");
+            }
+
+            var walletValidator = new WalletValidator();
+            var validationResult = walletValidator.Validate(walletDto);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+
+            var updatedWallet = await _mediator.Send(new UpdateWalletByIdCommand(walletDto));
+            return Ok(updatedWallet);
+        }
 
     }
 }

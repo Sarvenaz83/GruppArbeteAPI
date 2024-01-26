@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Queries.UserQueries
+namespace Application.Queries.UserQueries.LoginUser
 {
     public class LoginUserQuery : IRequest<User>
     {

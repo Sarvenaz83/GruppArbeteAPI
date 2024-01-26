@@ -1,4 +1,5 @@
 ﻿using Application.Queries.UserQueries;
+using Application.Queries.UserQueries.LoginUser;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Moq;
