@@ -5,5 +5,6 @@ namespace Infrastructure.Repository.WalletRepository
     public interface IWalletRepository
     {
         Task<Wallet> AddAsync(Wallet wallet);
+        Task<Wallet> UpdateBalance(Guid userId, int balance);
     }
 }

@@ -2,7 +2,7 @@
 using Infrastructure.Repository.UserRepository;
 using MediatR;
 
-namespace Application.Queries.UserQueries
+namespace Application.Queries.UserQueries.LoginUser
 {
     public class LoginUserQueryHandler : IRequestHandler<LoginUserQuery, User>
     {

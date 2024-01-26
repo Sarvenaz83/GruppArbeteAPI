@@ -6,7 +6,10 @@ using Infrastructure.Repository.UserRepository;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Application.Commands.WalletCommands;
+using Application.Queries.UserQueries.LoginUser;
 using Application.Commands.UserCommands.UpdateUser;
+using Application.Dtos;
 using Application.Queries.PurchaseHistoriesQueries;
 
 
@@ -45,12 +48,6 @@ namespace API.Controllers
             }
 
             var user = await _mediator.Send(new RegisterUserCommand { Username = username, Password = password });
-
-            //if (user == null)
-            //{
-            //    // Användarnamnet är redan upptaget
-            //    return BadRequest(new { Message = "Username is already taken." });
-            //}
 
             return Ok(new { Message = "Register successful", user.UserId, user.UserName });
         }
@@ -135,6 +132,25 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPut("{userId}/wallet")]
+        public async Task<ActionResult<WalletDto>> UpdateWalletById([FromRoute] Guid userId, [FromBody] WalletDto walletDto)
+        {
+            var walletValidator = new WalletValidator();
+            var validationResult = walletValidator.Validate(walletDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+
+            var command = new UpdateWalletByIdCommand(userId, walletDto);
+            var updatedWallet = await _mediator.Send(command);
+            return Ok(updatedWallet);
+        }
+
+
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserByIdCommand command)

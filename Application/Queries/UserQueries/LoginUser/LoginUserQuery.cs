@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using MediatR;
 
-namespace Application.Queries.UserQueries
+namespace Application.Queries.UserQueries.LoginUser
 {
     public class LoginUserQuery : IRequest<User>
     {
