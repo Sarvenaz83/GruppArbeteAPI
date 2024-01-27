@@ -7,7 +7,7 @@ namespace Application.Validators
     {
         public PurchaseHistoryValidator()
         {
-            RuleFor(purchaseHistory => purchaseHistory.PurchaseId)
+            RuleFor(purchaseHistory => purchaseHistory.PurchaseHistoryId)
                 .NotEmpty().WithMessage("PurchaseId kan inte vara tom");
 
             RuleFor(purchaseHistory => purchaseHistory.UserId)

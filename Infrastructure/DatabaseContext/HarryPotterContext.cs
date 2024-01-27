@@ -18,7 +18,7 @@ namespace Infrastructure.DatabaseContext
 
         public virtual DbSet<Book> Books { get; set; }
 
-        public virtual DbSet<PurchaseDetail> PurchaseDetails { get; set; }
+        public virtual DbSet<Receipt> Receipts { get; set; }
 
         public virtual DbSet<PurchaseHistory> PurchaseHistories { get; set; }
 
@@ -28,11 +28,11 @@ namespace Infrastructure.DatabaseContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Server=localhost,1433;Database=HarryPotter;User Id=sa;Password='Arkemar321@';Encrypt=False;TrustServerCertificate=True;";
+            //string connectionString = "Server=localhost,1433;Database=HarryPotter;User Id=sa;Password='Arkemar321@';Encrypt=False;TrustServerCertificate=True;";
 
 
 
-            // string connectionString = "Server=(local)\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
+            string connectionString = "Server=(local)\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
             optionsBuilder.UseSqlServer(connectionString);
         }
 
@@ -86,41 +86,41 @@ namespace Infrastructure.DatabaseContext
                     .HasConstraintName("FK__book__authorId__4222D4EF");
             });
 
-            modelBuilder.Entity<PurchaseDetail>(entity =>
+            modelBuilder.Entity<Receipt>(entity =>
             {
-                entity.HasKey(e => e.PurchaseDetailId).HasName("PK__purchase__FA43B55BADA17CED");
+                entity.HasKey(e => e.ReceiptId).HasName("PK__purchase__FA43B55BADA17CED");
 
-                entity.ToTable("purchaseDetail");
+                entity.ToTable("Receipt");
 
-                entity.Property(e => e.PurchaseDetailId)
+                entity.Property(e => e.ReceiptId)
                     .ValueGeneratedNever()
-                    .HasColumnName("purchaseDetailId");
+                    .HasColumnName("ReceiptId");
                 entity.Property(e => e.BookId).HasColumnName("bookId");
                 entity.Property(e => e.DateDetail)
                     .HasColumnType("datetime")
                     .HasColumnName("dateDetail");
                 entity.Property(e => e.PricePerUnit).HasColumnName("pricePerUnit");
-                entity.Property(e => e.PurchaseId).HasColumnName("purchaseId");
+                entity.Property(e => e.PurchaseHistoryId).HasColumnName("purchaseHistoryId");
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.HasOne(d => d.Book).WithMany(p => p.PurchaseDetails)
+                entity.HasOne(d => d.Book).WithMany(p => p.Receipts)
                     .HasForeignKey(d => d.BookId)
                     .HasConstraintName("FK__purchaseD__bookI__440B1D61");
 
-                entity.HasOne(d => d.Purchase).WithMany(p => p.PurchaseDetails)
-                    .HasForeignKey(d => d.PurchaseId)
+                entity.HasOne(d => d.PurchaseHistories).WithMany(p => p.Receipts)
+                    .HasForeignKey(d => d.PurchaseHistoryId)
                     .HasConstraintName("FK__purchaseD__purch__4316F928");
             });
 
             modelBuilder.Entity<PurchaseHistory>(entity =>
             {
-                entity.HasKey(e => e.PurchaseId).HasName("PK__purchase__0261226C79359CBF");
+                entity.HasKey(e => e.PurchaseHistoryId).HasName("PK__purchase__0261226C79359CBF");
 
                 entity.ToTable("purchaseHistory");
 
-                entity.Property(e => e.PurchaseId)
+                entity.Property(e => e.PurchaseHistoryId)
                     .ValueGeneratedNever()
-                    .HasColumnName("purchaseId");
+                    .HasColumnName("purchaseHistoryId");
                 entity.Property(e => e.TimeOfPurchase)
                     .HasColumnType("datetime")
                     .HasColumnName("timeOfPurchase");
