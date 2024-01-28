@@ -22,5 +22,5 @@ public partial class Book
 
     public virtual Author? Author { get; set; }
 
-    public virtual ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new List<PurchaseDetail>();
+    public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
 }

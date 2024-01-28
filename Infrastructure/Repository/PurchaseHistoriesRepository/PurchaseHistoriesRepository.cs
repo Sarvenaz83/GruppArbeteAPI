@@ -1,5 +1,4 @@
-﻿// PurchaseHistoriesRepository
-using System;
+﻿using System;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Infrastructure.Repository.PurchaseHistoriesRepository;
