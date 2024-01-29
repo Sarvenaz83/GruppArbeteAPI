@@ -95,7 +95,7 @@ namespace API.Controllers
             try
             {
                 var result = await _mediator.Send(new CreateAuthorCommand(newAuthor));
-                if (result != null) 
+                if (result != null)
                     return Ok($"Successfully created new author: {newAuthor.AuthorName}");
                 else
                     return BadRequest(result);
