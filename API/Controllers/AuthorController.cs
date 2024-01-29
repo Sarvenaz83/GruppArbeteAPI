@@ -1,7 +1,7 @@
 ﻿using Application.Commands.AuthorCommands.CreateAuthor;
 using Application.Commands.AuthorCommands.DeleteAuthor;
 using Application.Commands.AuthorCommands.UpdateAuthor;
-using Application.Dtos;
+using Application.Dtos.AuthorDtos;
 using Application.Queries.AuthorQueries.GetAllAuthor;
 using Application.Queries.AuthorQueries.GetAuthorByBook;
 using Application.Validators;

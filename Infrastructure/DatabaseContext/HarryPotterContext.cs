@@ -39,26 +39,26 @@ namespace Infrastructure.DatabaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Konfiguration för Author
             modelBuilder.Entity<Author>(entity =>
             {
                 entity.HasKey(e => e.AuthorId).HasName("PK__author__8E2731B93441940C");
-
                 entity.ToTable("author");
-
                 entity.Property(e => e.AuthorId)
                     .ValueGeneratedNever()
                     .HasColumnName("authorId");
                 entity.Property(e => e.AuthorName)
                     .HasMaxLength(255)
                     .HasColumnName("authorName");
+
+                entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             });
 
+            // Konfiguration för Book
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.HasKey(e => e.BookId).HasName("PK__book__8BE5A10DE068B40D");
-
                 entity.ToTable("book");
-
                 entity.Property(e => e.BookId)
                     .ValueGeneratedNever()
                     .HasColumnName("bookId");
@@ -81,17 +81,20 @@ namespace Infrastructure.DatabaseContext
                     .HasMaxLength(255)
                     .HasColumnName("title");
 
-                entity.HasOne(d => d.Author).WithMany(p => p.Books)
+                entity.HasOne(d => d.Author)
+                    .WithMany(p => p.Books)
                     .HasForeignKey(d => d.AuthorId)
                     .HasConstraintName("FK__book__authorId__4222D4EF");
+
+                entity.Property(b => b.IsDeleted).HasDefaultValue(false);
+                entity.HasQueryFilter(b => !b.IsDeleted);
             });
 
+            // Konfiguration för Receipt
             modelBuilder.Entity<Receipt>(entity =>
             {
                 entity.HasKey(e => e.ReceiptId).HasName("PK__purchase__FA43B55BADA17CED");
-
                 entity.ToTable("Receipt");
-
                 entity.Property(e => e.ReceiptId)
                     .ValueGeneratedNever()
                     .HasColumnName("ReceiptId");
@@ -103,21 +106,23 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.PurchaseHistoryId).HasColumnName("purchaseHistoryId");
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.HasOne(d => d.Book).WithMany(p => p.Receipts)
-                    .HasForeignKey(d => d.BookId)
-                    .HasConstraintName("FK__purchaseD__bookI__440B1D61");
-
-                entity.HasOne(d => d.PurchaseHistories).WithMany(p => p.Receipts)
+                entity.HasOne(d => d.PurchaseHistories)
+                    .WithMany(p => p.Receipts)
                     .HasForeignKey(d => d.PurchaseHistoryId)
                     .HasConstraintName("FK__purchaseD__purch__4316F928");
+
+                entity.HasOne(d => d.PurchaseHistories)
+                    .WithMany(p => p.Receipts)
+                    .HasForeignKey(d => d.PurchaseHistoryId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
             });
 
+            // Konfiguration för PurchaseHistory
             modelBuilder.Entity<PurchaseHistory>(entity =>
             {
                 entity.HasKey(e => e.PurchaseHistoryId).HasName("PK__purchase__0261226C79359CBF");
-
                 entity.ToTable("purchaseHistory");
-
                 entity.Property(e => e.PurchaseHistoryId)
                     .ValueGeneratedNever()
                     .HasColumnName("purchaseHistoryId");
@@ -127,17 +132,22 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.TotalPrice).HasColumnName("totalPrice");
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
-                entity.HasOne(d => d.User).WithMany(p => p.PurchaseHistories)
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PurchaseHistories)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__purchaseH__userI__412EB0B6");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PurchaseHistories)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
+            // Konfiguration för User
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserId).HasName("PK__user__CB9A1CFF7FE751DC");
-
                 entity.ToTable("user");
-
                 entity.Property(e => e.UserId)
                     .ValueGeneratedNever()
                     .HasColumnName("userId");
@@ -163,20 +173,30 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.UserName)
                     .HasMaxLength(255)
                     .HasColumnName("userName");
+
+                // Om Wallet är en-till-en relation med User
+                entity.HasOne(d => d.Wallet)
+                    .WithOne(p => p.User)
+                    .HasForeignKey<Wallet>(w => w.UserId);
             });
 
+            // Konfiguration för Wallet
             modelBuilder.Entity<Wallet>(entity =>
             {
                 entity.HasKey(e => e.WalletId).HasName("PK__wallet__3785C8706E62B1A8");
-
                 entity.ToTable("wallet");
-
                 entity.Property(e => e.WalletId)
                     .ValueGeneratedNever()
                     .HasColumnName("walletId");
                 entity.Property(e => e.Balance).HasColumnName("balance");
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.HasOne(w => w.User)
+                    .WithOne(u => u.Wallet)
+                    .HasForeignKey<Wallet>(w => w.UserId);
             });
 
+            // Eventuella seedningskommandon...
             DataSeeder.SeedData(modelBuilder);
         }
     }

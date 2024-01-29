@@ -33,6 +33,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("authorName");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.HasKey("AuthorId")
                         .HasName("PK__author__8E2731B93441940C");
 
@@ -41,18 +46,21 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("72e04cc7-4583-4227-903e-34035e85b563"),
-                            AuthorName = "J.K Rowling"
+                            AuthorId = new Guid("28fcabdd-44ef-47f2-ac09-d96e955990c4"),
+                            AuthorName = "J.K Rowling",
+                            IsDeleted = false
                         },
                         new
                         {
-                            AuthorId = new Guid("65ed2138-1f8c-4276-9225-675534783390"),
-                            AuthorName = "Alan Rickman"
+                            AuthorId = new Guid("be406e3e-922a-4bc7-a2af-0f539ee4658a"),
+                            AuthorName = "Alan Rickman",
+                            IsDeleted = false
                         },
                         new
                         {
-                            AuthorId = new Guid("6c423d32-d22b-4f5f-88d3-db2a361e6a90"),
-                            AuthorName = "Stephen King"
+                            AuthorId = new Guid("419809c8-1e5b-4a9a-b795-e1a49c32add1"),
+                            AuthorName = "Stephen King",
+                            IsDeleted = false
                         });
                 });
 
@@ -70,6 +78,11 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("genre");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int?>("Pages")
                         .HasColumnType("int")
@@ -107,11 +120,12 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            BookId = new Guid("c8e9c2cb-64d5-444c-ad81-3fbbe4506102"),
-                            AuthorId = new Guid("72e04cc7-4583-4227-903e-34035e85b563"),
+                            BookId = new Guid("2739dcb3-33b4-4736-a40c-4cb13a04177a"),
+                            AuthorId = new Guid("28fcabdd-44ef-47f2-ac09-d96e955990c4"),
                             Genre = "Action",
+                            IsDeleted = false,
                             Pages = 250,
-                            PubYear = new DateTime(2024, 1, 29, 10, 32, 3, 334, DateTimeKind.Utc).AddTicks(4699),
+                            PubYear = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4115),
                             Rating = 4.5m,
                             StockBalance = 10,
                             Summary = "Action packed book",
@@ -119,11 +133,12 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("445cefb8-5e95-4be1-b4b7-b4d8564884ac"),
-                            AuthorId = new Guid("65ed2138-1f8c-4276-9225-675534783390"),
+                            BookId = new Guid("cd7dc22b-5710-4713-b8ae-fc78358f5a6e"),
+                            AuthorId = new Guid("be406e3e-922a-4bc7-a2af-0f539ee4658a"),
                             Genre = "Comedy",
+                            IsDeleted = false,
                             Pages = 300,
-                            PubYear = new DateTime(2024, 1, 29, 10, 32, 3, 334, DateTimeKind.Utc).AddTicks(4710),
+                            PubYear = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4122),
                             Rating = 3.7m,
                             StockBalance = 20,
                             Summary = "Very funny book",
@@ -131,11 +146,12 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("3e8878ff-a4bf-4132-8701-065a6de4f54c"),
-                            AuthorId = new Guid("6c423d32-d22b-4f5f-88d3-db2a361e6a90"),
+                            BookId = new Guid("64e615ca-e052-47b2-a26d-6d98d63a27f8"),
+                            AuthorId = new Guid("419809c8-1e5b-4a9a-b795-e1a49c32add1"),
                             Genre = "Drama",
+                            IsDeleted = false,
                             Pages = 180,
-                            PubYear = new DateTime(2024, 1, 29, 10, 32, 3, 334, DateTimeKind.Utc).AddTicks(4713),
+                            PubYear = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2876),
                             Rating = 4.8m,
                             StockBalance = 10,
                             Summary = "So much drama",
@@ -171,24 +187,24 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            PurchaseHistoryId = new Guid("4a2e0a73-86d8-4b72-9b9d-b7572b211943"),
-                            TimeOfPurchase = new DateTime(2024, 1, 29, 10, 32, 3, 650, DateTimeKind.Utc).AddTicks(8873),
+                            PurchaseHistoryId = new Guid("6bc02deb-f4c6-4b21-ab5f-38d6660d6c01"),
+                            TimeOfPurchase = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4181),
                             TotalPrice = 50,
-                            UserId = new Guid("330574ee-d3bd-4e48-8936-955494b58449")
+                            UserId = new Guid("95719511-516c-4ae7-b270-cb03d1f1d018")
                         },
                         new
                         {
-                            PurchaseHistoryId = new Guid("93fc911d-fae3-4627-976f-b3319565042d"),
-                            TimeOfPurchase = new DateTime(2024, 1, 29, 10, 32, 3, 650, DateTimeKind.Utc).AddTicks(8876),
+                            PurchaseHistoryId = new Guid("31db8645-1463-4c2b-bf8c-7fe3afe16479"),
+                            TimeOfPurchase = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4182),
                             TotalPrice = 30,
-                            UserId = new Guid("330574ee-d3bd-4e48-8936-955494b58449")
+                            UserId = new Guid("95719511-516c-4ae7-b270-cb03d1f1d018")
                         },
                         new
                         {
-                            PurchaseHistoryId = new Guid("c954a4e4-6c8d-4870-92e4-ac176f0bd679"),
-                            TimeOfPurchase = new DateTime(2024, 1, 29, 10, 32, 3, 650, DateTimeKind.Utc).AddTicks(8878),
+                            PurchaseHistoryId = new Guid("a0438ac8-ee5e-4065-91cd-43eb5eabfb61"),
+                            TimeOfPurchase = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4183),
                             TotalPrice = 25,
-                            UserId = new Guid("330574ee-d3bd-4e48-8936-955494b58449")
+                            UserId = new Guid("95719511-516c-4ae7-b270-cb03d1f1d018")
                         });
                 });
 
@@ -230,29 +246,29 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            ReceiptId = new Guid("20081bb9-7279-42de-80f7-97f6b18f6556"),
-                            BookId = new Guid("c8e9c2cb-64d5-444c-ad81-3fbbe4506102"),
-                            DateDetail = new DateTime(2024, 1, 29, 10, 32, 3, 650, DateTimeKind.Utc).AddTicks(8947),
+                            ReceiptId = new Guid("46676ea5-1eb9-48e2-96bc-12b04f010ba2"),
+                            BookId = new Guid("2739dcb3-33b4-4736-a40c-4cb13a04177a"),
+                            DateDetail = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4204),
                             PricePerUnit = 100,
-                            PurchaseHistoryId = new Guid("4a2e0a73-86d8-4b72-9b9d-b7572b211943"),
+                            PurchaseHistoryId = new Guid("6bc02deb-f4c6-4b21-ab5f-38d6660d6c01"),
                             Quantity = 2
                         },
                         new
                         {
-                            ReceiptId = new Guid("8a526480-7853-4429-a646-38e17466a9f4"),
-                            BookId = new Guid("445cefb8-5e95-4be1-b4b7-b4d8564884ac"),
-                            DateDetail = new DateTime(2024, 1, 29, 10, 32, 3, 650, DateTimeKind.Utc).AddTicks(8950),
+                            ReceiptId = new Guid("1fe707be-2bd9-4989-afe9-1791b77c7e25"),
+                            BookId = new Guid("cd7dc22b-5710-4713-b8ae-fc78358f5a6e"),
+                            DateDetail = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4206),
                             PricePerUnit = 150,
-                            PurchaseHistoryId = new Guid("93fc911d-fae3-4627-976f-b3319565042d"),
+                            PurchaseHistoryId = new Guid("31db8645-1463-4c2b-bf8c-7fe3afe16479"),
                             Quantity = 1
                         },
                         new
                         {
-                            ReceiptId = new Guid("6c3759b0-e8f6-45f1-990a-b4b0ec5e675b"),
-                            BookId = new Guid("3e8878ff-a4bf-4132-8701-065a6de4f54c"),
-                            DateDetail = new DateTime(2024, 1, 29, 10, 32, 3, 650, DateTimeKind.Utc).AddTicks(8952),
+                            ReceiptId = new Guid("149cb5f2-fdf1-4536-a45c-091987317f32"),
+                            BookId = new Guid("64e615ca-e052-47b2-a26d-6d98d63a27f8"),
+                            DateDetail = new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4207),
                             PricePerUnit = 80,
-                            PurchaseHistoryId = new Guid("c954a4e4-6c8d-4870-92e4-ac176f0bd679"),
+                            PurchaseHistoryId = new Guid("a0438ac8-ee5e-4065-91cd-43eb5eabfb61"),
                             Quantity = 3
                         });
                 });
@@ -307,7 +323,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("330574ee-d3bd-4e48-8936-955494b58449"),
+                            UserId = new Guid("95719511-516c-4ae7-b270-cb03d1f1d018"),
                             UserName = "AnvändareTestKöphistorik"
                         },
                         new
@@ -329,7 +345,8 @@ namespace Infrastructure.Migrations
                         .HasColumnName("balance");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("userId");
 
                     b.HasKey("WalletId")
                         .HasName("PK__wallet__3785C8706E62B1A8");
@@ -355,6 +372,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Models.User", "User")
                         .WithMany("PurchaseHistories")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__purchaseH__userI__412EB0B6");
 
                     b.Navigation("User");
@@ -363,13 +381,13 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Receipt", b =>
                 {
                     b.HasOne("Domain.Models.Book", "Book")
-                        .WithMany("Receipts")
-                        .HasForeignKey("BookId")
-                        .HasConstraintName("FK__purchaseD__bookI__440B1D61");
+                        .WithMany()
+                        .HasForeignKey("BookId");
 
                     b.HasOne("Domain.Models.PurchaseHistory", "PurchaseHistories")
                         .WithMany("Receipts")
                         .HasForeignKey("PurchaseHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("FK__purchaseD__purch__4316F928");
 
                     b.Navigation("Book");
@@ -379,21 +397,18 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Wallet", b =>
                 {
-                    b.HasOne("Domain.Models.User", null)
+                    b.HasOne("Domain.Models.User", "User")
                         .WithOne("Wallet")
                         .HasForeignKey("Domain.Models.Wallet", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Author", b =>
                 {
                     b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("Domain.Models.Book", b =>
-                {
-                    b.Navigation("Receipts");
                 });
 
             modelBuilder.Entity("Domain.Models.PurchaseHistory", b =>

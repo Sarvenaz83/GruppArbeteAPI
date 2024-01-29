@@ -1,4 +1,4 @@
-﻿using Application.Dtos;
+﻿using Application.Dtos.WalletDtos;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

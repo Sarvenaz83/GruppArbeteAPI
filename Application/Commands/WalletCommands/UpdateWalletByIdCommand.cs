@@ -1,4 +1,4 @@
-﻿using Application.Dtos;
+﻿using Application.Dtos.WalletDtos;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -14,7 +14,7 @@ public partial class Receipt
 
     public DateTime? DateDetail { get; set; }
 
-    public virtual Book? Book { get; set; }
+    //public virtual Book? Book { get; set; }
 
     public virtual PurchaseHistory? PurchaseHistories { get; set; }
 }
