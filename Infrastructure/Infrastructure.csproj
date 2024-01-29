@@ -25,4 +25,8 @@
   <ItemGroup>
     <None Remove="Repository\PurchaseHistoriesRepository\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>

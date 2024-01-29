@@ -123,11 +123,6 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK__purchase__FA43B55BADA17CED", x => x.ReceiptId);
                     table.ForeignKey(
-                        name: "FK_Receipt_book_bookId",
-                        column: x => x.bookId,
-                        principalTable: "book",
-                        principalColumn: "bookId");
-                    table.ForeignKey(
                         name: "FK__purchaseD__purch__4316F928",
                         column: x => x.purchaseHistoryId,
                         principalTable: "purchaseHistory",
@@ -140,24 +135,28 @@ namespace Infrastructure.Migrations
                 columns: new[] { "authorId", "authorName" },
                 values: new object[,]
                 {
-                    { new Guid("28fcabdd-44ef-47f2-ac09-d96e955990c4"), "J.K Rowling" },
-                    { new Guid("419809c8-1e5b-4a9a-b795-e1a49c32add1"), "Stephen King" },
-                    { new Guid("be406e3e-922a-4bc7-a2af-0f539ee4658a"), "Alan Rickman" }
+                    { new Guid("64789fec-9300-4280-8e92-914896c7b100"), "Stephen King" },
+                    { new Guid("9d2d656b-d9eb-42d8-9766-9f73419497a5"), "J.K Rowling" },
+                    { new Guid("d8282806-a11f-42d5-b448-c6f89895022d"), "Alan Rickman" }
                 });
 
             migrationBuilder.InsertData(
                 table: "user",
                 columns: new[] { "userId", "email", "firstName", "password", "role", "surName", "telephoneNumber", "userName" },
-                values: new object[] { new Guid("95719511-516c-4ae7-b270-cb03d1f1d018"), null, null, null, null, null, null, "AnvändareTestKöphistorik" });
+                values: new object[,]
+                {
+                    { new Guid("4fc7901e-972d-47aa-995d-7db3a231a939"), null, null, "$2a$11$0GALVlCcgctE8p1u0RqZQetzmOJncF/TrL7TyMAnZ8k7UHbd1WmG.", null, null, null, "admin" },
+                    { new Guid("e33dc758-e89e-4e66-9d95-b5035151421a"), null, null, null, null, null, null, "AnvändareTestKöphistorik" }
+                });
 
             migrationBuilder.InsertData(
                 table: "book",
                 columns: new[] { "bookId", "authorId", "genre", "pages", "pubYear", "rating", "stockBalance", "summary", "title" },
                 values: new object[,]
                 {
-                    { new Guid("2739dcb3-33b4-4736-a40c-4cb13a04177a"), new Guid("28fcabdd-44ef-47f2-ac09-d96e955990c4"), "Action", 250, new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4115), 4.5m, 10, "Action packed book", "Book 1" },
-                    { new Guid("64e615ca-e052-47b2-a26d-6d98d63a27f8"), new Guid("419809c8-1e5b-4a9a-b795-e1a49c32add1"), "Drama", 180, new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4124), 4.8m, 10, "So much drama", "Book 3" },
-                    { new Guid("cd7dc22b-5710-4713-b8ae-fc78358f5a6e"), new Guid("be406e3e-922a-4bc7-a2af-0f539ee4658a"), "Comedy", 300, new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4122), 3.7m, 20, "Very funny book", "Book 2" }
+                    { new Guid("89fdd5ff-038c-4a5e-93e0-6592c647a9ec"), new Guid("64789fec-9300-4280-8e92-914896c7b100"), "Drama", 180, new DateTime(2024, 1, 29, 18, 38, 56, 97, DateTimeKind.Utc).AddTicks(9295), 4.8m, 10, "So much drama", "Book 3" },
+                    { new Guid("d2f787b4-8f05-4bfb-940e-d6f79e9e5de6"), new Guid("9d2d656b-d9eb-42d8-9766-9f73419497a5"), "Action", 250, new DateTime(2024, 1, 29, 18, 38, 56, 97, DateTimeKind.Utc).AddTicks(9284), 4.5m, 10, "Action packed book", "Book 1" },
+                    { new Guid("efe571e9-5753-48c2-8154-f58eb9a1dd24"), new Guid("d8282806-a11f-42d5-b448-c6f89895022d"), "Comedy", 300, new DateTime(2024, 1, 29, 18, 38, 56, 97, DateTimeKind.Utc).AddTicks(9292), 3.7m, 20, "Very funny book", "Book 2" }
                 });
 
             migrationBuilder.InsertData(
@@ -165,9 +164,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "purchaseHistoryId", "timeOfPurchase", "totalPrice", "userId" },
                 values: new object[,]
                 {
-                    { new Guid("31db8645-1463-4c2b-bf8c-7fe3afe16479"), new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4182), 30, new Guid("95719511-516c-4ae7-b270-cb03d1f1d018") },
-                    { new Guid("6bc02deb-f4c6-4b21-ab5f-38d6660d6c01"), new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4181), 50, new Guid("95719511-516c-4ae7-b270-cb03d1f1d018") },
-                    { new Guid("a0438ac8-ee5e-4065-91cd-43eb5eabfb61"), new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4183), 25, new Guid("95719511-516c-4ae7-b270-cb03d1f1d018") }
+                    { new Guid("1f3d6ee1-e8a9-474b-93af-817ffc090114"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3294), 30, new Guid("e33dc758-e89e-4e66-9d95-b5035151421a") },
+                    { new Guid("b7659a18-2c0e-46f4-af5c-0d03ed898814"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3295), 25, new Guid("e33dc758-e89e-4e66-9d95-b5035151421a") },
+                    { new Guid("c0ab523f-3dc4-4f69-a7e9-0b418f37da53"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3291), 50, new Guid("e33dc758-e89e-4e66-9d95-b5035151421a") }
                 });
 
             migrationBuilder.InsertData(
@@ -175,9 +174,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "ReceiptId", "bookId", "dateDetail", "pricePerUnit", "purchaseHistoryId", "quantity" },
                 values: new object[,]
                 {
-                    { new Guid("149cb5f2-fdf1-4536-a45c-091987317f32"), new Guid("64e615ca-e052-47b2-a26d-6d98d63a27f8"), new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4207), 80, new Guid("a0438ac8-ee5e-4065-91cd-43eb5eabfb61"), 3 },
-                    { new Guid("1fe707be-2bd9-4989-afe9-1791b77c7e25"), new Guid("cd7dc22b-5710-4713-b8ae-fc78358f5a6e"), new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4206), 150, new Guid("31db8645-1463-4c2b-bf8c-7fe3afe16479"), 1 },
-                    { new Guid("46676ea5-1eb9-48e2-96bc-12b04f010ba2"), new Guid("2739dcb3-33b4-4736-a40c-4cb13a04177a"), new DateTime(2024, 1, 29, 15, 44, 23, 576, DateTimeKind.Utc).AddTicks(4204), 100, new Guid("6bc02deb-f4c6-4b21-ab5f-38d6660d6c01"), 2 }
+                    { new Guid("0d98838f-0ec5-4a03-9ff1-67c10aa90fc4"), new Guid("d2f787b4-8f05-4bfb-940e-d6f79e9e5de6"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3383), 100, new Guid("c0ab523f-3dc4-4f69-a7e9-0b418f37da53"), 2 },
+                    { new Guid("a197e0a5-737e-4702-9d6d-0bf59ea4c0d2"), new Guid("89fdd5ff-038c-4a5e-93e0-6592c647a9ec"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3389), 80, new Guid("b7659a18-2c0e-46f4-af5c-0d03ed898814"), 3 },
+                    { new Guid("d1f903ae-0187-4ad9-9dc7-67e5882c552e"), new Guid("efe571e9-5753-48c2-8154-f58eb9a1dd24"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3387), 150, new Guid("1f3d6ee1-e8a9-474b-93af-817ffc090114"), 1 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -189,11 +188,6 @@ namespace Infrastructure.Migrations
                 name: "IX_purchaseHistory_userId",
                 table: "purchaseHistory",
                 column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Receipt_bookId",
-                table: "Receipt",
-                column: "bookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Receipt_purchaseHistoryId",
@@ -211,19 +205,19 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "book");
+
+            migrationBuilder.DropTable(
                 name: "Receipt");
 
             migrationBuilder.DropTable(
                 name: "wallet");
 
             migrationBuilder.DropTable(
-                name: "book");
+                name: "author");
 
             migrationBuilder.DropTable(
                 name: "purchaseHistory");
-
-            migrationBuilder.DropTable(
-                name: "author");
 
             migrationBuilder.DropTable(
                 name: "user");
