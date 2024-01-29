@@ -4,6 +4,7 @@ using Application.Commands.AuthorCommands.UpdateAuthor;
 using Application.Dtos;
 using Application.Queries.AuthorQueries.GetAllAuthor;
 using Application.Queries.AuthorQueries.GetAuthorByBook;
+using Application.Queries.AuthorQueries.GetAuthorById;
 using Application.Validators;
 using Infrastructure.Repository.AuthorRepository;
 using MediatR;
@@ -40,6 +41,31 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetAuthorById/{authorId}")]
+        public async Task<IActionResult> GetAuthorById(Guid authorId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetAuthorByIdQuery(authorId));
+
+                if (result != null)
+                    return Ok(result);
+                else
+                    return NotFound($"Author with ID {authorId} not found.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpGet]
         [Route("GetAuthorByBook/{bookTitle}")]
         public async Task<IActionResult> GetAuthorByBook(string bookTitle)
