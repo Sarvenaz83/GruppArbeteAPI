@@ -1,28 +1,36 @@
-﻿using Domain.Models;
+﻿using Application.Commands.AuthorCommands.CreateAuthor;
+using Application.Dtos.AuthorDtos;
+using Domain.Models;
 using Infrastructure.Repository.AuthorRepository;
 using MediatR;
 
-namespace Application.Commands.AuthorCommands.CreateAuthor
+public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, CreateAuthorResponseDto>
 {
-    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, Author>
+    private readonly IAuthorRepository _authorRepository;
+
+    public CreateAuthorCommandHandler(IAuthorRepository authorRepository)
     {
-        private readonly IAuthorRepository _authorRepository;
+        _authorRepository = authorRepository;
+    }
 
-        public CreateAuthorCommandHandler(IAuthorRepository authorRepository)
+    public async Task<CreateAuthorResponseDto> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
+    {
+        Author newAuthor = new()
         {
-            _authorRepository = authorRepository;
-        }
+            AuthorId = Guid.NewGuid(),
+            AuthorName = request.NewAuthor.AuthorName
+        };
 
-        public async Task<Author> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
+        await _authorRepository.CreateAuthorAsync(newAuthor);
+
+        // Create and return the custom DTO with a message
+        var createauthorResponseDto = new CreateAuthorResponseDto
         {
-            Author newAuthor = new()
-            {
-                AuthorId = Guid.NewGuid(),
-                AuthorName = request.NewAuthor.AuthorName
-            };
-            await _authorRepository.CreateAuthorAsync(newAuthor);
-            return newAuthor;
+            AuthorId = newAuthor.AuthorId,
+            AuthorName = newAuthor.AuthorName,
+            Message = "Author successfully created. Now go and add some books!"
+        };
 
-        }
+        return createauthorResponseDto;
     }
 }

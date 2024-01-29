@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class DeleteAuthor : Migration
+    public partial class CJsmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -135,9 +135,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "authorId", "authorName" },
                 values: new object[,]
                 {
-                    { new Guid("64789fec-9300-4280-8e92-914896c7b100"), "Stephen King" },
-                    { new Guid("9d2d656b-d9eb-42d8-9766-9f73419497a5"), "J.K Rowling" },
-                    { new Guid("d8282806-a11f-42d5-b448-c6f89895022d"), "Alan Rickman" }
+                    { new Guid("61e2434a-b042-4712-865e-025de2031f9d"), "Stephen King" },
+                    { new Guid("7293f967-720a-4d9d-89d8-900e8c71238a"), "J.K Rowling" },
+                    { new Guid("7ac1c2cf-b35e-4b11-bf54-8b081d53d0d2"), "Alan Rickman" }
                 });
 
             migrationBuilder.InsertData(
@@ -145,8 +145,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "userId", "email", "firstName", "password", "role", "surName", "telephoneNumber", "userName" },
                 values: new object[,]
                 {
-                    { new Guid("4fc7901e-972d-47aa-995d-7db3a231a939"), null, null, "$2a$11$0GALVlCcgctE8p1u0RqZQetzmOJncF/TrL7TyMAnZ8k7UHbd1WmG.", null, null, null, "admin" },
-                    { new Guid("e33dc758-e89e-4e66-9d95-b5035151421a"), null, null, null, null, null, null, "AnvändareTestKöphistorik" }
+                    { new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc"), null, null, null, null, null, null, "AnvändareTestKöphistorik" },
+                    { new Guid("f191ecec-26b5-480c-9a0e-3a0f9b4cbda0"), null, null, "$2a$11$zcjgqmz5S9rKT/9YjT9nCOO5tkkTTFaq6asFWbugGJR7OsrUdiswW", null, null, null, "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -154,9 +154,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "bookId", "authorId", "genre", "pages", "pubYear", "rating", "stockBalance", "summary", "title" },
                 values: new object[,]
                 {
-                    { new Guid("89fdd5ff-038c-4a5e-93e0-6592c647a9ec"), new Guid("64789fec-9300-4280-8e92-914896c7b100"), "Drama", 180, new DateTime(2024, 1, 29, 18, 38, 56, 97, DateTimeKind.Utc).AddTicks(9295), 4.8m, 10, "So much drama", "Book 3" },
-                    { new Guid("d2f787b4-8f05-4bfb-940e-d6f79e9e5de6"), new Guid("9d2d656b-d9eb-42d8-9766-9f73419497a5"), "Action", 250, new DateTime(2024, 1, 29, 18, 38, 56, 97, DateTimeKind.Utc).AddTicks(9284), 4.5m, 10, "Action packed book", "Book 1" },
-                    { new Guid("efe571e9-5753-48c2-8154-f58eb9a1dd24"), new Guid("d8282806-a11f-42d5-b448-c6f89895022d"), "Comedy", 300, new DateTime(2024, 1, 29, 18, 38, 56, 97, DateTimeKind.Utc).AddTicks(9292), 3.7m, 20, "Very funny book", "Book 2" }
+                    { new Guid("14d16312-570f-4c8b-94be-b8546edae5d5"), new Guid("7293f967-720a-4d9d-89d8-900e8c71238a"), "Action", 250, new DateTime(2024, 1, 29, 19, 20, 36, 359, DateTimeKind.Utc).AddTicks(8730), 4.5m, 10, "Action packed book", "Book 1" },
+                    { new Guid("718f005d-447e-4c98-9a87-c52d027f4920"), new Guid("7ac1c2cf-b35e-4b11-bf54-8b081d53d0d2"), "Comedy", 300, new DateTime(2024, 1, 29, 19, 20, 36, 359, DateTimeKind.Utc).AddTicks(8740), 3.7m, 20, "Very funny book", "Book 2" },
+                    { new Guid("c64c28b5-bc14-4195-8be9-f9e191e0972b"), new Guid("61e2434a-b042-4712-865e-025de2031f9d"), "Drama", 180, new DateTime(2024, 1, 29, 19, 20, 36, 359, DateTimeKind.Utc).AddTicks(8750), 4.8m, 10, "So much drama", "Book 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -164,9 +164,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "purchaseHistoryId", "timeOfPurchase", "totalPrice", "userId" },
                 values: new object[,]
                 {
-                    { new Guid("1f3d6ee1-e8a9-474b-93af-817ffc090114"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3294), 30, new Guid("e33dc758-e89e-4e66-9d95-b5035151421a") },
-                    { new Guid("b7659a18-2c0e-46f4-af5c-0d03ed898814"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3295), 25, new Guid("e33dc758-e89e-4e66-9d95-b5035151421a") },
-                    { new Guid("c0ab523f-3dc4-4f69-a7e9-0b418f37da53"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3291), 50, new Guid("e33dc758-e89e-4e66-9d95-b5035151421a") }
+                    { new Guid("2e600004-281d-44ec-b7f6-b34efe0b2771"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4430), 25, new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc") },
+                    { new Guid("9234a6d7-7b5b-4006-ab31-17a962f3decf"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4430), 50, new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc") },
+                    { new Guid("ff0eeb52-b9f0-41c5-9340-ab359ef27f4d"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4430), 30, new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc") }
                 });
 
             migrationBuilder.InsertData(
@@ -174,9 +174,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "ReceiptId", "bookId", "dateDetail", "pricePerUnit", "purchaseHistoryId", "quantity" },
                 values: new object[,]
                 {
-                    { new Guid("0d98838f-0ec5-4a03-9ff1-67c10aa90fc4"), new Guid("d2f787b4-8f05-4bfb-940e-d6f79e9e5de6"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3383), 100, new Guid("c0ab523f-3dc4-4f69-a7e9-0b418f37da53"), 2 },
-                    { new Guid("a197e0a5-737e-4702-9d6d-0bf59ea4c0d2"), new Guid("89fdd5ff-038c-4a5e-93e0-6592c647a9ec"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3389), 80, new Guid("b7659a18-2c0e-46f4-af5c-0d03ed898814"), 3 },
-                    { new Guid("d1f903ae-0187-4ad9-9dc7-67e5882c552e"), new Guid("efe571e9-5753-48c2-8154-f58eb9a1dd24"), new DateTime(2024, 1, 29, 18, 38, 56, 227, DateTimeKind.Utc).AddTicks(3387), 150, new Guid("1f3d6ee1-e8a9-474b-93af-817ffc090114"), 1 }
+                    { new Guid("60c3292b-7796-4803-84cc-dc4d7a9deabc"), new Guid("718f005d-447e-4c98-9a87-c52d027f4920"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4490), 150, new Guid("ff0eeb52-b9f0-41c5-9340-ab359ef27f4d"), 1 },
+                    { new Guid("85653093-38c3-4681-8bd0-990ac0375a62"), new Guid("14d16312-570f-4c8b-94be-b8546edae5d5"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4490), 100, new Guid("9234a6d7-7b5b-4006-ab31-17a962f3decf"), 2 },
+                    { new Guid("962b895c-98af-4602-9c25-dacda0d670ee"), new Guid("c64c28b5-bc14-4195-8be9-f9e191e0972b"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4490), 80, new Guid("2e600004-281d-44ec-b7f6-b34efe0b2771"), 3 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -65,16 +65,18 @@ namespace API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAuthor([FromBody] AuthorDto newAuthor)
         {
-
             try
             {
-                return Ok(await _mediator.Send(new CreateAuthorCommand(newAuthor)));
+                var createauthorResponseDto = await _mediator.Send(new CreateAuthorCommand(newAuthor));
+                return Ok(createauthorResponseDto);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+
 
         //Update an Author
         [HttpPut]
