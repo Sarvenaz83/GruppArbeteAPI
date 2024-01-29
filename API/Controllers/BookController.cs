@@ -9,6 +9,7 @@ using Application.Queries.BookQueries.GetBookByTitle;
 using Application.Queries.BookQueries.GetBooksByRating;
 using Application.Validators;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -114,6 +115,7 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("CreateNewBook")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook)
         {
             var validatorResult = _bookValidator.Validate(newBook);
@@ -134,7 +136,7 @@ namespace API.Controllers
 
         [HttpPut]
         [Route("UpdateBook/{bookId}")]
-        //[Authorize(policy: "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateBook(Guid bookId, [FromBody] BookDto updateBook)
         {
             var validatorResult = _bookValidator.Validate(updateBook);
@@ -159,6 +161,7 @@ namespace API.Controllers
 
         [HttpDelete]
         [Route("DeleteBook/{bookId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteBook(Guid bookId)
         {
             try

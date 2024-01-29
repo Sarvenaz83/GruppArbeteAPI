@@ -1,5 +1,4 @@
 ﻿using Application.Commands.UserCommands.RegisterUser;
-using Application.Queries.UserQueries;
 using Application.Queries.UserQueries.GetAllUsers;
 using Application.Validators;
 using Infrastructure.Repository.UserRepository;
@@ -55,29 +54,11 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(string username, string password)
         {
-            var usernameResult = _usernameValidator.Validate(username);
-            if (!usernameResult.IsValid)
-            {
-                return BadRequest(usernameResult.Errors);
-            }
-
-            var passwordResult = _passwordValidator.Validate(password);
-            if (!passwordResult.IsValid)
-            {
-                return BadRequest(passwordResult.Errors);
-            }
-
-
-            var user = await _mediator.Send(new LoginUserQuery { Username = username, Password = password });
-
-            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
-            {
-                return Unauthorized("Invalid username or password.");
-            }
-
-            // Return some kind of success response, without JWT for now
-            // You might want to return a user object or a simple success 
-            return Ok(new { Message = "Login successful", user.UserId, user.UserName });
+            var token = await _mediator.Send(new LoginUserQuery { Username = username, Password = password });
+            if (token != null)
+                return Ok(token);
+            else
+                return NotFound("Invalid username or password.");
         }
 
         [HttpGet]
@@ -96,6 +77,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetAllPurchaseHistories")]
+        [Authorize]
         public async Task<IActionResult> GetAllPurchaseHistoriesAsync()
         {
             try
@@ -111,10 +93,11 @@ namespace API.Controllers
 
         [HttpDelete]
         [Route("delete/{userId:guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(Guid userId)
         {
             try
-            { //validator??
+            {
                 var deletedUser = await _userRepository.DeleteUserAsync(userId);
 
                 if (deletedUser != null)
@@ -134,7 +117,8 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("{userId}/wallet")]
+        [HttpPut("wallet/{userId}")]
+        [Authorize]
         public async Task<ActionResult<WalletDto>> UpdateWalletById([FromRoute] Guid userId, [FromBody] WalletDto walletDto)
         {
             var walletValidator = new WalletValidator();
@@ -149,13 +133,11 @@ namespace API.Controllers
             return Ok(updatedWallet);
         }
 
-
-
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UpdateUserByIdCommand command)
+        [HttpPut("update/{userId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateUser(Guid userId, [FromBody] UpdateUserByIdCommand command)
         {
-            if (id != command.UserId)
+            if (userId != command.UserId)
             {
                 return BadRequest("Mismatched User ID.");
             }
@@ -163,12 +145,10 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             if (result == null)
             {
-                return NotFound($"User with ID {id} not found.");
+                return NotFound($"User with ID {userId} not found.");
             }
 
             return Ok(result);
         }
-
-
     }
 }
