@@ -1,5 +1,6 @@
 ﻿using Application.Queries.ReceiptQueries.GetAllReceipts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -15,6 +16,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetAllReceipts")]
+        [Authorize]
         public async Task<IActionResult> GetAllReceipts()
         {
             try
