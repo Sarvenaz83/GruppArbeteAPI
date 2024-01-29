@@ -10,48 +10,50 @@ namespace Tests.AuthorTests.CommandTests.AuthorCommandsTests
     [TestFixture]
     public class DeleteAuthorByIdCommandHandlerTest
     {
-        private Mock<IAuthorRepository> _mockAothorRepository;
+        private Mock<IAuthorRepository> _mockRepository;
         private DeleteAuthorByIdCommandHandler _handler;
-        private Guid _testAuthorId;
-        private Author _testAuthor;
-        private Guid _nonExistentAuthorId;
 
         [SetUp]
-        public void SetUp()
+        public void Setup()
         {
-            _mockAothorRepository = new Mock<IAuthorRepository>();
-            _handler = new DeleteAuthorByIdCommandHandler(_mockAothorRepository.Object);
-            _testAuthorId = Guid.NewGuid();
-            _testAuthor = new Author();
-            _nonExistentAuthorId = Guid.NewGuid();
+            _mockRepository = new Mock<IAuthorRepository>();
+            _handler = new DeleteAuthorByIdCommandHandler(_mockRepository.Object);
         }
+
         [Test]
-        public async Task Handle_ShouldReturnDeletedAuthor_WhenAuthorExists()
+        public async Task WhenAuthorExists_ShouldReturnDeleteAuthorDto()
         {
-            //Arrange
-            _mockAothorRepository.Setup(repo => repo.GetAuthorByIdAsync(_testAuthorId)).ReturnsAsync(_testAuthor);
+            // Arrange
+            var authorId = Guid.NewGuid();
+            var mockAuthor = new Author { AuthorId = authorId, AuthorName = "Test Author" };
 
-            //Act
-            var result = await _handler.Handle(new DeleteAuthorByIdCommand(_testAuthorId), CancellationToken.None);
+            _mockRepository.Setup(repo => repo.DeleteAuthorByIdAsync(authorId))
+                           .ReturnsAsync(mockAuthor);
 
-            //Assert
-            Assert.That(result, Is.EqualTo(_testAuthor));
-            _mockAothorRepository.Verify(repo => repo.DeleteAuthorByIdAsync(_testAuthorId), Times.Once());
+            var command = new DeleteAuthorByIdCommand(authorId); // Uppdaterad för att använda konstruktorn
+
+            // Act
+            var result = await _handler.Handle(command, CancellationToken.None);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.That(result.AuthorId, Is.EqualTo(authorId));
+            Assert.That(result.AuthorName, Is.EqualTo("Test Author"));
+            Assert.IsTrue(result.Message.Contains("has been removed from the database"));
         }
+
         [Test]
-        public async Task Handle_ShouldReturnNull_WhenAuthorDoesNotExists()
+        public void WhenAuthorDoesNotExist_ShouldThrowKeyNotFoundException()
         {
-            //Arrange
-            _mockAothorRepository.Setup(repo => repo.GetAuthorByIdAsync(_nonExistentAuthorId)).ReturnsAsync((Author)null!);
+            // Arrange
+            var authorId = Guid.NewGuid();
+            _mockRepository.Setup(repo => repo.DeleteAuthorByIdAsync(authorId))
+                           .ReturnsAsync((Author)null);
 
-            //Act
-            var result = await _handler.Handle(new DeleteAuthorByIdCommand(_nonExistentAuthorId), CancellationToken.None);
+            var command = new DeleteAuthorByIdCommand(authorId); // Uppdaterad för att använda konstruktorn
 
-            //Assert
-            Assert.That(result, Is.Null);
-            _mockAothorRepository.Verify(repo => repo.DeleteAuthorByIdAsync(_nonExistentAuthorId), Times.Never);
+            // Act & Assert
+            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _handler.Handle(command, CancellationToken.None));
         }
-
-
     }
 }
