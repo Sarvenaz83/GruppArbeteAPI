@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HarryPotterContext))]
-    [Migration("20240126110358_nymigration")]
-    partial class nymigration
+    [Migration("20240126164700_Namings")]
+    partial class Namings
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,17 +44,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("5d20c294-2030-4d77-9b6f-1221bfd23227"),
+                            AuthorId = new Guid("534d41c8-e176-4a14-af49-656aa13922c0"),
                             AuthorName = "J.K Rowling"
                         },
                         new
                         {
-                            AuthorId = new Guid("1f343d63-5c4e-4511-b508-67d1c6818b51"),
+                            AuthorId = new Guid("048c1636-4cfd-4dc8-bd29-8e3326db8c07"),
                             AuthorName = "Alan Rickman"
                         },
                         new
                         {
-                            AuthorId = new Guid("f530419d-0b27-4489-8208-a8be911fc1a1"),
+                            AuthorId = new Guid("4553d538-afa6-419e-b385-058a76177fd1"),
                             AuthorName = "Stephen King"
                         });
                 });
@@ -110,11 +110,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            BookId = new Guid("ff07ea44-75bf-4c0a-8285-d0ee81107810"),
-                            AuthorId = new Guid("5d20c294-2030-4d77-9b6f-1221bfd23227"),
+                            BookId = new Guid("5e084454-9e07-4f75-b0f1-13aefdd91180"),
+                            AuthorId = new Guid("534d41c8-e176-4a14-af49-656aa13922c0"),
                             Genre = "Action",
                             Pages = 250,
-                            PubYear = new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9480),
+                            PubYear = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2867),
                             Rating = 4.5m,
                             StockBalance = 10,
                             Summary = "Action packed book",
@@ -122,11 +122,11 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("fed16c45-3260-48de-b3ac-84da5273ad1b"),
-                            AuthorId = new Guid("1f343d63-5c4e-4511-b508-67d1c6818b51"),
+                            BookId = new Guid("b195c337-a4cc-49f5-b075-cffe9faeac44"),
+                            AuthorId = new Guid("048c1636-4cfd-4dc8-bd29-8e3326db8c07"),
                             Genre = "Comedy",
                             Pages = 300,
-                            PubYear = new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9500),
+                            PubYear = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2873),
                             Rating = 3.7m,
                             StockBalance = 20,
                             Summary = "Very funny book",
@@ -134,11 +134,11 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("ed14e82c-a956-4c10-b216-6781b6355b9b"),
-                            AuthorId = new Guid("f530419d-0b27-4489-8208-a8be911fc1a1"),
+                            BookId = new Guid("e76e9cf6-c59c-444c-bffb-fa0276c7d9c4"),
+                            AuthorId = new Guid("4553d538-afa6-419e-b385-058a76177fd1"),
                             Genre = "Drama",
                             Pages = 180,
-                            PubYear = new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9500),
+                            PubYear = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2876),
                             Rating = 4.8m,
                             StockBalance = 10,
                             Summary = "So much drama",
@@ -146,47 +146,11 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Models.PurchaseDetail", b =>
-                {
-                    b.Property<Guid>("PurchaseDetailId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("purchaseDetailId");
-
-                    b.Property<Guid?>("BookId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("bookId");
-
-                    b.Property<DateTime?>("DateDetail")
-                        .HasColumnType("datetime")
-                        .HasColumnName("dateDetail");
-
-                    b.Property<int?>("PricePerUnit")
-                        .HasColumnType("int")
-                        .HasColumnName("pricePerUnit");
-
-                    b.Property<Guid?>("PurchaseId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("purchaseId");
-
-                    b.Property<int?>("Quantity")
-                        .HasColumnType("int")
-                        .HasColumnName("quantity");
-
-                    b.HasKey("PurchaseDetailId")
-                        .HasName("PK__purchase__FA43B55BADA17CED");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("PurchaseId");
-
-                    b.ToTable("purchaseDetail", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Models.PurchaseHistory", b =>
                 {
-                    b.Property<Guid>("PurchaseId")
+                    b.Property<Guid>("PurchaseHistoryId")
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("purchaseId");
+                        .HasColumnName("purchaseHistoryId");
 
                     b.Property<DateTime?>("TimeOfPurchase")
                         .HasColumnType("datetime")
@@ -200,7 +164,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("userId");
 
-                    b.HasKey("PurchaseId")
+                    b.HasKey("PurchaseHistoryId")
                         .HasName("PK__purchase__0261226C79359CBF");
 
                     b.HasIndex("UserId");
@@ -210,24 +174,89 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            PurchaseId = new Guid("dce57bf2-d244-41ef-88e6-b8bed87657dc"),
-                            TimeOfPurchase = new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9530),
+                            PurchaseHistoryId = new Guid("23166c5e-8805-4126-9f3c-716e0b6509cd"),
+                            TimeOfPurchase = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2927),
                             TotalPrice = 50,
-                            UserId = new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae")
+                            UserId = new Guid("30e6d5b1-eee9-4d50-93f7-6e8ee36b1b4a")
                         },
                         new
                         {
-                            PurchaseId = new Guid("653226f6-841e-4056-b532-dd654bbc9d23"),
-                            TimeOfPurchase = new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9540),
+                            PurchaseHistoryId = new Guid("0847551c-49a5-4dcd-8bc4-0f1f09b2b824"),
+                            TimeOfPurchase = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2928),
                             TotalPrice = 30,
-                            UserId = new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae")
+                            UserId = new Guid("30e6d5b1-eee9-4d50-93f7-6e8ee36b1b4a")
                         },
                         new
                         {
-                            PurchaseId = new Guid("ee820222-04c5-4812-a9cb-67d756fe9832"),
-                            TimeOfPurchase = new DateTime(2024, 1, 26, 11, 3, 58, 445, DateTimeKind.Utc).AddTicks(9540),
+                            PurchaseHistoryId = new Guid("38ddf893-d431-414f-a633-4bb2f465f3a2"),
+                            TimeOfPurchase = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2929),
                             TotalPrice = 25,
-                            UserId = new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae")
+                            UserId = new Guid("30e6d5b1-eee9-4d50-93f7-6e8ee36b1b4a")
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Models.Receipt", b =>
+                {
+                    b.Property<Guid>("ReceiptId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ReceiptId");
+
+                    b.Property<Guid?>("BookId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("bookId");
+
+                    b.Property<DateTime?>("DateDetail")
+                        .HasColumnType("datetime")
+                        .HasColumnName("dateDetail");
+
+                    b.Property<int?>("PricePerUnit")
+                        .HasColumnType("int")
+                        .HasColumnName("pricePerUnit");
+
+                    b.Property<Guid?>("PurchaseHistoryId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("purchaseHistoryId");
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int")
+                        .HasColumnName("quantity");
+
+                    b.HasKey("ReceiptId")
+                        .HasName("PK__purchase__FA43B55BADA17CED");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("PurchaseHistoryId");
+
+                    b.ToTable("Receipt", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ReceiptId = new Guid("27ae00d4-421d-4e9e-a8cd-4dc0c38f566e"),
+                            BookId = new Guid("5e084454-9e07-4f75-b0f1-13aefdd91180"),
+                            DateDetail = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2946),
+                            PricePerUnit = 100,
+                            PurchaseHistoryId = new Guid("23166c5e-8805-4126-9f3c-716e0b6509cd"),
+                            Quantity = 2
+                        },
+                        new
+                        {
+                            ReceiptId = new Guid("2f67be43-d96d-4a1e-af3d-0d5c09f36ad8"),
+                            BookId = new Guid("b195c337-a4cc-49f5-b075-cffe9faeac44"),
+                            DateDetail = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2949),
+                            PricePerUnit = 150,
+                            PurchaseHistoryId = new Guid("0847551c-49a5-4dcd-8bc4-0f1f09b2b824"),
+                            Quantity = 1
+                        },
+                        new
+                        {
+                            ReceiptId = new Guid("717c735d-b8d1-4db9-82ce-a5d8b0c9288a"),
+                            BookId = new Guid("e76e9cf6-c59c-444c-bffb-fa0276c7d9c4"),
+                            DateDetail = new DateTime(2024, 1, 26, 16, 47, 0, 59, DateTimeKind.Utc).AddTicks(2950),
+                            PricePerUnit = 80,
+                            PurchaseHistoryId = new Guid("38ddf893-d431-414f-a633-4bb2f465f3a2"),
+                            Quantity = 3
                         });
                 });
 
@@ -281,7 +310,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("b7a78e4c-f291-46c1-839e-c952d3e868ae"),
+                            UserId = new Guid("30e6d5b1-eee9-4d50-93f7-6e8ee36b1b4a"),
                             UserName = "AnvändareTestKöphistorik"
                         });
                 });
@@ -318,23 +347,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("Domain.Models.PurchaseDetail", b =>
-                {
-                    b.HasOne("Domain.Models.Book", "Book")
-                        .WithMany("PurchaseDetails")
-                        .HasForeignKey("BookId")
-                        .HasConstraintName("FK__purchaseD__bookI__440B1D61");
-
-                    b.HasOne("Domain.Models.PurchaseHistory", "Purchase")
-                        .WithMany("PurchaseDetails")
-                        .HasForeignKey("PurchaseId")
-                        .HasConstraintName("FK__purchaseD__purch__4316F928");
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Purchase");
-                });
-
             modelBuilder.Entity("Domain.Models.PurchaseHistory", b =>
                 {
                     b.HasOne("Domain.Models.User", "User")
@@ -343,6 +355,23 @@ namespace Infrastructure.Migrations
                         .HasConstraintName("FK__purchaseH__userI__412EB0B6");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Models.Receipt", b =>
+                {
+                    b.HasOne("Domain.Models.Book", "Book")
+                        .WithMany("Receipts")
+                        .HasForeignKey("BookId")
+                        .HasConstraintName("FK__purchaseD__bookI__440B1D61");
+
+                    b.HasOne("Domain.Models.PurchaseHistory", "PurchaseHistories")
+                        .WithMany("Receipts")
+                        .HasForeignKey("PurchaseHistoryId")
+                        .HasConstraintName("FK__purchaseD__purch__4316F928");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("PurchaseHistories");
                 });
 
             modelBuilder.Entity("Domain.Models.Wallet", b =>
@@ -361,12 +390,12 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Book", b =>
                 {
-                    b.Navigation("PurchaseDetails");
+                    b.Navigation("Receipts");
                 });
 
             modelBuilder.Entity("Domain.Models.PurchaseHistory", b =>
                 {
-                    b.Navigation("PurchaseDetails");
+                    b.Navigation("Receipts");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>

@@ -1,10 +1,10 @@
 ﻿namespace Domain.Models;
 
-public partial class PurchaseDetail
+public partial class Receipt
 {
-    public Guid PurchaseDetailId { get; set; }
+    public Guid ReceiptId { get; set; }
 
-    public Guid? PurchaseId { get; set; }
+    public Guid? PurchaseHistoryId { get; set; }
 
     public Guid? BookId { get; set; }
 
@@ -16,5 +16,5 @@ public partial class PurchaseDetail
 
     public virtual Book? Book { get; set; }
 
-    public virtual PurchaseHistory? Purchase { get; set; }
+    public virtual PurchaseHistory? PurchaseHistories { get; set; }
 }
