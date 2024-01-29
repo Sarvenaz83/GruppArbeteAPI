@@ -1,5 +1,4 @@
-﻿using Application.Queries.UserQueries;
-using Application.Queries.UserQueries.LoginUser;
+﻿using Application.Queries.UserQueries.LoginUser;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Moq;
@@ -11,69 +10,54 @@ namespace Tests.UserTests
     public class LoginUserQueryHandlerTest
     {
         private Mock<IUserRepository> _mockUserRepository;
+        private Mock<ITokenGenerator> _mockTokenGenerator;
         private LoginUserQueryHandler _handler;
 
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
             _mockUserRepository = new Mock<IUserRepository>();
-            _handler = new LoginUserQueryHandler(_mockUserRepository.Object);
+            _mockTokenGenerator = new Mock<ITokenGenerator>();
+            _handler = new LoginUserQueryHandler(_mockUserRepository.Object, _mockTokenGenerator.Object);
         }
 
         [Test]
-        public async Task Handle_CorrectPasswordForUser_ReturnsUser()
+        public async Task Handle_ValidCredentials_ReturnsToken()
         {
             // Arrange
-            var testUser = new User
-            {
-                UserName = "testuser",
-                Password = BCrypt.Net.BCrypt.HashPassword("Password123!")
-            };
+            var username = "test";
+            var password = "password";
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+            var user = new User { UserName = username, Password = hashedPassword };
+            var token = "token";
 
-            var query = new LoginUserQuery
-            {
-                Username = "testuser",
-                Password = "Password123!"
-            };
-
-            _mockUserRepository
-                .Setup(repo => repo.FindByUsernameAsync(query.Username))
-                .ReturnsAsync(testUser);
+            _mockUserRepository.Setup(repo => repo.FindByUsernameAsync(username)).ReturnsAsync(user);
+            _mockTokenGenerator.Setup(gen => gen.JwtTokenGenerate(user)).Returns(token);
 
             // Act
-            var result = await _handler.Handle(query, CancellationToken.None);
+            var result = await _handler.Handle(new LoginUserQuery { Username = username, Password = password }, default);
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.That(result.UserName, Is.EqualTo(testUser.UserName));
+            Assert.That(result, Is.EqualTo(token));
         }
 
         [Test]
-        public async Task Handle_WrongPasswordForUser_ReturnsNull()
+        public async Task Handle_InvalidCredentials_DoesNotReturnToken()
         {
             // Arrange
-            var testUser = new User
-            {
-                UserName = "testuser",
-                Password = BCrypt.Net.BCrypt.HashPassword("Password123!")
-            };
+            var username = "test";
+            var incorrectPassword = "wrong_password";
+            var correctPassword = "password";
+            var hashedCorrectPassword = BCrypt.Net.BCrypt.HashPassword(correctPassword);
+            var user = new User { UserName = username, Password = hashedCorrectPassword };
 
-            var query = new LoginUserQuery
-            {
-                Username = "testuser",
-                Password = "WrongPassword"
-            };
-
-            _mockUserRepository
-                .Setup(repo => repo.FindByUsernameAsync(query.Username))
-                .ReturnsAsync(testUser);
+            _mockUserRepository.Setup(repo => repo.FindByUsernameAsync(username)).ReturnsAsync(user);
 
             // Act
-            var result = await _handler.Handle(query, CancellationToken.None);
+            var result = await _handler.Handle(new LoginUserQuery { Username = username, Password = incorrectPassword }, default);
 
             // Assert
-            Assert.IsNull(result);
+            Assert.That(result, Is.Null);
         }
     }
-
 }

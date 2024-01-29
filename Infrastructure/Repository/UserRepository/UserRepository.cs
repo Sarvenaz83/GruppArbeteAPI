@@ -1,7 +1,7 @@
-﻿using Azure.Core;
-using Domain.Models;
+﻿using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Repository.UserRepository
 {

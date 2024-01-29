@@ -36,6 +36,12 @@ namespace Infrastructure
                     UserId = userId,
                     UserName = "AnvändareTestKöphistorik",
                     // Andra fält som Email, PhoneNumber, etc. om sådana finns
+                },
+                new
+                {
+                    UserId = GenerateRandomGuid(),
+                    UserName = "admin",
+                    Password = BCrypt.Net.BCrypt.HashPassword("admin")
                 }
             );
 

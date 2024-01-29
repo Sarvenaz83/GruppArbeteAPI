@@ -7,8 +7,8 @@ using Application.Queries.AuthorQueries.GetAuthorByBook;
 using Application.Validators;
 using Infrastructure.Repository.AuthorRepository;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
@@ -62,7 +62,7 @@ namespace API.Controllers
         //Create a new Author
         [HttpPost]
         [Route("CreateAuthor")]
-        //[Authorize(policy: "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAuthor([FromBody] AuthorDto newAuthor)
         {
 
@@ -79,7 +79,7 @@ namespace API.Controllers
         //Update an Author
         [HttpPut]
         [Route("UpdateAuthor/{authorId}")]
-        //[Authorize(policy: "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAuthor(Guid authorId, [FromBody] AuthorDto updatedAuthor)
         {
             var validatorResult = _authorValidator.Validate(updatedAuthor);
@@ -107,7 +107,7 @@ namespace API.Controllers
 
         [HttpDelete]
         [Route("DeleteAuthor/{authorId}")]
-        //[Authorize(policy: "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAuthor(Guid authorId)
         {
             try
@@ -120,7 +120,5 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-
     }
 }
