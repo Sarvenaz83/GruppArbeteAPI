@@ -169,7 +169,11 @@ namespace API.Controllers
         {
             try
             {
-                return Ok(await _mediator.Send(new DeleteBookCommand(bookId)));
+                var deleteBookResult = await _mediator.Send(new DeleteBookCommand(bookId));
+                if (deleteBookResult != null)
+                    return Ok($"{deleteBookResult.Title} was removed from the database.");
+                else
+                    return NotFound($"Book with id {bookId} was not found in the database.");
             }
             catch (Exception ex)
             {
