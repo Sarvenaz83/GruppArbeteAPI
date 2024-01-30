@@ -1,10 +1,11 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.AuthorDtos;
+using Domain.Models;
 using Infrastructure.Repository.AuthorRepository;
 using MediatR;
 
 namespace Application.Queries.AuthorQueries.GetAllAuthor
 {
-    public class GettAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQuery, List<Author>>
+    public class GettAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQuery, List<GetAllAuthorsDto>>
     {
         private readonly IAuthorRepository _authorRepository;
 
@@ -13,11 +14,24 @@ namespace Application.Queries.AuthorQueries.GetAllAuthor
             _authorRepository = authorRepository;
         }
 
-        public async Task<List<Author>> Handle(GetAllAuthorsQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetAllAuthorsDto>> Handle(GetAllAuthorsQuery request, CancellationToken cancellationToken)
         {
-            List<Author> allAuthorFromHarryPotterContext = await _authorRepository.GetAllAuthorsAsync();
-            List<Author> sortedAuthors = allAuthorFromHarryPotterContext.OrderBy(author => author.AuthorName).ToList();
-            return allAuthorFromHarryPotterContext;
+            try
+            {
+                var Authors = await _authorRepository.GetAllAuthorsAsync();
+                var getAllAuthorsDtos = Authors.Select(a => new GetAllAuthorsDto
+                {
+                    AuthorId = a.AuthorId,
+                    AuthorName = a.AuthorName,
+
+                }).ToList();
+
+                return getAllAuthorsDtos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ett fel inträffade vid hämtning av användarinformation.");
+            }
         }
     }
 }

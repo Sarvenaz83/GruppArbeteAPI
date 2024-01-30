@@ -1,5 +1,6 @@
 ﻿using Application.Commands.WalletCommands;
 using Application.Dtos;
+using Application.Dtos.WalletDtos;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;

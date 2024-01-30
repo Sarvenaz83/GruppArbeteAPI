@@ -1,28 +1,35 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.AuthorDtos;
+using Domain.Models;
 using Infrastructure.Repository.AuthorRepository;
 using MediatR;
 
 namespace Application.Commands.AuthorCommands.DeleteAuthor
 {
-    public class DeleteAuthorByIdCommandHandler : IRequestHandler<DeleteAuthorByIdCommand, Author>
+    public class DeleteAuthorByIdCommandHandler : IRequestHandler<DeleteAuthorByIdCommand, DeleteAuthorDto>
     {
-
         private readonly IAuthorRepository _authorRepository;
 
         public DeleteAuthorByIdCommandHandler(IAuthorRepository authorRepository)
         {
-            _authorRepository = authorRepository ?? throw new ArgumentNullException(nameof(authorRepository));
+            _authorRepository = authorRepository;
         }
 
-        public async Task<Author> Handle(DeleteAuthorByIdCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteAuthorDto> Handle(DeleteAuthorByIdCommand request, CancellationToken cancellationToken)
         {
-            var authorToDelete = await _authorRepository.GetAuthorByIdAsync(request.AuthorId);
-            if (authorToDelete != null)
+            var deletedAuthor = await _authorRepository.DeleteAuthorByIdAsync(request.AuthorId);
+            if (deletedAuthor == null)
             {
-                await _authorRepository.DeleteAuthorByIdAsync(request.AuthorId);
-                return authorToDelete;
+                throw new KeyNotFoundException("Author not found.");
             }
-            return null;
+
+            var deleteAuthorDto = new DeleteAuthorDto
+            {
+                AuthorId = deletedAuthor.AuthorId,
+                AuthorName = deletedAuthor.AuthorName,
+                Message = $"Author '{deletedAuthor.AuthorName}' and their books have been removed from the database."
+            };
+
+            return deleteAuthorDto;
         }
 
     }

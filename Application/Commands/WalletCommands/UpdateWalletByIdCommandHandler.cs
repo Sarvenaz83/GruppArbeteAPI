@@ -1,4 +1,4 @@
-﻿using Application.Dtos;
+﻿using Application.Dtos.WalletDtos;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
 using MediatR;

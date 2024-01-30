@@ -21,6 +21,6 @@ public partial class Book
     public string? Summary { get; set; }
 
     public virtual Author? Author { get; set; }
+    public bool IsDeleted { get; set; }
 
-    public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
 }
