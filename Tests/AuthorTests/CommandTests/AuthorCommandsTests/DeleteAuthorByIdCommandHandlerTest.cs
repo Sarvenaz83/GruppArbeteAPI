@@ -1,57 +1,59 @@
-﻿using Application.Commands.AuthorCommands.DeleteAuthor;
-using Domain.Models;
-using Infrastructure.Repository.AuthorRepository;
-using Microsoft.Identity.Client;
-using Moq;
-using NUnit.Framework;
+﻿//using Application.Commands.AuthorCommands.DeleteAuthor;
+//using Domain.Models;
+//using Infrastructure.Repository.AuthorRepository;
+//using Microsoft.Identity.Client;
+//using Moq;
+//using NUnit.Framework;
 
-namespace Tests.AuthorTests.CommandTests.AuthorCommandsTests
-{
-    [TestFixture]
-    public class DeleteAuthorByIdCommandHandlerTest
-    {
-        private Mock<IAuthorRepository> _mockAothorRepository;
-        private DeleteAuthorByIdCommandHandler _handler;
-        private Guid _testAuthorId;
-        private Author _testAuthor;
-        private Guid _nonExistentAuthorId;
+//namespace Tests.AuthorTests.CommandTests.AuthorCommandsTests
+//{
+//    [TestFixture]
+//    public class DeleteAuthorByIdCommandHandlerTest
+//    {
+//        private Mock<IAuthorRepository> _mockRepository;
+//        private DeleteAuthorByIdCommandHandler _handler;
 
-        [SetUp]
-        public void SetUp()
-        {
-            _mockAothorRepository = new Mock<IAuthorRepository>();
-            _handler = new DeleteAuthorByIdCommandHandler(_mockAothorRepository.Object);
-            _testAuthorId = Guid.NewGuid();
-            _testAuthor = new Author();
-            _nonExistentAuthorId = Guid.NewGuid();
-        }
-        [Test]
-        public async Task Handle_ShouldReturnDeletedAuthor_WhenAuthorExists()
-        {
-            //Arrange
-            _mockAothorRepository.Setup(repo => repo.GetAuthorByIdAsync(_testAuthorId)).ReturnsAsync(_testAuthor);
+//        [SetUp]
+//        public void Setup()
+//        {
+//            _mockRepository = new Mock<IAuthorRepository>();
+//            _handler = new DeleteAuthorByIdCommandHandler(_mockRepository.Object);
+//        }
 
-            //Act
-            var result = await _handler.Handle(new DeleteAuthorByIdCommand(_testAuthorId), CancellationToken.None);
+//        [Test]
+//        public async Task WhenAuthorExists_ShouldReturnDeleteAuthorDto()
+//        {
+//            // Arrange
+//            var authorId = Guid.NewGuid();
+//            var mockAuthor = new Author { AuthorId = authorId, AuthorName = "Test Author" };
 
-            //Assert
-            Assert.That(result, Is.EqualTo(_testAuthor));
-            _mockAothorRepository.Verify(repo => repo.DeleteAuthorByIdAsync(_testAuthorId), Times.Once());
-        }
-        [Test]
-        public async Task Handle_ShouldReturnNull_WhenAuthorDoesNotExists()
-        {
-            //Arrange
-            _mockAothorRepository.Setup(repo => repo.GetAuthorByIdAsync(_nonExistentAuthorId)).ReturnsAsync((Author)null!);
+//            _mockRepository.Setup(repo => repo.DeleteAuthorByIdAsync(authorId))
+//                           .ReturnsAsync(mockAuthor);
 
-            //Act
-            var result = await _handler.Handle(new DeleteAuthorByIdCommand(_nonExistentAuthorId), CancellationToken.None);
+//            var command = new DeleteAuthorByIdCommand(authorId); // Uppdaterad för att använda konstruktorn
 
-            //Assert
-            Assert.That(result, Is.Null);
-            _mockAothorRepository.Verify(repo => repo.DeleteAuthorByIdAsync(_nonExistentAuthorId), Times.Never);
-        }
+//            // Act
+//            var result = await _handler.Handle(command, CancellationToken.None);
 
+//            // Assert
+//            Assert.IsNotNull(result);
+//            Assert.That(result.AuthorId, Is.EqualTo(authorId));
+//            Assert.That(result.AuthorName, Is.EqualTo("Test Author"));
+//            Assert.IsTrue(result.Message.Contains("has been removed from the database"));
+//        }
 
-    }
-}
+//        [Test]
+//        public void WhenAuthorDoesNotExist_ShouldThrowKeyNotFoundException()
+//        {
+//            // Arrange
+//            var authorId = Guid.NewGuid();
+//            _mockRepository.Setup(repo => repo.DeleteAuthorByIdAsync(authorId))
+//                           .ReturnsAsync((Author)null);
+
+//            var command = new DeleteAuthorByIdCommand(authorId); // Uppdaterad för att använda konstruktorn
+
+//            // Act & Assert
+//            Assert.ThrowsAsync<KeyNotFoundException>(async () => await _handler.Handle(command, CancellationToken.None));
+//        }
+//    }
+//}

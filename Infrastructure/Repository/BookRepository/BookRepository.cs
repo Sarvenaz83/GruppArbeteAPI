@@ -31,8 +31,7 @@ namespace Infrastructure.Repository.BookRepository
 
         public async Task<List<Book>> GetAllBooksAsync()
         {
-            var bookList = await _context.Books.OrderBy(book => book.Title).ToListAsync();
-            return bookList;
+            return await _context.Books.Where(b => !b.IsDeleted).ToListAsync();
         }
 
         public async Task<List<Book>> GetBooksByRatingAsync(decimal minRating)
@@ -69,11 +68,10 @@ namespace Infrastructure.Repository.BookRepository
             Book? bookToDelete = await _context.Books.FirstOrDefaultAsync(book => book.BookId == bookId);
             if (bookToDelete != null)
             {
-                _context.Books.Remove(bookToDelete);
+                bookToDelete.IsDeleted = true;
                 await _context.SaveChangesAsync();
-                return bookToDelete;
             }
-            return null;
+            return bookToDelete;
         }
     }
 }

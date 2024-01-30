@@ -20,4 +20,6 @@ public partial class User
     public string? SurName { get; set; }
 
     public virtual ICollection<PurchaseHistory> PurchaseHistories { get; set; } = new List<PurchaseHistory>();
+    //public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
+
 }

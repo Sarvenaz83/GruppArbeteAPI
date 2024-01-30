@@ -1,9 +1,10 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.AuthorDtos;
+using Domain.Models;
 using MediatR;
 
 namespace Application.Commands.AuthorCommands.DeleteAuthor
 {
-    public class DeleteAuthorByIdCommand : IRequest<Author>
+    public class DeleteAuthorByIdCommand : IRequest<DeleteAuthorDto>
     {
 
         public DeleteAuthorByIdCommand(Guid authorId)
