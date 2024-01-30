@@ -1,10 +1,11 @@
-﻿using Domain.Models;
+﻿using Application.Dtos;
 using Infrastructure.Repository.BookRepository;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Queries.BookQueries.GetBooksByRating
 {
-    public class GetBooksByRatingQueryHandler : IRequestHandler<GetBooksByRatingQuery, List<Book>>
+    public class GetBooksByRatingQueryHandler : IRequestHandler<GetBooksByRatingQuery, List<GetBooksByRatingDto>>
     {
         private readonly IBookRepository _bookRepository;
 
@@ -13,16 +14,21 @@ namespace Application.Queries.BookQueries.GetBooksByRating
             _bookRepository = bookRepository ?? throw new ArgumentNullException(nameof(bookRepository));
         }
 
-        public async Task<List<Book>> Handle(GetBooksByRatingQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetBooksByRatingDto>> Handle(GetBooksByRatingQuery request, CancellationToken cancellationToken)
         {
             var books = await _bookRepository.GetBooksByRatingAsync(request.MinimumRating);
-
-
-            if (!books.Any())
+            if (!books.IsNullOrEmpty())
             {
-                return new List<Book>();
+                var booksByRatingDto = books.Select(b => new GetBooksByRatingDto
+                {
+                    Title = b.Title!,
+                    Rating = b.Rating,
+                    AuthorName = b.Author!.AuthorName!
+                }).ToList();
+                return booksByRatingDto;
             }
-            return books;
+            else
+                return null;
         }
     }
 }

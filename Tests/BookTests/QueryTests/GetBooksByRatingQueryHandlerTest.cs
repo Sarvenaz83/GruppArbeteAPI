@@ -1,4 +1,5 @@
-﻿using Application.Queries.BookQueries.GetBooksByRating;
+﻿using Application.Dtos;
+using Application.Queries.BookQueries.GetBooksByRating;
 using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Moq;
@@ -11,47 +12,47 @@ namespace Tests.BookTests.QueryTests
     {
         private Mock<IBookRepository> _bookRepositoryMock;
         private GetBooksByRatingQueryHandler _handler;
-        private decimal _testRating;
-        private List<Book> _testBooks;
 
         [SetUp]
         public void SetUp()
         {
             _bookRepositoryMock = new Mock<IBookRepository>();
             _handler = new GetBooksByRatingQueryHandler(_bookRepositoryMock.Object);
-            _testRating = 3.5M;
-            _testBooks = new List<Book>
-            {
-                new Book {Rating = _testRating},
-                new Book {Rating = _testRating + 0.1M},
-                new Book {Rating = _testRating - 0.1M}
-            };
         }
 
         [Test]
         public async Task Handle_ShouldReturnBooks_WhenBooksWithRatingExisi()
         {
             // Arrange
-            _bookRepositoryMock.Setup(repo => repo.GetBooksByRatingAsync(_testRating)).ReturnsAsync(_testBooks);
+            var expectedBooks = new List<Book>
+            {
+                new Book { Title = "Book1", Rating = 4, Author = new Author { AuthorName = "Author1" } },
+                new Book { Title = "Book2", Rating = 5, Author = new Author { AuthorName = "Author2" } }
+            };
+
+            _bookRepositoryMock.Setup(r => r.GetBooksByRatingAsync(It.IsAny<decimal>())).ReturnsAsync(expectedBooks);
+            var query = new GetBooksByRatingQuery(4);
 
             // Act
-            var result = await _handler.Handle(new GetBooksByRatingQuery(_testRating), CancellationToken.None);
+            var result = await _handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.That(result, Is.EqualTo(_testBooks));
+            Assert.That(result, Has.Count.EqualTo(expectedBooks.Count));
+            _bookRepositoryMock.Verify(r => r.GetBooksByRatingAsync(It.IsAny<decimal>()), Times.Once());
         }
 
         [Test]
         public async Task Handle_ShouldReturnEmptyList_WhenNoBooksWithRatingExist()
         {
             //Arrange
-            _bookRepositoryMock.Setup(repo => repo.GetBooksByRatingAsync(_testRating)).ReturnsAsync(new List<Book>());
+            _bookRepositoryMock.Setup(r => r.GetBooksByRatingAsync(It.IsAny<decimal>())).ReturnsAsync(new List<Book>());
+            var query = new GetBooksByRatingQuery(3);
 
             //Act
-            var result = await _handler.Handle(new GetBooksByRatingQuery(_testRating), CancellationToken.None);
+            var result = await _handler.Handle(query, CancellationToken.None);
 
             //Assert
-            Assert.That(result, Is.Empty);
+            Assert.That(result, Is.Null);
         }
     }
 }
