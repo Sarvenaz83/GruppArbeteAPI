@@ -1,4 +1,5 @@
 ﻿using Application.Commands.UserCommands.RegisterUser;
+using Application.Dtos.UserDtos;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
@@ -26,11 +27,17 @@ namespace Tests.UserTests
         public async Task Handle_ValidUser_AddsUserToRepository()
         {
             // Arrange
-            var command = new RegisterUserCommand
-            {
-                Username = "testuser",
-                Password = "Password123!"
-            };
+            var command = new RegisterUserCommand(
+                new NewUserDto
+                {
+                    UserName = "Test",
+                    Password = "Password",
+                    Email = "mail@gmail.com",
+                    FirstName = "Test",
+                    SurName = "Test",
+                    TelephoneNumber = "+46700000000"
+                });
+
 
             var mockWallet = new Wallet { WalletId = Guid.NewGuid() }; // Skapa en mock Wallet
             _mockWalletRepository
@@ -46,7 +53,7 @@ namespace Tests.UserTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.That(result.UserName, Is.EqualTo(command.Username));
+            Assert.That(result.UserName, Is.EqualTo(command.NewUser.UserName));
             _mockUserRepository.Verify(repo => repo.AddAsync(It.IsAny<User>()), Times.Once); // Verifiera att AddAsync anropades en gång
             _mockWalletRepository.Verify(repo => repo.AddAsync(It.IsAny<Wallet>()), Times.Once); // Verifiera att AddAsync för Wallet anropades en gång
         }
@@ -55,15 +62,20 @@ namespace Tests.UserTests
         public void Handle_UsernameAlreadyTaken_ThrowsException()
         {
             // Arrange
-            var command = new RegisterUserCommand
-            {
-                Username = "existinguser",
-                Password = "Password123!"
-            };
+            var command = new RegisterUserCommand(
+                new NewUserDto
+                {
+                    UserName = "Test",
+                    Password = "Password",
+                    Email = "mail@gmail.com",
+                    FirstName = "Test",
+                    SurName = "Test",
+                    TelephoneNumber = "+46700000000"
+                });
 
             _mockUserRepository
-                .Setup(repo => repo.FindByUsernameAsync(command.Username))
-                .ReturnsAsync(new User { UserId = Guid.NewGuid(), UserName = command.Username });
+                .Setup(repo => repo.FindByUsernameAsync(command.NewUser.UserName))
+                .ReturnsAsync(new User { UserId = Guid.NewGuid(), UserName = command.NewUser.UserName });
 
             // Act & Assert
             var ex = Assert.ThrowsAsync<Exception>(async () => await _handler.Handle(command, CancellationToken.None));

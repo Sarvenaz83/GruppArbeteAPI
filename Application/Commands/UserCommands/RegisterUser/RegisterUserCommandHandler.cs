@@ -19,18 +19,22 @@ namespace Application.Commands.UserCommands.RegisterUser
 
         public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _userRepository.FindByUsernameAsync(request.Username);
+            var existingUser = await _userRepository.FindByUsernameAsync(request.NewUser.UserName);
             if (existingUser != null)
             {
                 throw new Exception("Username is already taken.");
                 //return null;
             }
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.NewUser.Password);
             var user = new User
             {
                 UserId = Guid.NewGuid(),
-                UserName = request.Username,
+                UserName = request.NewUser.UserName,
                 Password = passwordHash,
+                FirstName = request.NewUser.FirstName,
+                SurName = request.NewUser.SurName,
+                Email = request.NewUser.Email,
+                TelephoneNumber = request.NewUser.TelephoneNumber,
             };
 
             var wallet = new Wallet

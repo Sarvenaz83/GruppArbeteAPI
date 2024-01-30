@@ -31,17 +31,25 @@ namespace Infrastructure
             // Seed Users
             var userId = GenerateRandomGuid();
             modelBuilder.Entity<User>().HasData(
-                new
+                new User
                 {
                     UserId = userId,
                     UserName = "AnvändareTestKöphistorik",
-                    // Andra fält som Email, PhoneNumber, etc. om sådana finns
+                    Password = BCrypt.Net.BCrypt.HashPassword("password"),
+                    FirstName = "Test",
+                    SurName = "Test",
+                    Email = "mail@gmail.com",
+                    TelephoneNumber = "+467000000"
                 },
-                new
+                new User
                 {
                     UserId = GenerateRandomGuid(),
                     UserName = "admin",
-                    Password = BCrypt.Net.BCrypt.HashPassword("admin")
+                    Password = BCrypt.Net.BCrypt.HashPassword("admin"),
+                    FirstName = "Admin",
+                    SurName = "Admin",
+                    Email = "admin@gmail.com",
+                    TelephoneNumber = "+4671111111"
                 }
             );
 

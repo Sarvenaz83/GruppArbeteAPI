@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CJsmigration : Migration
+    public partial class NewUserData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,13 +31,12 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    userName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    role = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    telephoneNumber = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: true),
-                    firstName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    surName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    userName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    firstName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    surName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    telephoneNumber = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,18 +134,18 @@ namespace Infrastructure.Migrations
                 columns: new[] { "authorId", "authorName" },
                 values: new object[,]
                 {
-                    { new Guid("61e2434a-b042-4712-865e-025de2031f9d"), "Stephen King" },
-                    { new Guid("7293f967-720a-4d9d-89d8-900e8c71238a"), "J.K Rowling" },
-                    { new Guid("7ac1c2cf-b35e-4b11-bf54-8b081d53d0d2"), "Alan Rickman" }
+                    { new Guid("32e9c59d-0d69-4159-a0d9-91578b54d474"), "J.K Rowling" },
+                    { new Guid("3890aac1-f351-480b-9e4d-5752f24c4d16"), "Stephen King" },
+                    { new Guid("cb4ebbcf-7487-435c-b974-739a3f481bc8"), "Alan Rickman" }
                 });
 
             migrationBuilder.InsertData(
                 table: "user",
-                columns: new[] { "userId", "email", "firstName", "password", "role", "surName", "telephoneNumber", "userName" },
+                columns: new[] { "userId", "email", "firstName", "password", "surName", "telephoneNumber", "userName" },
                 values: new object[,]
                 {
-                    { new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc"), null, null, null, null, null, null, "AnvändareTestKöphistorik" },
-                    { new Guid("f191ecec-26b5-480c-9a0e-3a0f9b4cbda0"), null, null, "$2a$11$zcjgqmz5S9rKT/9YjT9nCOO5tkkTTFaq6asFWbugGJR7OsrUdiswW", null, null, null, "admin" }
+                    { new Guid("1c6e0aae-288f-43a6-b9f3-02d0022e8ce7"), "mail@gmail.com", "Test", "$2a$11$SCcBBo6ccw7PKisT1SuO4uNzi77QlZ8fM..3kiD5LUtflfJZQjW7i", "Test", "+467000000", "AnvändareTestKöphistorik" },
+                    { new Guid("c5a6fcac-9ce9-4020-a161-9cb592271961"), "admin@gmail.com", "Admin", "$2a$11$zfAaby1spmLv.UHf03KhBu78O2k5cYhTQ21bn391FJ75HXVTmMw1y", "Admin", "+4671111111", "admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -154,9 +153,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "bookId", "authorId", "genre", "pages", "pubYear", "rating", "stockBalance", "summary", "title" },
                 values: new object[,]
                 {
-                    { new Guid("14d16312-570f-4c8b-94be-b8546edae5d5"), new Guid("7293f967-720a-4d9d-89d8-900e8c71238a"), "Action", 250, new DateTime(2024, 1, 29, 19, 20, 36, 359, DateTimeKind.Utc).AddTicks(8730), 4.5m, 10, "Action packed book", "Book 1" },
-                    { new Guid("718f005d-447e-4c98-9a87-c52d027f4920"), new Guid("7ac1c2cf-b35e-4b11-bf54-8b081d53d0d2"), "Comedy", 300, new DateTime(2024, 1, 29, 19, 20, 36, 359, DateTimeKind.Utc).AddTicks(8740), 3.7m, 20, "Very funny book", "Book 2" },
-                    { new Guid("c64c28b5-bc14-4195-8be9-f9e191e0972b"), new Guid("61e2434a-b042-4712-865e-025de2031f9d"), "Drama", 180, new DateTime(2024, 1, 29, 19, 20, 36, 359, DateTimeKind.Utc).AddTicks(8750), 4.8m, 10, "So much drama", "Book 3" }
+                    { new Guid("257feffe-b2cc-4cc0-9cf7-a53121d90397"), new Guid("3890aac1-f351-480b-9e4d-5752f24c4d16"), "Drama", 180, new DateTime(2024, 1, 30, 9, 50, 57, 689, DateTimeKind.Utc).AddTicks(9283), 4.8m, 10, "So much drama", "Book 3" },
+                    { new Guid("3875589a-8460-4636-8c16-cf48b868a28b"), new Guid("cb4ebbcf-7487-435c-b974-739a3f481bc8"), "Comedy", 300, new DateTime(2024, 1, 30, 9, 50, 57, 689, DateTimeKind.Utc).AddTicks(9280), 3.7m, 20, "Very funny book", "Book 2" },
+                    { new Guid("94340251-2d40-469b-8fbb-d4a98edb9aeb"), new Guid("32e9c59d-0d69-4159-a0d9-91578b54d474"), "Action", 250, new DateTime(2024, 1, 30, 9, 50, 57, 689, DateTimeKind.Utc).AddTicks(9270), 4.5m, 10, "Action packed book", "Book 1" }
                 });
 
             migrationBuilder.InsertData(
@@ -164,9 +163,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "purchaseHistoryId", "timeOfPurchase", "totalPrice", "userId" },
                 values: new object[,]
                 {
-                    { new Guid("2e600004-281d-44ec-b7f6-b34efe0b2771"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4430), 25, new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc") },
-                    { new Guid("9234a6d7-7b5b-4006-ab31-17a962f3decf"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4430), 50, new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc") },
-                    { new Guid("ff0eeb52-b9f0-41c5-9340-ab359ef27f4d"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4430), 30, new Guid("43cc2f6d-eea3-4224-b85f-ac2bc2d4b6dc") }
+                    { new Guid("0b2c2d8f-d2b2-407a-a637-274ada85cf03"), new DateTime(2024, 1, 30, 9, 50, 57, 990, DateTimeKind.Utc).AddTicks(769), 25, new Guid("1c6e0aae-288f-43a6-b9f3-02d0022e8ce7") },
+                    { new Guid("96a57f32-826a-4e3c-8152-08bd3b88c61d"), new DateTime(2024, 1, 30, 9, 50, 57, 990, DateTimeKind.Utc).AddTicks(765), 50, new Guid("1c6e0aae-288f-43a6-b9f3-02d0022e8ce7") },
+                    { new Guid("9abeb42f-e422-44b4-8fb4-f1da6d3cb7a0"), new DateTime(2024, 1, 30, 9, 50, 57, 990, DateTimeKind.Utc).AddTicks(768), 30, new Guid("1c6e0aae-288f-43a6-b9f3-02d0022e8ce7") }
                 });
 
             migrationBuilder.InsertData(
@@ -174,9 +173,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "ReceiptId", "bookId", "dateDetail", "pricePerUnit", "purchaseHistoryId", "quantity" },
                 values: new object[,]
                 {
-                    { new Guid("60c3292b-7796-4803-84cc-dc4d7a9deabc"), new Guid("718f005d-447e-4c98-9a87-c52d027f4920"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4490), 150, new Guid("ff0eeb52-b9f0-41c5-9340-ab359ef27f4d"), 1 },
-                    { new Guid("85653093-38c3-4681-8bd0-990ac0375a62"), new Guid("14d16312-570f-4c8b-94be-b8546edae5d5"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4490), 100, new Guid("9234a6d7-7b5b-4006-ab31-17a962f3decf"), 2 },
-                    { new Guid("962b895c-98af-4602-9c25-dacda0d670ee"), new Guid("c64c28b5-bc14-4195-8be9-f9e191e0972b"), new DateTime(2024, 1, 29, 19, 20, 36, 501, DateTimeKind.Utc).AddTicks(4490), 80, new Guid("2e600004-281d-44ec-b7f6-b34efe0b2771"), 3 }
+                    { new Guid("4c2956c0-b9e5-46d0-9ec0-27ed786157a0"), new Guid("3875589a-8460-4636-8c16-cf48b868a28b"), new DateTime(2024, 1, 30, 9, 50, 57, 990, DateTimeKind.Utc).AddTicks(935), 150, new Guid("9abeb42f-e422-44b4-8fb4-f1da6d3cb7a0"), 1 },
+                    { new Guid("588077d0-a1c1-47a5-bc0a-c028909905f3"), new Guid("94340251-2d40-469b-8fbb-d4a98edb9aeb"), new DateTime(2024, 1, 30, 9, 50, 57, 990, DateTimeKind.Utc).AddTicks(932), 100, new Guid("96a57f32-826a-4e3c-8152-08bd3b88c61d"), 2 },
+                    { new Guid("a1bf6238-36ed-425f-8629-deedcca506a7"), new Guid("257feffe-b2cc-4cc0-9cf7-a53121d90397"), new DateTime(2024, 1, 30, 9, 50, 57, 990, DateTimeKind.Utc).AddTicks(936), 80, new Guid("0b2c2d8f-d2b2-407a-a637-274ada85cf03"), 3 }
                 });
 
             migrationBuilder.CreateIndex(
