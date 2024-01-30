@@ -87,7 +87,10 @@ namespace API.Controllers
             {
                 var query = new GetBooksByRatingQuery(minRating);
                 var books = await _mediator.Send(query);
-                return Ok(books);
+                if (books != null)
+                    return Ok(books);
+                else
+                    return NotFound($"No books found with minimal rating of {minRating}");
             }
             catch (Exception ex)
             {
