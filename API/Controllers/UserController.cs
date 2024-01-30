@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Commands.WalletCommands;
 using Application.Queries.UserQueries.LoginUser;
 using Application.Commands.UserCommands.UpdateUser;
-using Application.Dtos;
 using Application.Queries.PurchaseHistoriesQueries;
+using Application.Dtos.WalletDtos;
 
 
 namespace API.Controllers

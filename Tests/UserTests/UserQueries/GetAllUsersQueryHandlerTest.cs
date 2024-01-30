@@ -3,7 +3,7 @@ using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Moq;
 using NUnit.Framework;
-using Application.Dtos;
+using Application.Dtos.UserDtos;
 
 namespace Tests.UserTests.QueriesTest.UserQueries
 {

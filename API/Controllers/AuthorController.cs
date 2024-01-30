@@ -1,7 +1,7 @@
 ﻿using Application.Commands.AuthorCommands.CreateAuthor;
 using Application.Commands.AuthorCommands.DeleteAuthor;
 using Application.Commands.AuthorCommands.UpdateAuthor;
-using Application.Dtos;
+using Application.Dtos.AuthorDtos;
 using Application.Queries.AuthorQueries.GetAllAuthor;
 using Application.Queries.AuthorQueries.GetAuthorByBook;
 using Application.Queries.AuthorQueries.GetAuthorById;
@@ -91,20 +91,18 @@ namespace API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAuthor([FromBody] AuthorDto newAuthor)
         {
-
             try
             {
-                var result = await _mediator.Send(new CreateAuthorCommand(newAuthor));
-                if (result != null)
-                    return Ok($"Successfully created new author: {newAuthor.AuthorName}");
-                else
-                    return BadRequest(result);
+                var createauthorResponseDto = await _mediator.Send(new CreateAuthorCommand(newAuthor));
+                return Ok(createauthorResponseDto);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+
 
         //Update an Author
         [HttpPut]
