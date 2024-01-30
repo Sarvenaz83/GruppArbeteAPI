@@ -10,6 +10,7 @@ using Application.Queries.UserQueries.LoginUser;
 using Application.Commands.UserCommands.UpdateUser;
 using Application.Queries.PurchaseHistoriesQueries;
 using Application.Dtos.WalletDtos;
+using Application.Dtos.UserDtos;
 
 
 namespace API.Controllers
@@ -18,35 +19,27 @@ namespace API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IUserRepository _userRepository;
-        private readonly PasswordValidator _passwordValidator;
-        private readonly UsernameValidator _usernameValidator;
+        private readonly UserValidator _userValidator;
 
 
-        public UserController(IMediator mediator, IUserRepository userRepository, PasswordValidator passwordValidator, UsernameValidator usernameValidator)
+        public UserController(IMediator mediator, IUserRepository userRepository, UserValidator userValidator)
         {
             _mediator = mediator;
             _userRepository = userRepository;
-            _passwordValidator = passwordValidator;
-            _usernameValidator = usernameValidator;
+            _userValidator = userValidator;
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<ActionResult> Register(string username, string password)
+        public async Task<ActionResult> Register([FromBody] NewUserDto userDto)
         {
-            var validationResult = _usernameValidator.Validate(username);
-            if (!validationResult.IsValid)
+            var validatorResult = _userValidator.Validate(userDto);
+            if (!validatorResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                return BadRequest(validatorResult.Errors.ConvertAll(errors => errors.ErrorMessage));
             }
 
-            var passwordResult = _passwordValidator.Validate(password);
-            if (!passwordResult.IsValid)
-            {
-                return BadRequest(passwordResult.Errors);
-            }
-
-            var user = await _mediator.Send(new RegisterUserCommand { Username = username, Password = password });
+            var user = await _mediator.Send(new RegisterUserCommand(userDto));
 
             return Ok(new { Message = "Register successful", user.UserId, user.UserName });
         }

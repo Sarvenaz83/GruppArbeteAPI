@@ -160,9 +160,6 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.Password)
                     .HasMaxLength(255)
                     .HasColumnName("password");
-                entity.Property(e => e.Role)
-                    .HasMaxLength(255)
-                    .HasColumnName("role");
                 entity.Property(e => e.SurName)
                     .HasMaxLength(255)
                     .HasColumnName("surName");
