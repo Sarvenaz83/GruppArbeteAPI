@@ -125,7 +125,7 @@ namespace API.Controllers
                 {
                     return NotFound($"Author with ID {authorId} not found.");
                 }
-                return Ok(result);
+                return Ok($"Successfully updated author name to {updatedAuthor.AuthorName}");
             }
             catch
             {
