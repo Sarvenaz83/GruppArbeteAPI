@@ -12,6 +12,7 @@ namespace Application.Queries.PurchaseHistoriesQueries
         public GetPurchaseHistoryByUserIdQuery(string userId)
         {
             UserId = userId;
+
         }
     }
 }

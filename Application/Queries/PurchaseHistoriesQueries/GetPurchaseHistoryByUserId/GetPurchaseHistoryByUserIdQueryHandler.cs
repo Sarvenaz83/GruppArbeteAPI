@@ -28,14 +28,14 @@ namespace Application.Queries.PurchaseHistoriesQueries
                 {
                     PurchaseHistoryId = ph.PurchaseHistoryId,
                     UserId = ph.UserId,
-
                     Receipts = ph.Receipts.Select(r => new ReceiptDto
                     {
                         ReceiptId = r.ReceiptId,
                         BookId = r.BookId,
-                        DateDetail = r.DateDetail,
                         PricePerUnit = r.PricePerUnit,
-                        Quantity = r.Quantity
+                        Quantity = r.Quantity,
+                        DateDetail = r.DateDetail
+
                     }).ToList(),
                 }).ToList();
 
@@ -46,6 +46,7 @@ namespace Application.Queries.PurchaseHistoriesQueries
                 throw new Exception("An error occurred while fetching purchase history.", ex);
             }
         }
+
 
 
     }

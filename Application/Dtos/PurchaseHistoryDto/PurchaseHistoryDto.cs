@@ -1,7 +1,6 @@
-﻿// PurchaseHistoryDto
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Application.Dtos.ReceiptDto;  // Updated namespace
+using Application.Dtos.ReceiptDto;
 using Domain.Models;
 
 namespace Application.Dtos.PurchaseHistoryDto
