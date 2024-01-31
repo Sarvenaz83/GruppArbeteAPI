@@ -52,12 +52,10 @@ namespace API.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new GetBookByAuthorNameQuery(authorName));
+                var query = new GetBookByAuthorNameQuery { AuthorName = authorName };
+                var books = await _mediator.Send(query);
 
-                if (result != null)
-                    return Ok(result);
-                else
-                    return NotFound($"Found no books {authorName} has written.");
+                return Ok(books);
             }
             catch
             {
