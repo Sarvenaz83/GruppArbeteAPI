@@ -1,14 +1,10 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.BookDtos;
 using MediatR;
 
 namespace Application.Queries.BookQueries.GetBookByAuthorName
 {
-    public class GetBookByAuthorNameQuery : IRequest<List<Book>>
+    public class GetBookByAuthorNameQuery : IRequest<List<BookByAuthorNameDto>>
     {
-        public GetBookByAuthorNameQuery(string authorName)
-        {
-            AuthorName = authorName;
-        }
-        public string AuthorName { get; }
+        public string? AuthorName { get; set; }
     }
 }

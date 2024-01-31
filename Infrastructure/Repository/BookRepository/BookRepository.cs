@@ -21,12 +21,9 @@ namespace Infrastructure.Repository.BookRepository
 
         public async Task<List<Book>> GetBooksByAuthorName(string authorName)
         {
-            var bookListByAuthorName = await _context.Books.Where(b => b.Author.AuthorName.Contains(authorName)).ToListAsync();
-            if (!bookListByAuthorName.IsNullOrEmpty())
-                return bookListByAuthorName;
-
-            else
-                return null;
+            return await _context.Books
+                .Where(b => b.Author.AuthorName.Contains(authorName))
+                .ToListAsync();
         }
 
         public async Task<List<Book>> GetAllBooksAsync()
