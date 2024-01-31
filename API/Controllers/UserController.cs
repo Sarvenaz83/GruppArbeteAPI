@@ -68,21 +68,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetAllPurchaseHistories")]
-        [Authorize]
-        public async Task<IActionResult> GetAllPurchaseHistoriesAsync()
-        {
-            try
-            {
-                var purchaseHistories = await _mediator.Send(new GetAllPurchaseHistoriesQuery());
-                return Ok(purchaseHistories);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+
+
 
         [HttpDelete]
         [Route("delete/{userId:guid}")]
@@ -109,6 +96,27 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetPurchaseHistoryByUserId")]
+        public async Task<IActionResult> GetPurchaseHistoryByUserId()
+        {
+
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+            {
+                // Handle the case where user ID is not found in the token
+                return BadRequest("User ID not found in the token.");
+            }
+
+
+            var purchaseHistory = await _mediator.Send(new GetPurchaseHistoryByUserIdQuery(userId));
+
+
+            return Ok(purchaseHistory);
+
+        }
 
         [HttpPut("wallet/{userId}")]
         [Authorize]
