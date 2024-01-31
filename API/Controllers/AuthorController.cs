@@ -93,8 +93,15 @@ namespace API.Controllers
         {
             try
             {
-                var createauthorResponseDto = await _mediator.Send(new CreateAuthorCommand(newAuthor));
-                return Ok(createauthorResponseDto);
+
+
+                var result = await _mediator.Send(new CreateAuthorCommand(newAuthor));
+                if (result != null)
+                    return Ok($"Successfully created new author: {newAuthor.AuthorName}");
+                else
+                    return BadRequest(result);
+
+
             }
             catch (Exception ex)
             {
