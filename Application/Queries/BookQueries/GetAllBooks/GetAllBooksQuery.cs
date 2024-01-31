@@ -1,9 +1,9 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.BookDtos;
 using MediatR;
 
 namespace Application.Queries.BookQueries.GetAllBooks
 {
-    public class GetAllBooksQuery : IRequest<List<Book>>
+    public class GetAllBooksQuery : IRequest<List<GetAllBooksDto>>
     {
 
     }

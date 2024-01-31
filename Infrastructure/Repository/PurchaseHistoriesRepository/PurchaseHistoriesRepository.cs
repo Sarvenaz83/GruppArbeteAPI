@@ -1,7 +1,5 @@
-﻿using System;
-using Domain.Models;
+﻿using Domain.Models;
 using Infrastructure.DatabaseContext;
-using Infrastructure.Repository.PurchaseHistoriesRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository.PurchaseHistoriesRepository

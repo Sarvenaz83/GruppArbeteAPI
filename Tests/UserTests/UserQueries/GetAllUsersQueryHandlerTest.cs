@@ -1,9 +1,9 @@
-﻿using Application.Queries.UserQueries.GetAllUsers;
+﻿using Application.Dtos.UserDtos;
+using Application.Queries.UserQueries.GetAllUsers;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Moq;
 using NUnit.Framework;
-using Application.Dtos.UserDtos;
 
 namespace Tests.UserTests.QueriesTest.UserQueries
 {
