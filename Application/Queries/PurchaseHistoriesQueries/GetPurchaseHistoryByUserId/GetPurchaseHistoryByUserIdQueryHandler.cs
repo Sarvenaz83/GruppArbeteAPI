@@ -1,8 +1,8 @@
 ﻿
 using Application.Dtos.PurchaseHistoryDto;
 using Application.Dtos.ReceiptDto;
-using MediatR;
 using Infrastructure.Repository.PurchaseHistoriesRepository;
+using MediatR;
 
 
 

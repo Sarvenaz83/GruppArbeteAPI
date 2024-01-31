@@ -1,5 +1,4 @@
 ﻿// GetPurchaseHistoryByUserIdQuery
-using System;
 using Application.Dtos.PurchaseHistoryDto;
 using MediatR;
 

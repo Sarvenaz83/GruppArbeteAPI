@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Application.Dtos.ReceiptDto;
-using Domain.Models;
-
-namespace Application.Dtos.PurchaseHistoryDto
+﻿namespace Application.Dtos.PurchaseHistoryDto
 {
     public class PurchaseHistoryDto
     {

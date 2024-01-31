@@ -1,12 +1,12 @@
 using Infrastructure.DatabaseContext;
 using Infrastructure.Repository.AuthorRepository;
 using Infrastructure.Repository.BookRepository;
+using Infrastructure.Repository.PurchaseHistoriesRepository;
+using Infrastructure.Repository.ReceiptRepository;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
-using Infrastructure.Repository.PurchaseHistoriesRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Infrastructure.Repository.ReceiptRepository;
 
 namespace Infrastructure
 {
