@@ -77,7 +77,7 @@ namespace API.Controllers
                 if (result != null)
                     return Ok(result);
                 else
-                    return NotFound($"Found no author {bookTitle} has written.");
+                    return NotFound($"Not found any author who has written {bookTitle}");
             }
             catch
             {
