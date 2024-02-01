@@ -15,13 +15,15 @@ namespace Infrastructure.Repository.BookRepository
 
         public async Task<Book?> GetBookByIdAsync(Guid id)
         {
-            return await _context.Books.FindAsync(id);
+            return await _context.Books
+                .Include(b => b.Author)
+                .FirstOrDefaultAsync(b => b.BookId == id);
         }
 
         public async Task<List<Book>> GetBooksByAuthorName(string authorName)
         {
             return await _context.Books
-                .Where(b => b.Author.AuthorName.Contains(authorName))
+                .Where(b => b.Author!.AuthorName!.Contains(authorName))
                 .ToListAsync();
         }
 
