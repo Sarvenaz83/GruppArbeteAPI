@@ -23,7 +23,7 @@ namespace Application.Commands.BookCommands.UpdateBook
             }
 
             bookToUpdate.Title = request.UpdatedBook.Title;
-            bookToUpdate.Author!.AuthorName = request.UpdatedBook.AuthorName;
+            bookToUpdate.AuthorId = request.UpdatedBook.AuthorId;
             bookToUpdate.Genre = request.UpdatedBook.Genre;
             bookToUpdate.PubYear = request.UpdatedBook.PubYear;
             bookToUpdate.Pages = request.UpdatedBook.Pages;
