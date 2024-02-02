@@ -26,7 +26,7 @@ namespace Tests.BookTests.CommandTests
             var command = new UpdateBookByIdCommand(Guid.NewGuid(), new BookDto
             {
                 Title = "Test",
-                AuthorName = "Author Test",
+                AuthorId = Guid.NewGuid(),
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,
@@ -64,7 +64,7 @@ namespace Tests.BookTests.CommandTests
             var command = new UpdateBookByIdCommand(Guid.NewGuid(), new BookDto
             {
                 Title = "Test",
-                AuthorName = "Test Author Name",
+                AuthorId = Guid.NewGuid(),
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,

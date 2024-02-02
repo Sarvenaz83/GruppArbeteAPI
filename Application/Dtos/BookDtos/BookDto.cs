@@ -3,7 +3,7 @@
     public class BookDto
     {
         public string Title { get; set; } = string.Empty;
-        public string? AuthorName { get; set; }
+        public Guid AuthorId { get; set; }
         public string Genre { get; set; } = string.Empty;
         public DateTime PubYear { get; set; }
         public int Pages { get; set; }
