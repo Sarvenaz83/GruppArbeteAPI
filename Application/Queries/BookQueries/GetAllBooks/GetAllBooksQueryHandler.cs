@@ -20,8 +20,9 @@ namespace Application.Queries.BookQueries.GetAllBooks
                 List<Book> allBooksFromHarryPotterContext = await _bookRepository.GetAllBooksAsync();
                 var allBooksFromDto = allBooksFromHarryPotterContext.Select(b => new GetAllBooksDto
                 {
+                    BookId = b.BookId,
                     Title = b.Title,
-                    AuthorName = b.Author.AuthorName,
+                    AuthorName = b.Author!.AuthorName,
                     Genre = b.Genre,
                     PubYear = b.PubYear,
                     Pages = b.Pages,

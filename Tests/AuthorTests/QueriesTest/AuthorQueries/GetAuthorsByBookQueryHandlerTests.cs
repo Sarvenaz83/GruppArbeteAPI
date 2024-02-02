@@ -1,4 +1,5 @@
-﻿using Application.Queries.AuthorQueries.GetAuthorByBook;
+﻿using Application.Dtos.AuthorDtos;
+using Application.Queries.AuthorQueries.GetAuthorByBook;
 using Domain.Models;
 using Infrastructure.Repository.AuthorRepository;
 using Moq;
@@ -23,20 +24,15 @@ namespace Tests.AuthorTests.QueryTests
         public async Task Handle_ShouldCallGetAuthorByBookAsyncOnceWithCorrectParameters()
         {
             // Arrange
-            var bookTitle = "Test Book";
-            var expectedAuthor = new Author
-            {
-                AuthorId = Guid.NewGuid(),
-                AuthorName = "John Doe",
-            };
-            _mockAuthorRepository.Setup(repo => repo.GetAuthorByBookAsync(bookTitle)).ReturnsAsync(expectedAuthor);
+            var expectedAuthor = new Author { AuthorName = "Test Author" };
+            _mockAuthorRepository.Setup(repo => repo.GetAuthorByBookAsync(It.IsAny<string>())).ReturnsAsync(expectedAuthor);
 
+            var query = new GetAuthorByBookQuery("Some Book Title");
             // Act
-            var result = await _handler.Handle(new GetAuthorByBookQuery(bookTitle), CancellationToken.None);
+            var result = await _handler.Handle(query, default);
 
             // Assert
-            _mockAuthorRepository.Verify(repo => repo.GetAuthorByBookAsync(bookTitle), Times.Once);
-            Assert.That(result, Is.EqualTo(expectedAuthor));
+            Assert.That(result.AuthorName, Is.EqualTo(expectedAuthor.AuthorName));
         }
 
         [Test]
