@@ -20,6 +20,7 @@ namespace Application.Queries.BookQueries.GetBookByAuthorName
                 var getBooksByAuthorNameDto = books.Select(book => new BookByAuthorNameDto
                 {
                     Title = book.Title,
+                    AuthorName = book.Author.AuthorName,
                     Genre = book.Genre,
                     PubYear = book.PubYear,
                     Pages = book.Pages,

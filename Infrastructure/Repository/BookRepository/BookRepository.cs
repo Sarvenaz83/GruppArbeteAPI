@@ -23,6 +23,7 @@ namespace Infrastructure.Repository.BookRepository
         public async Task<List<Book>> GetBooksByAuthorName(string authorName)
         {
             return await _context.Books
+                .Include(b => b.Author)
                 .Where(b => b.Author!.AuthorName!.Contains(authorName))
                 .ToListAsync();
         }
