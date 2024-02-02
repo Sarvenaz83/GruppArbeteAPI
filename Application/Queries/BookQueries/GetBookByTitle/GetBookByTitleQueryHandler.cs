@@ -25,10 +25,8 @@ namespace Application.Queries.BookQueries.GetBookByTitle
                     Genre = b.Genre,
                     PubYear = b.PubYear,
                     Pages = b.Pages,
-                    StockBalance = b.StockBalance,
                     Rating = b.Rating,
                     Summary = b.Summary,
-                    IsDeleted = b.IsDeleted,
 
                 }).ToList();
                 return bookByTitle;
