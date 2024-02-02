@@ -121,15 +121,15 @@ namespace API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook)
         {
-            var validatorResult = _bookValidator.Validate(newBook);
-            if (!validatorResult.IsValid)
-            {
-                return BadRequest(validatorResult.Errors.ConvertAll(errors => errors.ErrorMessage));
-            }
+
 
             try
             {
-                return Ok(await _mediator.Send(new CreateBookCommand(newBook)));
+                var result = await _mediator.Send(new CreateBookCommand(newBook));
+                if (result != null)
+                    return Ok($"Successfully created new book: {newBook.Title}");
+                else
+                    return BadRequest(result);
             }
             catch (Exception ex)
             {
@@ -145,16 +145,16 @@ namespace API.Controllers
             var validatorResult = _bookValidator.Validate(updateBook);
             if (!validatorResult.IsValid)
             {
-                return BadRequest(validatorResult.Errors.ConvertAll(errors => errors.ErrorMessage));
+                return BadRequest(validatorResult.Errors);
             }
-
+            var command = new UpdateBookByIdCommand(bookId, updateBook);
             try
             {
-                var result = await _mediator.Send(new UpdateBookByIdCommand(bookId, updateBook));
+                var result = await _mediator.Send(command);
 
                 if (result == null)
                     return NotFound($"Book with ID {bookId} not found");
-                return Ok(result);
+                return Ok($"Successfully updated book's data to {updateBook.Title}");
             }
             catch
             {

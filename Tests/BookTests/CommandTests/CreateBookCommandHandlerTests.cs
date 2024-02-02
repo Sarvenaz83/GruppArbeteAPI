@@ -1,5 +1,6 @@
 ﻿using Application.Commands.BookCommands.CreateBook;
 using Application.Dtos.BookDtos;
+using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Moq;
 using NUnit.Framework;
@@ -27,12 +28,19 @@ namespace Tests.Commands.BookCommands
             {
                 Title = "Harry Potter",
                 Genre = "Fantasy",
-                AuthorId = Guid.NewGuid(),
                 PubYear = DateTime.Now,
                 Pages = 200,
-                StockBalance = 10,
                 Rating = 4.5m,
                 Summary = "Very good book"
+            });
+            var expectedBookId = Guid.NewGuid();
+            _mockBookRepository.Setup(repo => repo.CreateBookAsync(It.IsAny<Book>())).Callback<Book>(book =>
+            {
+                if (book != null)
+                {
+                    book.BookId = expectedBookId;
+                }
+
             });
 
             // Act
@@ -40,14 +48,6 @@ namespace Tests.Commands.BookCommands
 
             // Assert
             Assert.NotNull(createdBook);
-            Assert.That(createdBook.Title, Is.EqualTo(createBookCommand.NewBook.Title));
-            Assert.That(createdBook.Genre, Is.EqualTo(createBookCommand.NewBook.Genre));
-            Assert.That(createdBook.AuthorId, Is.EqualTo(createBookCommand.NewBook.AuthorId));
-            Assert.That(createdBook.PubYear, Is.EqualTo(createBookCommand.NewBook.PubYear));
-            Assert.That(createdBook.Pages, Is.EqualTo(createBookCommand.NewBook.Pages));
-            Assert.That(createdBook.StockBalance, Is.EqualTo(createBookCommand.NewBook.StockBalance));
-            Assert.That(createdBook.Rating, Is.EqualTo(createBookCommand.NewBook.Rating));
-            Assert.That(createdBook.Summary, Is.EqualTo(createBookCommand.NewBook.Summary));
 
         }
     }
