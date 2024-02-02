@@ -107,12 +107,13 @@ namespace API.Controllers
             {
                 var query = new GetBookByTitleQuery(titleSubstring);
                 var books = await _mediator.Send(query);
+
                 return Ok(books);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occured while getting book by title.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured processing your request.");
+                _logger.LogError(ex, "Error occurred while getting book by title.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred processing your request.");
             }
         }
 
