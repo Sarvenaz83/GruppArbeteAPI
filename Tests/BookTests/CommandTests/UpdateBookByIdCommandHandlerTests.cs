@@ -26,11 +26,10 @@ namespace Tests.BookTests.CommandTests
             var command = new UpdateBookByIdCommand(Guid.NewGuid(), new BookDto
             {
                 Title = "Test",
-                AuthorId = Guid.NewGuid(),
+                AuthorName = "Author Test",
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,
-                StockBalance = 10,
                 Rating = 3.4m,
                 Summary = "Summary"
             });
@@ -39,7 +38,7 @@ namespace Tests.BookTests.CommandTests
             {
                 BookId = Guid.NewGuid(),
                 Title = "Test",
-                AuthorId = Guid.NewGuid(),
+                Author = new Author { AuthorName = "OldAuthor" },
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,
@@ -65,11 +64,10 @@ namespace Tests.BookTests.CommandTests
             var command = new UpdateBookByIdCommand(Guid.NewGuid(), new BookDto
             {
                 Title = "Test",
-                AuthorId = Guid.NewGuid(),
+                AuthorName = "Test Author Name",
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,
-                StockBalance = 10,
                 Rating = 3.4m,
                 Summary = "Summary"
             });

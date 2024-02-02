@@ -19,11 +19,9 @@ namespace Application.Commands.BookCommands.CreateBook
             {
                 BookId = Guid.NewGuid(),
                 Title = request.NewBook.Title,
-                AuthorId = request.NewBook.AuthorId,
                 Genre = request.NewBook.Genre,
                 PubYear = request.NewBook.PubYear,
                 Pages = request.NewBook.Pages,
-                StockBalance = request.NewBook.StockBalance,
                 Rating = request.NewBook.Rating,
                 Summary = request.NewBook.Summary,
             };
