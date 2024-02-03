@@ -62,7 +62,7 @@ namespace Infrastructure.Repository.AuthorRepository
         {
             var author = await _context.Authors
                 .Include(a => a.Books)
-                .FirstOrDefaultAsync(a => a.Books.Any(b => b.Title == bookTitle));
+                .FirstOrDefaultAsync(a => a.Books.Any(b => b.Title.Contains(bookTitle)));
 
             return author;
         }
