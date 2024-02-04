@@ -1,16 +1,10 @@
 ﻿using Application.Commands.WalletCommands;
-using Application.Dtos;
 using Application.Dtos.WalletDtos;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tests.WalletTests
 {

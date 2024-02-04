@@ -32,4 +32,11 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BookTests\QueriesTests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserTests\UserQueries\" />
+  </ItemGroup>
+
 </Project>

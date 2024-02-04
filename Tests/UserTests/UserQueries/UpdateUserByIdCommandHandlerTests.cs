@@ -1,5 +1,4 @@
 ﻿using Application.Commands.UserCommands.UpdateUser;
-using Application.Dtos;
 using Application.Dtos.UserDtos;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;

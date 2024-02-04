@@ -1,11 +1,6 @@
 ﻿using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commands.UserCommands.UpdateUser
 {
@@ -28,10 +23,10 @@ namespace Application.Commands.UserCommands.UpdateUser
             }
 
             // Uppdatera användarens information från DTO
-            user.FirstName = request.UpdateUserDto.FirstName;
-            user.SurName = request.UpdateUserDto.SurName;
-            user.Email = request.UpdateUserDto.Email;
-            user.TelephoneNumber = request.UpdateUserDto.TelephoneNumber;
+            user.FirstName = request.UpdateUserDto.FirstName!;
+            user.SurName = request.UpdateUserDto.SurName!;
+            user.Email = request.UpdateUserDto.Email!;
+            user.TelephoneNumber = request.UpdateUserDto.TelephoneNumber!;
 
             if (!string.IsNullOrEmpty(request.UpdateUserDto.Password))
             {

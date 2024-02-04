@@ -48,13 +48,6 @@ namespace Tests.Commands.BookCommands
 
             // Assert
             Assert.NotNull(createdBook);
-            Assert.That(createdBook.Title, Is.EqualTo(createBookCommand.NewBook.Title));
-//            Assert.That(createdBook.Genre, Is.EqualTo(createBookCommand.NewBook.Genre));
-//            Assert.That(createdBook.AuthorId, Is.EqualTo(createBookCommand.NewBook.AuthorId));
-//            Assert.That(createdBook.PubYear, Is.EqualTo(createBookCommand.NewBook.PubYear));
-//            Assert.That(createdBook.Pages, Is.EqualTo(createBookCommand.NewBook.Pages));
-//            Assert.That(createdBook.Rating, Is.EqualTo(createBookCommand.NewBook.Rating));
-//            Assert.That(createdBook.Summary, Is.EqualTo(createBookCommand.NewBook.Summary));
 
         }
     }

@@ -2,6 +2,7 @@
 using Application.Commands.BookCommands.DeleteBook;
 using Application.Commands.BookCommands.UpdateBook;
 using Application.Dtos.BookDtos;
+using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Application.Queries.BookQueries.GetBookByAuthorName;
 using Application.Queries.BookQueries.GetBookById;
@@ -25,6 +26,20 @@ namespace API.Controllers
             _mediator = mediator;
             _bookValidator = bookValidator;
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+        [HttpGet]
+        [Route("GetAllBooks")]
+        public async Task<IActionResult> GetAllBooks()
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new GetAllBooksQuery()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -64,19 +79,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetAllBooks")]
-        public async Task<IActionResult> GetAllBooks()
-        {
-            try
-            {
-                return Ok(await _mediator.Send(new GetAllBooksQuery()));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+
 
 
         [HttpGet]
@@ -107,6 +110,7 @@ namespace API.Controllers
             {
                 var query = new GetBookByTitleQuery(titleSubstring);
                 var books = await _mediator.Send(query);
+
                 return Ok(books);
             }
             catch (Exception ex)
