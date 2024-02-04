@@ -1,3 +1,4 @@
+using Application.Dtos.UserDtos;
 using Application.Queries.UserQueries.GetAllUsers;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
