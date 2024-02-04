@@ -127,7 +127,7 @@ namespace API.Controllers
 
             try
             {
-                return Ok(await _mediator.Send(new CreateBookCommand(newBook , quantity)));
+                return Ok(await _mediator.Send(new CreateBookCommand(newBook, quantity)));
             }
             catch (Exception ex)
             {

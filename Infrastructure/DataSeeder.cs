@@ -38,7 +38,7 @@ namespace Infrastructure
                 IsDeleted = true,
                 Price = 20,
                 ArticleNumber = Guid.NewGuid().ToString()
-        };
+            };
 
             var book2 = new Book
             {
