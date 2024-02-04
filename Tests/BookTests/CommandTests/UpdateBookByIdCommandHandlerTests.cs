@@ -1,5 +1,4 @@
 ﻿using Application.Commands.BookCommands.UpdateBook;
-using Application.Dtos;
 using Application.Dtos.BookDtos;
 using Domain.Models;
 using Infrastructure.Repository.BookRepository;
@@ -39,7 +38,7 @@ namespace Tests.BookTests.CommandTests
             {
                 BookId = Guid.NewGuid(),
                 Title = "Test",
-                AuthorId = Guid.NewGuid(),
+                Author = new Author { AuthorName = "OldAuthor" },
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,

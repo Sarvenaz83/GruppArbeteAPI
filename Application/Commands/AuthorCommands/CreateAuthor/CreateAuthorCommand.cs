@@ -1,5 +1,4 @@
 ﻿using Application.Dtos.AuthorDtos;
-using Domain.Models;
 using MediatR;
 
 namespace Application.Commands.AuthorCommands.CreateAuthor

@@ -3,6 +3,8 @@ using Moq;
 using Application.Queries.BookQueries.GetBookByAuthorName;
 using Domain.Models;
 using Infrastructure.Repository.BookRepository;
+using Moq;
+using NUnit.Framework;
 
 namespace Tests.BookTests.QueryTests
 {

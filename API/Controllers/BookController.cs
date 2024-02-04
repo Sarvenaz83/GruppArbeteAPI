@@ -29,6 +29,20 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllBooks")]
+        public async Task<IActionResult> GetAllBooks()
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new GetAllBooksQuery()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("GetBookById/{bookId}")]
         public async Task<IActionResult> GetBookById(Guid bookId)
         {
@@ -65,19 +79,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("GetAllBooks")]
-        public async Task<IActionResult> GetAllBooks()
-        {
-            try
-            {
-                return Ok(await _mediator.Send(new GetAllBooksQuery()));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+
 
 
         [HttpGet]
@@ -108,6 +110,7 @@ namespace API.Controllers
             {
                 var query = new GetBookByTitleQuery(titleSubstring);
                 var books = await _mediator.Send(query);
+
                 return Ok(books);
             }
             catch (Exception ex)
