@@ -1,13 +1,10 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.UserDtos;
+using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Infrastructure.Repository.PurchaseHistoriesRepository;
 using Infrastructure.Repository.ReceiptRepository;
 using Infrastructure.Repository.WalletRepository;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Dtos.UserDtos;
 
 namespace Application.Commands.UserCommands.PurchaseBook
 {

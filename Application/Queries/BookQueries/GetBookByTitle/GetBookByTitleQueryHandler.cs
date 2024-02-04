@@ -22,11 +22,13 @@ namespace Application.Queries.BookQueries.GetBookByTitle
                 var bookByTitle = booksByTitleFromHarryPotterContext.Select(b => new GetBookByTitleDto
                 {
                     Title = b.Title,
+                    AuthorName = b.Author.AuthorName,
                     Genre = b.Genre,
-                    PubYear = b.PubYear,
+                    PubYear = b.PubYear.Value.Year,
                     Pages = b.Pages,
                     Rating = b.Rating,
                     Summary = b.Summary,
+                    Price = b.Price
 
                 }).ToList();
                 return bookByTitle;

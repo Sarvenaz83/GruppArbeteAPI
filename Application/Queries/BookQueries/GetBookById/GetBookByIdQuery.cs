@@ -1,5 +1,4 @@
 using Application.Dtos.BookDtos;
-using Domain.Models;
 using MediatR;
 
 namespace Application.Queries.BookQueries.GetBookById

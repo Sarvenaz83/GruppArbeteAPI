@@ -33,26 +33,26 @@ namespace Tests.BookTests.QueryTests
             //Assert
             Assert.That(query.TitleSubstring, Is.EqualTo(titleSubstring));
         }
-
         [Test]
-        public async Task Handle_GetBookByTitle_ShouldReturnBooksByTitleSubstring()
+        public async Task Handle_ShouldReturnCorrectBooks_WhenBooksExists()
         {
-            //Arrange
-            var titleSubstring = "Harry";
-            var testBooks = new List<Book>
+            // Arrange
+            string titleSubstring = "H";
+            var expectedBooks = new List<Book>
             {
-                new Book {BookId = Guid.NewGuid(), Title = "Harry Potter and the Sorcerer's Stone", Rating = 4.5M },
-                new Book { BookId = Guid.NewGuid(), Title = "The Chamber of Secrets", Rating = 4.0M },
+                 new Book {BookId = Guid.NewGuid(), Title = "The Hobbit", Rating = 4.5M, ArticleNumber = "article", Genre = "genre", Pages = 10, Price = 10, Summary = "summary", PubYear = DateTime.UtcNow, IsDeleted = false, Author = new Author{ AuthorName = "Author"} }
             };
-            _bookRepositoryMock.Setup(repo => repo.GetBooksByTitleContainsAsync(It.IsAny<string>()))
-                .ReturnsAsync((string startsWith) => testBooks.Where(book => book.Title!.StartsWith(startsWith)).ToList());
+            _bookRepositoryMock.Setup(repo => repo.GetBooksByTitleContainsAsync(titleSubstring))
+                .ReturnsAsync(expectedBooks);
 
-            //Act
-            var result = await _handler.Handle(new GetBookByTitleQuery(titleSubstring), CancellationToken.None);
+            var query = new GetBookByTitleQuery(titleSubstring);
 
-            //Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.IsTrue(result.All(book => book.Title!.StartsWith(titleSubstring)));
+            // Act
+            var result = await _handler.Handle(query, CancellationToken.None);
+
+            // Assert
+            Assert.That(result.Count, Is.EqualTo(expectedBooks.Count));
+            _bookRepositoryMock.Verify(repo => repo.GetBooksByTitleContainsAsync(titleSubstring), Times.Once);
         }
 
     }

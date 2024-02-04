@@ -24,10 +24,11 @@ namespace Application.Queries.BookQueries.GetAllBooks
                     Title = b.Title,
                     AuthorName = b.Author!.AuthorName,
                     Genre = b.Genre,
-                    PubYear = b.PubYear,
+                    PubYear = b.PubYear.Value.Year,
                     Pages = b.Pages,
                     Rating = b.Rating,
-                    Summary = b.Summary
+                    Summary = b.Summary,
+                    Price = b.Price,
 
                 }).ToList();
                 return allBooksFromDto;

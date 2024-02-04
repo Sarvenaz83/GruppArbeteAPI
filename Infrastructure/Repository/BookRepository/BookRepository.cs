@@ -43,10 +43,12 @@ namespace Infrastructure.Repository.BookRepository
 
         public async Task<List<Book>> GetBooksByTitleContainsAsync(string titleSubstring)
         {
-            return await _context.Books
-            .Where(book => book.Title.Contains(titleSubstring))
-            .OrderByDescending(book => book.Rating)
-            .ToListAsync();
+            var bookList = await _context.Books
+                .Include(book => book.Author)
+                .Where(book => book.Title.Contains(titleSubstring))
+                .OrderByDescending(book => book.Rating)
+                .ToListAsync();
+            return bookList;
         }
 
         public async Task<Book> CreateBookAsync(Book book)

@@ -1,10 +1,10 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.ReceiptDto;
 using Infrastructure.Repository.ReceiptRepository;
 using MediatR;
 
 namespace Application.Queries.ReceiptQueries.GetAllReceipts
 {
-    public class GetAllReceiptsQueryHandler : IRequestHandler<GetAllReceiptsQuery, List<Receipt>>
+    public class GetAllReceiptsQueryHandler : IRequestHandler<GetAllReceiptsQuery, List<ReceiptDto>>
     {
         private readonly IReceiptRepository _ReceiptRepository;
 
@@ -13,9 +13,19 @@ namespace Application.Queries.ReceiptQueries.GetAllReceipts
             _ReceiptRepository = ReceiptRepository;
         }
 
-        public async Task<List<Receipt>> Handle(GetAllReceiptsQuery request, CancellationToken cancellationToken)
+        public async Task<List<ReceiptDto>> Handle(GetAllReceiptsQuery request, CancellationToken cancellationToken)
         {
-            return await _ReceiptRepository.GetAllReceiptsAsync();
+            var recepitList = await _ReceiptRepository.GetAllReceiptsAsync();
+            var receipts = recepitList.Select(r => new ReceiptDto
+            {
+                ReceiptId = r.ReceiptId,
+                BookId = r.BookId,
+                DateDetail = r.DateDetail,
+                Price = r.TotalPrice,
+                Quantity = r.Quantity,
+            }).ToList();
+
+            return receipts;
         }
     }
 }

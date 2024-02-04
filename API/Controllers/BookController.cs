@@ -2,7 +2,6 @@
 using Application.Commands.BookCommands.DeleteBook;
 using Application.Commands.BookCommands.UpdateBook;
 using Application.Dtos.BookDtos;
-using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Application.Queries.BookQueries.GetBookByAuthorName;
 using Application.Queries.BookQueries.GetBookById;

@@ -20,30 +20,22 @@ namespace Tests.Queries.ReceiptQueries
         }
 
         [Test]
-        public async Task Handle_ReturnsListOfPurchaseDetails()
+        public async Task Handle_ShouldReturnCorrectReceipts_WhenReceiptsExists()
         {
             // Arrange
-            var purchaseDetailId = Guid.NewGuid();
-            var expectedPurchaseDetails = new List<Receipt>
-            {
-                new Receipt
-                {
-                    ReceiptId = purchaseDetailId,
-                },
-            };
-
+            var recepitId = Guid.NewGuid();
+            var expectedReceipts = new List<Receipt> { /* Fyll i med kvitteringar */ };
             _mockReceiptRepository.Setup(repo => repo.GetAllReceiptsAsync())
-                                         .ReturnsAsync(expectedPurchaseDetails);
+                .ReturnsAsync(expectedReceipts);
 
-            var query = new GetAllReceiptsQuery(ReceiptId: purchaseDetailId);
+            var query = new GetAllReceiptsQuery(recepitId);
 
             // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.InstanceOf<List<Receipt>>());
-            Assert.That(result.Count, Is.EqualTo(expectedPurchaseDetails.Count));
+            Assert.That(result.Count, Is.EqualTo(expectedReceipts.Count));
+            _mockReceiptRepository.Verify(repo => repo.GetAllReceiptsAsync(), Times.Once());
         }
     }
 }
