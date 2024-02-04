@@ -11,6 +11,7 @@ using Application.Commands.UserCommands.UpdateUser;
 using Application.Queries.PurchaseHistoriesQueries;
 using Application.Dtos.WalletDtos;
 using Application.Dtos.UserDtos;
+using Application.Commands.UserCommands.PurchaseBook;
 
 
 namespace API.Controllers
@@ -150,6 +151,29 @@ namespace API.Controllers
             }
 
             return Ok(result);
+        }
+        [HttpPost("PurchaseBook")]
+        public async Task<IActionResult> PurchaseBook([FromBody] PurchaseBookCommand command)
+        {
+            // Här antar jag att UserId kommer från användarens autentiseringstoken
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return Unauthorized("User ID not found in the token.");
+            }
+
+            // Sätt UserId i kommandot från token
+            command.UserId = new Guid(userId);
+
+            try
+            {
+                var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

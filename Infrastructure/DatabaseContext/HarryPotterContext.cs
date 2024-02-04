@@ -73,7 +73,6 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.Rating)
                     .HasColumnType("decimal(18, 0)")
                     .HasColumnName("rating");
-                entity.Property(e => e.StockBalance).HasColumnName("stockBalance");
                 entity.Property(e => e.Summary)
                     .HasMaxLength(255)
                     .HasColumnName("summary");
@@ -85,6 +84,7 @@ namespace Infrastructure.DatabaseContext
                     .WithMany(p => p.Books)
                     .HasForeignKey(d => d.AuthorId)
                     .HasConstraintName("FK__book__authorId__4222D4EF");
+                entity.Property(e => e.ArticleNumber).IsRequired();
 
                 entity.Property(b => b.IsDeleted).HasDefaultValue(false);
                 entity.HasQueryFilter(b => !b.IsDeleted);
@@ -102,7 +102,7 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.DateDetail)
                     .HasColumnType("datetime")
                     .HasColumnName("dateDetail");
-                entity.Property(e => e.PricePerUnit).HasColumnName("pricePerUnit");
+                // entity.Property(e => e.PricePerUnit).HasColumnName("pricePerUnit");
                 entity.Property(e => e.PurchaseHistoryId).HasColumnName("purchaseHistoryId");
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
@@ -126,10 +126,6 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.PurchaseHistoryId)
                     .ValueGeneratedNever()
                     .HasColumnName("purchaseHistoryId");
-                entity.Property(e => e.TimeOfPurchase)
-                    .HasColumnType("datetime")
-                    .HasColumnName("timeOfPurchase");
-                entity.Property(e => e.TotalPrice).HasColumnName("totalPrice");
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
                 entity.HasOne(d => d.User)

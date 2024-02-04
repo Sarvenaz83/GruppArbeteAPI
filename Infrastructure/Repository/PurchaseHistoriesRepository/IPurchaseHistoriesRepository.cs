@@ -6,7 +6,9 @@ namespace Infrastructure.Repository.PurchaseHistoriesRepository
     public interface IPurchaseHistoriesRepository
     {
         Task<List<PurchaseHistory>> GetAllPurchaseHistoriesAsync();
-        Task<List<PurchaseHistory>> GetPurchaseHistoryByUserIdAsync(Guid userId);
+        Task<PurchaseHistory> GetPurchaseHistoryByUserIdAsync(Guid userId);
+        Task<PurchaseHistory> CreatePurchaseHistoryAsync(PurchaseHistory purchaseHistory);
+        Task<PurchaseHistory> UpdatePurchaseHistoryAsync(PurchaseHistory purchaseHistory);
     }
 }
 

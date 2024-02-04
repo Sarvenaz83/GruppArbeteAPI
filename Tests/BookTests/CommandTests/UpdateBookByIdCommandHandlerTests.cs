@@ -31,7 +31,6 @@ namespace Tests.BookTests.CommandTests
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,
-                StockBalance = 10,
                 Rating = 3.4m,
                 Summary = "Summary"
             });
@@ -44,7 +43,6 @@ namespace Tests.BookTests.CommandTests
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,
-                StockBalance = 10,
                 Rating = 3.4m,
                 Summary = "Summary"
             });
@@ -70,7 +68,6 @@ namespace Tests.BookTests.CommandTests
                 Genre = "Genre",
                 PubYear = DateTime.UtcNow,
                 Pages = 200,
-                StockBalance = 10,
                 Rating = 3.4m,
                 Summary = "Summary"
             });

@@ -1,9 +1,13 @@
 ﻿using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using MediatR;
+using System;
+using System.Threading.Tasks;
 
 namespace Application.Commands.BookCommands.CreateBook
 {
+
+
     public class AddBookCommandHandler : IRequestHandler<CreateBookCommand, Book>
     {
         private readonly IBookRepository _bookRepository;
@@ -15,22 +19,34 @@ namespace Application.Commands.BookCommands.CreateBook
 
         public async Task<Book> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            Book bookToCreate = new()
+
+            Book lastCreatedBook = null;
+            string articleNumber = Guid.NewGuid().ToString();
+
+            // Skapa det angivna antalet böcker
+            for (int i = 0; i < request.Quantity; i++)
             {
-                BookId = Guid.NewGuid(),
-                Title = request.NewBook.Title,
-                AuthorId = request.NewBook.AuthorId,
-                Genre = request.NewBook.Genre,
-                PubYear = request.NewBook.PubYear,
-                Pages = request.NewBook.Pages,
-                StockBalance = request.NewBook.StockBalance,
-                Rating = request.NewBook.Rating,
-                Summary = request.NewBook.Summary,
-            };
+                Book bookToCreate = new()
+                {
+                    BookId = Guid.NewGuid(),
+                    Title = request.NewBookDto.Title,
+                    AuthorId = request.NewBookDto.AuthorId,
+                    Genre = request.NewBookDto.Genre,
+                    PubYear = request.NewBookDto.PubYear,
+                    Pages = request.NewBookDto.Pages,
+                    Rating = request.NewBookDto.Rating,
+                    Summary = request.NewBookDto.Summary,
+                    ArticleNumber = articleNumber,
+                    Price = request.NewBookDto.price
+                };
 
-            await _bookRepository.CreateBookAsync(bookToCreate);
+                lastCreatedBook = await _bookRepository.CreateBookAsync(bookToCreate);
+            }
 
-            return bookToCreate;
+            // Returnera det sista skapade bokexemplaret
+            return lastCreatedBook;
         }
+
+
     }
 }

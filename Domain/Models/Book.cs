@@ -14,13 +14,14 @@ public partial class Book
 
     public int? Pages { get; set; }
 
-    public int? StockBalance { get; set; }
-
     public decimal? Rating { get; set; }
 
     public string? Summary { get; set; }
 
     public virtual Author? Author { get; set; }
     public bool IsDeleted { get; set; }
+
+    public int Price { get; set; }
+    public string ArticleNumber { get; set; }
 
 }

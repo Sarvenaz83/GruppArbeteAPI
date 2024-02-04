@@ -24,8 +24,8 @@
     <None Remove="Queries\PurchaseHistoriesQueries\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Queries\ReceiptQueries\Get\" />
     <Folder Include="Queries\UserQueries\GetAllUsers\" />
-    <Folder Include="Commands\UserCommands\DeleteUser\" />
     <Folder Include="Queries\PurchaseHistoriesQueries\" />
   </ItemGroup>
 </Project>

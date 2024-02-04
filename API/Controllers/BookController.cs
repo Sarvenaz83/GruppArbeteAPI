@@ -117,7 +117,7 @@ namespace API.Controllers
         [HttpPost]
         [Route("CreateNewBook")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook)
+        public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook, int quantity)
         {
             var validatorResult = _bookValidator.Validate(newBook);
             if (!validatorResult.IsValid)
@@ -127,7 +127,7 @@ namespace API.Controllers
 
             try
             {
-                return Ok(await _mediator.Send(new CreateBookCommand(newBook)));
+                return Ok(await _mediator.Send(new CreateBookCommand(newBook , quantity)));
             }
             catch (Exception ex)
             {
