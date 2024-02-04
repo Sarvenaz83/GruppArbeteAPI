@@ -84,7 +84,7 @@ namespace Application.Commands.UserCommands.PurchaseBook
             await _bookRepository.UpdateBookByIdAsync(book);
 
             // Ta bort UserId från svaret
-            return new PurchaseResultDto { Success = true, Message = "Purchase successful" };//
+            return new PurchaseResultDto { Success = true, Message = "Purchase successful" };
         }
     }
 }
