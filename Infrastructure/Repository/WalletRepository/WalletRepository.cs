@@ -43,7 +43,6 @@ namespace Infrastructure.Repository.WalletRepository
             }
         }
 
-
         public async Task<Wallet> GetWalletByUserIdAsync(Guid userId)
         {
             var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == userId);

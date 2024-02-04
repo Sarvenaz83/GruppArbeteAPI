@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using Moq;
 using Application.Queries.BookQueries.GetBookByAuthorName;
 using Domain.Models;

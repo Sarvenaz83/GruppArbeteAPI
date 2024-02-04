@@ -1,4 +1,4 @@
-﻿using Application.Queries.UserQueries.GetAllUsers;
+using Application.Queries.UserQueries.GetAllUsers;
 using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using Moq;

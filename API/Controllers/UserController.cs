@@ -1,5 +1,12 @@
 ﻿using Application.Commands.UserCommands.RegisterUser;
 using Application.Queries.UserQueries.GetAllUsers;
+using Application.Commands.UserCommands.UpdateUser;
+using Application.Commands.WalletCommands;
+using Application.Dtos.UserDtos;
+using Application.Dtos.WalletDtos;
+using Application.Queries.PurchaseHistoriesQueries;
+using Application.Queries.UserQueries.GetAllUsers;
+using Application.Queries.UserQueries.LoginUser;
 using Application.Validators;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
@@ -12,6 +19,7 @@ using Application.Queries.PurchaseHistoriesQueries;
 using Application.Dtos.WalletDtos;
 using Application.Dtos.UserDtos;
 using Application.Commands.UserCommands.PurchaseBook;
+
 
 
 namespace API.Controllers

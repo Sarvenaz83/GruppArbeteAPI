@@ -16,19 +16,22 @@ namespace Infrastructure.Repository.BookRepository
 
         public async Task<Book?> GetBookByIdAsync(Guid id)
         {
-            return await _context.Books.FindAsync(id);
+            return await _context.Books
+                .Include(b => b.Author)
+                .FirstOrDefaultAsync(b => b.BookId == id);
         }
 
         public async Task<List<Book>> GetBooksByAuthorName(string authorName)
         {
             return await _context.Books
-                .Where(b => b.Author.AuthorName.Contains(authorName))
+                .Include(b => b.Author)
+                .Where(b => b.Author!.AuthorName!.Contains(authorName))
                 .ToListAsync();
         }
 
         public async Task<List<Book>> GetAllBooksAsync()
         {
-            return await _context.Books.Where(b => !b.IsDeleted).ToListAsync();
+            return await _context.Books.Include(b => b.Author).Where(b => !b.IsDeleted).ToListAsync();
         }
 
         public async Task<List<Book>> GetBooksByRatingAsync(decimal minRating)
@@ -41,7 +44,8 @@ namespace Infrastructure.Repository.BookRepository
 
         public async Task<List<Book>> GetBooksByTitleContainsAsync(string titleSubstring)
         {
-            return await _context.Books.Where(book => book.Title.Contains(titleSubstring))
+            return await _context.Books
+            .Where(book => book.Title.Contains(titleSubstring))
             .OrderByDescending(book => book.Rating)
             .ToListAsync();
         }

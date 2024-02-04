@@ -102,7 +102,6 @@ namespace Infrastructure.DatabaseContext
                 entity.Property(e => e.DateDetail)
                     .HasColumnType("datetime")
                     .HasColumnName("dateDetail");
-                // entity.Property(e => e.PricePerUnit).HasColumnName("pricePerUnit");
                 entity.Property(e => e.PurchaseHistoryId).HasColumnName("purchaseHistoryId");
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 

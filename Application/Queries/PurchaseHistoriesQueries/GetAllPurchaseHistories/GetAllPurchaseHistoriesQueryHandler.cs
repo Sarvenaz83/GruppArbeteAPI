@@ -1,8 +1,5 @@
-﻿using System;
-using Application.Queries.PurchaseHistoriesQueries;
-using Domain.Models;
+﻿using Domain.Models;
 using Infrastructure.Repository.PurchaseHistoriesRepository;
-using Infrastructure.Repository.ReceiptRepository;
 using MediatR;
 
 namespace Application.Queries.PurchaseHistoriesQueries

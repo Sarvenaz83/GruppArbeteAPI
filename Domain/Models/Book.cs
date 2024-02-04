@@ -1,4 +1,6 @@
-﻿namespace Domain.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace Domain.Models;
 
 public partial class Book
 {
@@ -18,6 +20,7 @@ public partial class Book
 
     public string? Summary { get; set; }
 
+    [JsonIgnore]
     public virtual Author? Author { get; set; }
     public bool IsDeleted { get; set; }
 

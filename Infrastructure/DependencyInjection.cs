@@ -1,6 +1,8 @@
 using Infrastructure.DatabaseContext;
 using Infrastructure.Repository.AuthorRepository;
 using Infrastructure.Repository.BookRepository;
+using Infrastructure.Repository.PurchaseHistoriesRepository;
+using Infrastructure.Repository.ReceiptRepository;
 using Infrastructure.Repository.UserRepository;
 using Infrastructure.Repository.WalletRepository;
 using Infrastructure.Repository.PurchaseHistoriesRepository;
@@ -29,9 +31,6 @@ namespace Infrastructure
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IReceiptRepository, ReceiptRepository>();
             services.AddScoped<IPurchaseHistoriesRepository, PurchaseHistoriesRepository>();
-
-
-
 
             return services;
         }

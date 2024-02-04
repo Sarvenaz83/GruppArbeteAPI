@@ -77,7 +77,7 @@ namespace API.Controllers
                 if (result != null)
                     return Ok(result);
                 else
-                    return NotFound($"Found no author {bookTitle} has written.");
+                    return NotFound($"Not found any author who has written {bookTitle}");
             }
             catch
             {
@@ -93,15 +93,11 @@ namespace API.Controllers
         {
             try
             {
-
-
                 var result = await _mediator.Send(new CreateAuthorCommand(newAuthor));
                 if (result != null)
                     return Ok($"Successfully created new author: {newAuthor.AuthorName}");
                 else
                     return BadRequest(result);
-
-
             }
             catch (Exception ex)
             {

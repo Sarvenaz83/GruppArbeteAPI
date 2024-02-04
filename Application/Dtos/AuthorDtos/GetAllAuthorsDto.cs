@@ -1,5 +1,4 @@
-﻿// GetAllAuthorsDto
-using System;
+﻿using System;
 namespace Application.Dtos.AuthorDtos
 {
 
