@@ -9,5 +9,6 @@
         public int Pages { get; set; }
         public decimal Rating { get; set; }
         public string Summary { get; set; } = string.Empty;
+        public int price { get; set; }
     }
 }

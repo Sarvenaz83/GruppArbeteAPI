@@ -10,11 +10,7 @@ public partial class Receipt
 
     public int? Quantity { get; set; }
 
-    public int? PricePerUnit { get; set; }
-
     public DateTime? DateDetail { get; set; }
-
-    //public virtual Book? Book { get; set; }
-
+    public int TotalPrice { get; set; }
     public virtual PurchaseHistory? PurchaseHistories { get; set; }
 }

@@ -6,5 +6,6 @@ namespace Infrastructure.Repository.WalletRepository
     {
         Task<Wallet> AddAsync(Wallet wallet);
         Task<Wallet> UpdateBalance(Guid userId, int balance);
+        Task<Wallet> GetWalletByUserIdAsync(Guid userId);
     }
 }

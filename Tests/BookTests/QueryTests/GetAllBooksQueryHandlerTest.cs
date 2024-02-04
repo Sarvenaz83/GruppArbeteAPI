@@ -1,4 +1,4 @@
-﻿using Application.Dtos.BookDtos;
+using Application.Dtos.BookDtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Domain.Models;
 using Infrastructure.Repository.BookRepository;
@@ -33,7 +33,6 @@ namespace Tests.BookTests.QueryTests
                     Genre = "Genre 1",
                     PubYear = DateTime.UtcNow,
                     Pages = 200,
-                    StockBalance = 10,
                     Rating = 4.5m,
                     Summary = "Summary 1"
                 },
@@ -44,7 +43,6 @@ namespace Tests.BookTests.QueryTests
                     Genre = "Genre 2",
                     PubYear = DateTime.UtcNow,
                     Pages = 250,
-                    StockBalance = 15,
                     Rating = 4.7m,
                     Summary = "Summary 2"
                 }
@@ -67,7 +65,6 @@ namespace Tests.BookTests.QueryTests
             Assert.That(firstBookDto.AuthorName, Is.EqualTo("Author 1"));
             Assert.That(firstBookDto.Genre, Is.EqualTo("Genre 1"));
             Assert.That(firstBookDto.Pages, Is.EqualTo(200));
-            Assert.That(firstBookDto.StockBalance, Is.EqualTo(10));
             Assert.That(firstBookDto.Rating, Is.EqualTo(4.5));
             Assert.That(firstBookDto.Summary, Is.EqualTo("Summary 1"));
 
@@ -76,7 +73,6 @@ namespace Tests.BookTests.QueryTests
             Assert.That(secondBookDto.AuthorName, Is.EqualTo("Author 2"));
             Assert.That(secondBookDto.Genre, Is.EqualTo("Genre 2"));
             Assert.That(secondBookDto.Pages, Is.EqualTo(250));
-            Assert.That(secondBookDto.StockBalance, Is.EqualTo(15));
             Assert.That(secondBookDto.Rating, Is.EqualTo(4.7));
             Assert.That(secondBookDto.Summary, Is.EqualTo("Summary 2"));
         }

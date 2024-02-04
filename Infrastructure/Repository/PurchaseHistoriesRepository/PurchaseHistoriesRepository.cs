@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+using System;
+using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,7 @@ namespace Infrastructure.Repository.PurchaseHistoriesRepository
             return await _context.PurchaseHistories.ToListAsync();
         }
 
-        public async Task<List<PurchaseHistory>> GetPurchaseHistoryByUserIdAsync(Guid userId)
+        public async Task<PurchaseHistory> GetPurchaseHistoryByUserIdAsync(Guid userId)
         {
             try
             {
@@ -26,7 +27,7 @@ namespace Infrastructure.Repository.PurchaseHistoriesRepository
                     .Include(ph => ph.Receipts)
                     .Include(ph => ph.User)
                     .Where(ph => ph.UserId == userId)
-                    .ToListAsync();
+                    .FirstOrDefaultAsync(x => x.UserId == userId);
 
                 return purchaseHistories;
             }
@@ -36,7 +37,21 @@ namespace Infrastructure.Repository.PurchaseHistoriesRepository
                 throw new Exception("An error occurred while fetching purchase history.", ex);
             }
         }
+        public async Task<PurchaseHistory> CreatePurchaseHistoryAsync(PurchaseHistory purchaseHistory)
+        {
+            _context.PurchaseHistories.Add(purchaseHistory);
+            await _context.SaveChangesAsync();
+            return purchaseHistory;
+        }
+
+        public async Task<PurchaseHistory> UpdatePurchaseHistoryAsync(PurchaseHistory purchaseHistory)
+        {
+            _context.PurchaseHistories.Update(purchaseHistory);
+            await _context.SaveChangesAsync();
+            return purchaseHistory;
+        }
     }
+
 
 }
 

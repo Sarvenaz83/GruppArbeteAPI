@@ -1,4 +1,5 @@
-﻿using Application.Dtos.BookDtos;
+using Domain.Models;
+using Application.Dtos.BookDtos;
 using MediatR;
 
 namespace Application.Queries.BookQueries.GetBookByTitle

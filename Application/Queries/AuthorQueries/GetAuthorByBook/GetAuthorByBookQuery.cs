@@ -1,4 +1,4 @@
-﻿using Application.Dtos.AuthorDtos;
+using Application.Dtos.AuthorDtos;
 using MediatR;
 
 namespace Application.Queries.AuthorQueries.GetAuthorByBook

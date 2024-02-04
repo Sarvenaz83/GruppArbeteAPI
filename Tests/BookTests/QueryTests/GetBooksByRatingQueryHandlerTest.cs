@@ -1,4 +1,5 @@
-﻿using Application.Queries.BookQueries.GetBooksByRating;
+using Application.Dtos;
+using Application.Queries.BookQueries.GetBooksByRating;
 using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using Moq;

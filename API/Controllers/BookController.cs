@@ -2,6 +2,7 @@
 using Application.Commands.BookCommands.DeleteBook;
 using Application.Commands.BookCommands.UpdateBook;
 using Application.Dtos.BookDtos;
+using Application.Dtos;
 using Application.Queries.BookQueries.GetAllBooks;
 using Application.Queries.BookQueries.GetBookByAuthorName;
 using Application.Queries.BookQueries.GetBookById;
@@ -60,6 +61,7 @@ namespace API.Controllers
             }
         }
 
+
         [HttpGet]
         [Route("GetBookByAuthorName/{authorName}")]
         public async Task<IActionResult> GetBookByAuthorName(string authorName)
@@ -76,6 +78,7 @@ namespace API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
             }
         }
+
 
 
 
@@ -120,13 +123,11 @@ namespace API.Controllers
         [HttpPost]
         [Route("CreateNewBook")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook)
+        public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook, int quantity)
         {
-
-
             try
             {
-                var result = await _mediator.Send(new CreateBookCommand(newBook));
+                var result = await _mediator.Send(new CreateBookCommand(newBook, quantity));
                 if (result != null)
                     return Ok($"Successfully created new book: {newBook.Title}");
                 else
@@ -137,6 +138,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPut]
         [Route("UpdateBook/{bookId}")]

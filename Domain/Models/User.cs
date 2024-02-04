@@ -16,6 +16,5 @@ public partial class User
 
     public string TelephoneNumber { get; set; } = string.Empty;
     public virtual ICollection<PurchaseHistory> PurchaseHistories { get; set; } = new List<PurchaseHistory>();
-    //public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
 
 }

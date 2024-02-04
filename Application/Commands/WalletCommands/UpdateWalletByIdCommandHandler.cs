@@ -26,8 +26,6 @@ namespace Application.Commands.WalletCommands
 
             var wallet = await _walletRepository.UpdateBalance(request.UserId, request.Wallet.Balance);
 
-            // Kontrollera om wallet.Balance är null innan du tilldelar det till WalletDto.Balance
-            int balance = wallet.Balance.HasValue ? wallet.Balance.Value : 0;
 
             return new WalletDto
             {

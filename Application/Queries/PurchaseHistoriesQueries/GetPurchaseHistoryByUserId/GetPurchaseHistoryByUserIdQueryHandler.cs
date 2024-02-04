@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Application.Queries.PurchaseHistoriesQueries
 {
-    public class GetPurchaseHistoryByUserIdQueryHandler : IRequestHandler<GetPurchaseHistoryByUserIdQuery, List<PurchaseHistoryDto>>
+    public class GetPurchaseHistoryByUserIdQueryHandler : IRequestHandler<GetPurchaseHistoryByUserIdQuery, PurchaseHistoryDto>
     {
         private readonly IPurchaseHistoriesRepository _purchaseHistoriesRepository;
 
@@ -17,27 +17,26 @@ namespace Application.Queries.PurchaseHistoriesQueries
             _purchaseHistoriesRepository = purchaseHistoriesRepository;
         }
 
-        public async Task<List<PurchaseHistoryDto>> Handle(GetPurchaseHistoryByUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<PurchaseHistoryDto> Handle(GetPurchaseHistoryByUserIdQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 var userId = new Guid(request.UserId);
                 var purchaseHistories = await _purchaseHistoriesRepository.GetPurchaseHistoryByUserIdAsync(userId);
 
-                var purchaseHistoryDto = purchaseHistories.Select(ph => new PurchaseHistoryDto
+                var purchaseHistoryDto = new PurchaseHistoryDto
                 {
-                    PurchaseHistoryId = ph.PurchaseHistoryId,
-                    UserId = ph.UserId,
-                    Receipts = ph.Receipts.Select(r => new ReceiptDto
+                    PurchaseHistoryId = purchaseHistories.PurchaseHistoryId,
+                    UserId = purchaseHistories.UserId,
+                    Receipts = purchaseHistories.Receipts.Select(r => new ReceiptDto
                     {
                         ReceiptId = r.ReceiptId,
                         BookId = r.BookId,
-                        PricePerUnit = r.PricePerUnit,
                         Quantity = r.Quantity,
                         DateDetail = r.DateDetail
 
-                    }).ToList(),
-                }).ToList();
+                    }).ToList()
+                };
 
                 return purchaseHistoryDto;
             }

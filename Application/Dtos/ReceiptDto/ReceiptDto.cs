@@ -1,4 +1,4 @@
-﻿// ReceiptDto
+using System;
 
 namespace Application.Dtos.ReceiptDto
 {

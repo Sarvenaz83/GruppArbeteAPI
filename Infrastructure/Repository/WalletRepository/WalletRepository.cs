@@ -37,5 +37,15 @@ namespace Infrastructure.Repository.WalletRepository
                 throw new Exception("Wallet not found.");
             }
         }
+
+        public async Task<Wallet> GetWalletByUserIdAsync(Guid userId)
+        {
+            var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == userId);
+            if (wallet == null)
+            {
+                throw new Exception("Wallet not found.");
+            }
+            return wallet;
+        }
     }
 }

@@ -16,11 +16,11 @@ namespace Infrastructure
         {
             services.AddDbContext<HarryPotterContext>(options =>
             {
-                var connectionString = "Server=localhost,1433;Database=HarryPotter;User Id=sa;Password='Arkemar321@';Encrypt=False;TrustServerCertificate=True;";
+                // var connectionString = "Server=localhost,1433;Database=HarryPotter;User Id=sa;Password='Arkemar321@';Encrypt=False;TrustServerCertificate=True;";
 
 
 
-                //var connectionString = "Server=(local)\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
+                var connectionString = "Server=(local)\\SQLEXPRESS;Database=HarryPotter;Trusted_Connection=True;TrustServerCertificate=true";
                 options.UseSqlServer(connectionString);
             });
             services.AddScoped<IAuthorRepository, AuthorRepository>();
@@ -29,7 +29,6 @@ namespace Infrastructure
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IReceiptRepository, ReceiptRepository>();
             services.AddScoped<IPurchaseHistoriesRepository, PurchaseHistoriesRepository>();
-
 
             return services;
         }
