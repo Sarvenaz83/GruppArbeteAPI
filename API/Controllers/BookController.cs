@@ -46,6 +46,7 @@ namespace API.Controllers
             }
         }
 
+
         [HttpGet]
         [Route("GetBookByAuthorName/{authorName}")]
         public async Task<IActionResult> GetBookByAuthorName(string authorName)
@@ -76,42 +77,6 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [Route("GetBookById/{bookId}")]
-        public async Task<IActionResult> GetBookById(Guid bookId)
-        {
-            try
-            {
-                var result = await _mediator.Send(new GetBookByIdQuery(bookId));
-
-                if (result != null)
-                    return Ok(result);
-                else
-                    return NotFound($"Book with id {bookId} not found.");
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-            }
-        }
-
-        [HttpGet]
-        [Route("GetBookByAuthorName/{authorName}")]
-        public async Task<IActionResult> GetBookByAuthorName(string authorName)
-        {
-            try
-            {
-                var query = new GetBookByAuthorNameQuery { AuthorName = authorName };
-                var books = await _mediator.Send(query);
-
-                return Ok(books);
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-            }
-        }
-
 
 
         [HttpGet]
@@ -154,13 +119,11 @@ namespace API.Controllers
         [HttpPost]
         [Route("CreateNewBook")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook)
+        public async Task<IActionResult> CreateNewBook([FromBody] BookDto newBook, int quantity)
         {
-
-
             try
             {
-                var result = await _mediator.Send(new CreateBookCommand(newBook));
+                var result = await _mediator.Send(new CreateBookCommand(newBook, quantity));
                 if (result != null)
                     return Ok($"Successfully created new book: {newBook.Title}");
                 else
@@ -171,6 +134,7 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPut]
         [Route("UpdateBook/{bookId}")]

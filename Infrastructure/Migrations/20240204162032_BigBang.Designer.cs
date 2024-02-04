@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HarryPotterContext))]
-    [Migration("20240204125906_BigBang")]
+    [Migration("20240204162032_BigBang")]
     partial class BigBang
     {
         /// <inheritdoc />
@@ -49,13 +49,13 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = new Guid("41e93619-05f1-413c-9588-ff2dfe95221f"),
+                            AuthorId = new Guid("a7360dc9-c342-414c-86fa-d0aaec810f6a"),
                             AuthorName = "J.K. Rowling",
                             IsDeleted = false
                         },
                         new
                         {
-                            AuthorId = new Guid("886d0538-55c1-487e-9398-fc103dd11a30"),
+                            AuthorId = new Guid("1b518c09-2adb-4d4b-9ede-0a0a281622ec"),
                             AuthorName = "J.R.R. Tolkien",
                             IsDeleted = false
                         });
@@ -120,11 +120,11 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            BookId = new Guid("62250928-48b6-42e2-97ff-81ea87d6f8ec"),
-                            ArticleNumber = "7cab7825-64ac-464b-94f3-b78b157e9ee8",
-                            AuthorId = new Guid("41e93619-05f1-413c-9588-ff2dfe95221f"),
+                            BookId = new Guid("183edae4-a5af-4d06-a8a2-e61806db7e00"),
+                            ArticleNumber = "e07b91c8-55fb-4a6f-8178-01ef3a4c870a",
+                            AuthorId = new Guid("a7360dc9-c342-414c-86fa-d0aaec810f6a"),
                             Genre = "Fantasy",
-                            IsDeleted = false,
+                            IsDeleted = true,
                             Pages = 223,
                             Price = 20,
                             PubYear = new DateTime(1997, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -134,9 +134,9 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("d9fb6c0c-a672-45f3-9944-46f52d12a0c9"),
-                            ArticleNumber = "525db669-137b-4e65-bece-f49198480dff",
-                            AuthorId = new Guid("886d0538-55c1-487e-9398-fc103dd11a30"),
+                            BookId = new Guid("970ee418-ca25-49c3-bc1b-942d85cf3e25"),
+                            ArticleNumber = "49aa076a-8565-40a4-bb5d-fb25384a0ca8",
+                            AuthorId = new Guid("1b518c09-2adb-4d4b-9ede-0a0a281622ec"),
                             Genre = "Fantasy",
                             IsDeleted = false,
                             Pages = 310,
@@ -168,8 +168,8 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            PurchaseHistoryId = new Guid("b011d3af-fdec-4646-a307-a5d3350d8dec"),
-                            UserId = new Guid("76f5c4b8-44bc-4960-95c3-3ef7cf0fa7ad")
+                            PurchaseHistoryId = new Guid("b63edc64-210a-42ed-bd5d-77f34eefacc2"),
+                            UserId = new Guid("a9f3ebe6-aa6b-44a7-8ad8-e4b8ca976a8d")
                         });
                 });
 
@@ -208,12 +208,12 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            ReceiptId = new Guid("b55e6f94-a8f1-4a5f-b609-2bb9fea7896e"),
-                            BookId = new Guid("62250928-48b6-42e2-97ff-81ea87d6f8ec"),
-                            DateDetail = new DateTime(2024, 2, 4, 12, 59, 6, 130, DateTimeKind.Utc).AddTicks(9866),
-                            PurchaseHistoryId = new Guid("b011d3af-fdec-4646-a307-a5d3350d8dec"),
+                            ReceiptId = new Guid("641583df-4c4d-42af-8105-dc575fa3cc16"),
+                            BookId = new Guid("183edae4-a5af-4d06-a8a2-e61806db7e00"),
+                            DateDetail = new DateTime(2024, 2, 4, 16, 20, 32, 717, DateTimeKind.Utc).AddTicks(2219),
+                            PurchaseHistoryId = new Guid("b63edc64-210a-42ed-bd5d-77f34eefacc2"),
                             Quantity = 1,
-                            TotalPrice = 0
+                            TotalPrice = 20
                         });
                 });
 
@@ -268,20 +268,20 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("76f5c4b8-44bc-4960-95c3-3ef7cf0fa7ad"),
+                            UserId = new Guid("a9f3ebe6-aa6b-44a7-8ad8-e4b8ca976a8d"),
                             Email = "mail@gmail.com",
                             FirstName = "Test",
-                            Password = "$2a$11$dua06X9uY3zf6HR53nhvjeUEL.Ahf5DMrYqeT3r4J1VzVFF6fYeea",
+                            Password = "$2a$11$eVVQ24B6BjuEuz9V7ipqwuPwAsv7svcf.QbabXLwdWOWa.ZfygxVC",
                             SurName = "Test",
                             TelephoneNumber = "+467000000",
                             UserName = "AnvändareTest"
                         },
                         new
                         {
-                            UserId = new Guid("05e68985-2d18-4494-aa8b-bd4ab12b5189"),
+                            UserId = new Guid("bf522b3a-800e-4c35-a310-36e899ac4c81"),
                             Email = "admin@gmail.com",
                             FirstName = "Admin",
-                            Password = "$2a$11$eWFQgoswLFuduCQyAkvB7On6fqSnUt2HPQytVdeBUAkuMHJrkwzRS",
+                            Password = "$2a$11$oc5WzxSrx/uDjCGZ5o04nOYm61nzZD3Pu6e9SSLQFKAsgGjqbylPG",
                             SurName = "Admin",
                             TelephoneNumber = "+4671111111",
                             UserName = "admin"
@@ -313,9 +313,9 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            WalletId = new Guid("d78b503c-2267-4b1e-9749-5ce39dd15ab9"),
+                            WalletId = new Guid("6b8bb953-89e7-4d0b-959f-81526ff4b3f8"),
                             Balance = 100,
-                            UserId = new Guid("76f5c4b8-44bc-4960-95c3-3ef7cf0fa7ad")
+                            UserId = new Guid("a9f3ebe6-aa6b-44a7-8ad8-e4b8ca976a8d")
                         });
                 });
 

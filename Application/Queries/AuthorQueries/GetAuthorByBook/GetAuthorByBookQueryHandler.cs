@@ -1,8 +1,9 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.AuthorDtos;
+using Application.Queries.AuthorQueries.GetAuthorByBook;
 using Infrastructure.Repository.AuthorRepository;
 using MediatR;
 
-namespace Application.Queries.AuthorQueries.GetAuthorByBook
+namespace Application.Queries.AuthorQueries.GetAuthorByBookCreate
 {
     public class GetAuthorByBookQueryHandler : IRequestHandler<GetAuthorByBookQuery, AuthorByBookDto>
     {
