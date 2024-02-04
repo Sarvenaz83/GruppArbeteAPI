@@ -1,5 +1,6 @@
 using Application.Dtos.AuthorDtos;
 using Application.Queries.AuthorQueries.GetAuthorByBook;
+using Application.Queries.AuthorQueries.GetAuthorByBookCreate;
 using Domain.Models;
 using Infrastructure.Repository.AuthorRepository;
 using Moq;
