@@ -1,4 +1,3 @@
-using Domain.Models;
 using Application.Dtos.BookDtos;
 using Infrastructure.Repository.BookRepository;
 using MediatR;
@@ -27,10 +26,11 @@ namespace Application.Queries.BookQueries.GetBookById
                     BookTitle = book.Title,
                     AuthorName = book.Author?.AuthorName,
                     Genre = book.Genre,
-                    PubYear = book.PubYear,
+                    PubYear = book.PubYear.Value.Year,
                     Pages = book.Pages,
                     Rating = book.Rating,
-                    Summary = book.Summary
+                    Summary = book.Summary,
+                    Price = book.Price
                 };
 
                 return bookDto;

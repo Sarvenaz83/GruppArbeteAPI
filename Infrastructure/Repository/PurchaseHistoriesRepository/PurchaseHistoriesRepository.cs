@@ -1,4 +1,3 @@
-using System;
 using Domain.Models;
 using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;

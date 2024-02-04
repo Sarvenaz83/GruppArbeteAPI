@@ -1,4 +1,3 @@
-using Domain.Models;
 using MediatR;
 
 namespace Application.Queries.UserQueries.LoginUser

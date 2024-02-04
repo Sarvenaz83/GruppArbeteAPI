@@ -33,7 +33,8 @@ namespace Application.Queries.PurchaseHistoriesQueries
                         ReceiptId = r.ReceiptId,
                         BookId = r.BookId,
                         Quantity = r.Quantity,
-                        DateDetail = r.DateDetail
+                        DateDetail = r.DateDetail,
+                        Price = r.TotalPrice
 
                     }).ToList()
                 };

@@ -1,9 +1,9 @@
-﻿using Domain.Models;
+﻿using Application.Dtos.ReceiptDto;
 using MediatR;
 
 namespace Application.Queries.ReceiptQueries.GetAllReceipts
 {
-    public class GetAllReceiptsQuery : IRequest<List<Receipt>>
+    public class GetAllReceiptsQuery : IRequest<List<ReceiptDto>>
     {
         public GetAllReceiptsQuery(Guid ReceiptId)
         {

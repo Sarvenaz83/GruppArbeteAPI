@@ -1,7 +1,6 @@
 
+using Application.Commands.UserCommands.PurchaseBook;
 using Application.Commands.UserCommands.RegisterUser;
-using Application.Dtos;
-using Application.Queries.UserQueries.GetAllUsers;
 using Application.Commands.UserCommands.UpdateUser;
 using Application.Commands.WalletCommands;
 using Application.Dtos.UserDtos;
@@ -10,18 +9,10 @@ using Application.Queries.PurchaseHistoriesQueries;
 using Application.Queries.UserQueries.GetAllUsers;
 using Application.Queries.UserQueries.LoginUser;
 using Application.Validators;
-using Domain.Models;
 using Infrastructure.Repository.UserRepository;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Application.Commands.WalletCommands;
-using Application.Queries.UserQueries.LoginUser;
-using Application.Commands.UserCommands.UpdateUser;
-using Application.Queries.PurchaseHistoriesQueries;
-using Application.Dtos.WalletDtos;
-using Application.Dtos.UserDtos;
-using Application.Commands.UserCommands.PurchaseBook;
 
 
 

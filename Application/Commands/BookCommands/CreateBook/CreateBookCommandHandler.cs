@@ -1,8 +1,6 @@
 ﻿using Domain.Models;
 using Infrastructure.Repository.BookRepository;
 using MediatR;
-using System;
-using System.Threading.Tasks;
 
 namespace Application.Commands.BookCommands.CreateBook
 {
